@@ -2,9 +2,7 @@
 var config = {
     "debug" : true, // 调试标记
     /*
-    "name" : "掌柜聊天服务端",
-    "description" : "房掌柜聊天室nodejs+socket.io+mysql聊天室",
-    "keywords" : "nodejs,socket.io,聊天室",
+    "name" : "聊天服务端",
     //*/
 	// host
     "host" : "192.168.1.228", // 228,4

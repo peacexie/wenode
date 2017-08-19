@@ -3,7 +3,7 @@ var Config = require('./config'),
     //reqIp = require('request-ip'),
     Tools = require('./tools');
 
-var Chats = function(ws,client){
+var WebSock = function(ws,client){
     var curRoom, // zhibo.123, web.456, app.789
         curUser, // 用户对象:uid,uname,uicon,...
         curIP; // user-ip
@@ -55,4 +55,4 @@ var Chats = function(ws,client){
         ws.to(curRoom).emit('online',rooms[curRoom],-1);
     });
 };
-module.exports = Chats;
+module.exports = WebSock;
