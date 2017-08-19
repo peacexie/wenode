@@ -1,0 +1,15 @@
+{
+  "name": "nodejsdemo",
+  "version": "0.0.1",
+  "description": "this is test for nodejs",
+  "main": "io_multigame.js",
+  "dependencies": {
+    "socket.io": "^0.9.19"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "BSD-2-Clause"
+}

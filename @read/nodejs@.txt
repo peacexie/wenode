@@ -1,0 +1,57 @@
+
+------------------------------------------------
+
+
+* 直播评论 ???
+* 地铁/站点
+
+/static/ a(article)
+/script/ c(code)
+/mvc/    m(model)
+/[home]
+
+
+
+nodejs内置模块/常用工具
+
+Node.js 路由
+Node.js 全局对象
+
+
+Node.js GET/POST请求
+Node.js 工具模块
+
+
+* 直播：小调整
+* pc分站：维护
+* nodejs：文档查阅
+
+nodejs 我们可用场合：
+ - 目前的聊天
+ - 消息推送：可考虑
+
+------------------------------------------------
+
+set DEBUG=chat & npm start
+set DEBUG=myapp & npm start
+
+
+http://blog.csdn.net/williamfan21c/article/details/55517558
+Node.js模块全局安装路径配置
+
+http://localhost:7051/
+
+http://www.runoob.com/nodejs/nodejs-http-server.html
+Node.js 创建第一个应用
+
+http://www.expressjs.com.cn/starter/generator.html
+Express 应用生成器
+
+
+node.js用来做什么？请大侠讲一下应用实例
+http://www.oschina.net/question/91955_47352?sort=time
+
+events.js:160
+      throw er; // Unhandled 'error' event
+run CMD by Admin!!!
+
