@@ -63,7 +63,7 @@ app.get('/update', function (req, res) {
 	conn.connect();
 	var kid = Date.parse(new Date());
 	var modSql = 'UPDATE xtest_keyid_ys SET content = ?,auser = ? WHERE kid = ?';
-	var modSqlParams = ['菜鸟dg站', 'https://dg.zfg360.com',2];
+	var modSqlParams = ['菜鸟dg站', 'https://dg.08cms.com',2];
 	//查
 	conn.query(modSql,modSqlParams,function (err, result) {
 			if(err){

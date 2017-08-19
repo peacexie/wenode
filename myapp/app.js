@@ -1,13 +1,12 @@
 var express = require('express');
 var path = require('path');
-//var favicon = require('serve-favicon');
+var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var tests = require('./routes/tests');
 
 var app = express();
 
@@ -21,16 +20,10 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-//app.use(express.static(path.join(__dirname, 'public')));
-//app.use(express.static('public'));
-app.use('/static', express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use(/^\/tests(\/\w+)?$/, tests);
-app.use('/stfile', function(req, res, next) {
-	res.sendFile(__dirname+'/public/html/test2.htm');
-});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
