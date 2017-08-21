@@ -17,9 +17,29 @@ exports.debug = function(erno,ermsg){
     console.log(erno,ermsg);
 }
 
-exports.fsExists = function(path) {
+exports.fsRead = function(fp,basdir){
+        for (var i in data) { 
+            html += tpl.replace(/\{([^\}]*)\}/ig, function(m, p) {
+                return data[i][p] || '';
+            });
+        }
+}
+
+exports.fsRead = function(fp,basdir){
+    var dir = basdir ? basdir : _dir;
+    var data='', err=1;
+    try{ // 不建议这样使用?!
+        data = fs.readFileSync(dir+fp, 'utf-8');
+        err = 0;
+    }catch(ex){}
+    var re = {'err':err, 'data':data};
+    return re;
+}
+
+exports.fsHas = function(path,basdir) {
+    var dir = basdir ? basdir : _dir;
     try{
-        fs.accessSync(path,fs.F_OK);
+        fs.accessSync(dir+path,fs.F_OK);
     }catch(e){
         return false;
     }
@@ -30,17 +50,6 @@ exports.fsExists = function(path) {
 /*
 exports.fileExists = function(path) {
     var flag = false;
-    //console.log('aaaa\n'+_dir+path);
-    fs.exists(_dir+path, function(exists) {  
-        dataurn exists;
-        flag = exists; 
-        console.log(exists); 
-    });
-    console.log('aaaa\n'+flag);
-    //dataurn falg;
-    flag = flag ? fs.lstatSync(_dir+path).isFile() : false;
-    console.log('aaaa\n'+flag);
-    dataurn flag;
-    //dataurn stat.isFile();
+
 }
 */

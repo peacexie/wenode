@@ -7,53 +7,77 @@ var Config = require('./config'),
 
 function ViewOP(req, res) {
 
-    this.read = function(fp){
-        var data='', err=1;
-        try{ // 不建议这样使用?!
-            data = fs.readFileSync(_dir+fp, 'utf-8');
-            err = 0;
-        }catch(ex){}
-        var re = {'err':err, 'data':data};
-        return re;
-    }
-
-    this.static = function(fp, code){
-        var f4 = code==403 || code==404;
-        var re = this.read(f4  ? '/static/_404.htm' : fp);
-        if(re.err || f4){
-            code = code ? code : 400;
-            this.head('html', code);
-            res.write(re.data ? re.data.replace('Oops!','Error:'+code+'! ') : 'Error 404!');
+    var mkvs = {}; //path, dir, mkv, query, ourl; 
+    // 运行入口
+    this.run = function() { 
+        this.init(req.url);
+        //var vop = new ViewOP(req, res);
+        // 静态/禁访问:目录
+        if(mkvs.dir=='forbid' || mkvs.dir=='static'){
+            var code = mkvs.dir=='forbid' ? 403 : 200;
+            return this.static(mkvs.path,code);
         }else{
-            this.head(fp, code);
-            res.write(re.data);
+            var fp = '/'+mkvs.dir+'/viewop.js';
+            var flag = Tools.fsHas(fp);
+            if(flag){
+                // 用户扩展处理
+                var sRout = require(_dir+fp);
+                var sub = new sRout(req, res);
+                return sub.run(mkvs); // 子路由
+            }else{
+                // sys-mkv-处理
+                return this.mkview();
+            }
         }
-        res.end();
+    };
+    // 初始化mkv
+    this.init = function(requrl){
+        ourl = url.parse(requrl, true);
+        mkvs.path = ourl.pathname;
+        var dir, mkv,
+            tmp = mkvs.path.split('/'),
+            len = tmp.length;
+        if(Config.dircfgs[tmp[1]]){
+            dir = Config.dircfgs[tmp[1]];
+            mkv = tmp[1];
+        }else if(len==3){ // /rest/news-add, /rest/news.2017-ab-1234
+            dir = tmp[1];
+            mkv = tmp[2] ? tmp[2] : 'index';
+        }else if(len==2){ // /, /about.htm
+            dir = 'index';
+            mkv = tmp[1] ? tmp[1] : 'index';
+            var flag = /^[\w]{1,24}$/.test(mkv);
+            if(flag) mkv = 'home-' + mkv;
+        }else{ // len>3, /rest/css/style.js
+            dir = 'static';
+        }
+        mkvs.dir = dir;
+        mkvs.mkv = mkv;
+        mkvs.query = ourl.query;
+        delete ourl['query'];
+        mkvs.ourl = ourl;
     }
-
-    this.mkv = function(mkvs){
-        var mkv3 = this.mkvsp(mkvs.mkv);
+    // mkv显示
+    this.mkview = function(){
+        var mkv3 = this.mksp(mkvs.mkv);
         var path = '/'+mkvs.dir+'/'+mkv3.mod + '/';
-        var tpl = '';
-        var fp = path + (mkv3.key) + '.htm';
-        if(mkv3.key) tpl = this.read(_dir+fp);
-        if(!tpl){
+        var re = {},
+            fp = path + (mkv3.key) + '.htm';
+        if(mkv3.key) re = Tools.fsRead(fp);
+        if(!re.data){
             fp = path + (mkv3.type) + '.htm';
-            tpl = this.read(_dir+f2);
-        } 
-        if(tpl){
-            // mkv 显示 
-            res.write('mkv 显示 : template : ['+fp+'] ');
+            re = Tools.fsRead(fp);
+        }
+        if(re.err){
+            res.write('NOT found : template : ['+fp+']!');
         }else{
-            //var otpl = new Template(req, res);
-            //otpl.static(mkvs.path,404);
-            res.write('Error : template : ['+fp+'] NOT found!');
+            // mkv 显示 
+            res.write('mkv SHOW : template : ['+fp+']!');
         }
         res.end();
-        //vop.static(tpl,mkv3);
     }
-
-    this.mkvsp = function(mkv3){
+    // 分离mkv
+    this.mksp = function(mkv3){
         var tmp=[], mod=key=view=type='';
         if(mkv3.indexOf('.')>0){
             tmp = mkv3.split('.');
@@ -77,7 +101,20 @@ function ViewOP(req, res) {
         }
         return {"err":0,"mod":tmp[0],"key":key,"view":view,"type":type};
     }
-
+    // 静态
+    this.static = function(fp, code){
+        var f4 = code==403 || code==404;
+        var re = Tools.fsRead(f4  ? '/static/_404.htm' : fp);
+        if(re.err || f4){
+            code = code ? code : 400;
+            this.head('html', code);
+            res.write(re.data ? re.data.replace('Oops!','Error:'+code+'! ') : 'Error 404!');
+        }else{
+            this.head(fp, code);
+            res.write(re.data);
+        }
+        res.end();
+    }
 
     // header
     this.head = function(fp, code){

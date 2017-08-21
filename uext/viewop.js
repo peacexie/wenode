@@ -1,11 +1,10 @@
-var Config    = require('../module/config'),
-    Tools     = require('../module/tools'),
-    ViewOP = require('../module/viewop'),
+var Config = require('../module/config'),
+    Tools  = require('../module/tools'),
     url    = require("url"),
     util   = require('util'),
     fs     = require("fs");
 
-function Router(req, res) {
+function ViewOP(req, res) {
 
     this.run = function(mkvs) { 
         res.writeHead(404);
@@ -14,6 +13,6 @@ function Router(req, res) {
     };
 
 };
-module.exports = Router;
+module.exports = ViewOP;
 
 

@@ -1,7 +1,7 @@
 
 var Config = require('./config'),
     Tools  = require('./tools'),
-    ViewOP = require('./viewop'),
+    //ViewOP = require('./viewop'),
     url    = require("url"),
     util   = require('util'),
     fs     = require("fs");
@@ -18,19 +18,18 @@ function Router(req, res) {
             var code = mkvs.dir=='forbid' ? 403 : 200;
             return vop.static(mkvs.path,code);
         }else{
-            var _me = this;
-            fs.exists(_dir+'/'+mkvs.dir+'/router.js', function (flag) {
-                if(flag){
-                    // 用户扩展处理
-                    var sRout = require(_dir+'/'+mkvs.dir+'/router.js');
-                    var sub = new sRout(req, res);
-                    return sub.run(mkvs); // 子路由
-                }else{
-                    // sys-mkv-处理
-                    //_me.mkview(mkvs.mkv);
-                    return vop.mkv(mkvs);
-                }
-            });
+            var fp = '/'+mkvs.dir+'/viewop.js';
+            var flag = Tools.fsHas(fp);
+            if(flag){
+                // 用户扩展处理
+                var sRout = require(_dir+fp);
+                var sub = new sRout(req, res);
+                return sub.run(mkvs); // 子路由
+            }else{
+                // sys-mkv-处理
+                //_me.mkview(mkvs.mkv);
+                return vop.mkview(mkvs);
+            }
         }
     };
 
@@ -66,6 +65,8 @@ module.exports = Router;
 
 /*
 
+
+
         /*
         }else if(dir=='info'){
             tpl.head('text');
@@ -88,12 +89,6 @@ module.exports = Router;
             res.write('mkv deel!');
             res.end();
         }*-/
-
-var str = "Visit W3School";
-var patt1 = new RegExp("W3School");
-var result = patt1.test(str);
-
-//path, dir, mkv, query, ourl; 
 
 /rest/module/file.js
 /rest/view/style.css
