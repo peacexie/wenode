@@ -8,58 +8,6 @@ var Config = require('./config'),
 
 function Router(req, res) {
 
-    var mkvs = {}; //path, dir, mkv, query, ourl; 
-
-    this.run = function() { 
-        this.init(req.url);
-        var vop = new ViewOP(req, res);
-        // 静态/禁访问:目录
-        if(mkvs.dir=='forbid' || mkvs.dir=='static'){
-            var code = mkvs.dir=='forbid' ? 403 : 200;
-            return vop.static(mkvs.path,code);
-        }else{
-            var fp = '/'+mkvs.dir+'/viewop.js';
-            var flag = Tools.fsHas(fp);
-            if(flag){
-                // 用户扩展处理
-                var sRout = require(_dir+fp);
-                var sub = new sRout(req, res);
-                return sub.run(mkvs); // 子路由
-            }else{
-                // sys-mkv-处理
-                //_me.mkview(mkvs.mkv);
-                return vop.mkview(mkvs);
-            }
-        }
-    };
-
-    this.init = function(requrl){
-        ourl = url.parse(requrl, true);
-        mkvs.path = ourl.pathname;
-        var dir, mkv,
-            tmp = mkvs.path.split('/'),
-            len = tmp.length;
-        if(Config.dircfgs[tmp[1]]){
-            dir = Config.dircfgs[tmp[1]];
-            mkv = tmp[1];
-        }else if(len==3){ // /rest/news-add, /rest/news.2017-ab-1234
-            dir = tmp[1];
-            mkv = tmp[2] ? tmp[2] : 'index';
-        }else if(len==2){ // /, /about.htm
-            dir = 'index';
-            mkv = tmp[1] ? tmp[1] : 'index';
-            var flag = /^[\w]{1,24}$/.test(mkv);
-            if(flag) mkv = 'home-' + mkv;
-        }else{ // len>3, /rest/css/style.js
-            dir = 'static';
-        }
-        mkvs.dir = dir;
-        mkvs.mkv = mkv;
-        mkvs.query = ourl.query;
-        delete ourl['query'];
-        mkvs.ourl = ourl;
-    }
-
 };
 module.exports = Router;
 

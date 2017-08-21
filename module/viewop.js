@@ -1,6 +1,7 @@
 
 var Config = require('./config'),
     Tools  = require('./tools'),
+    Mintpl = require('./mintpl'),
     url    = require("url"),
     util   = require('util'),
     fs     = require("fs");
@@ -11,7 +12,6 @@ function ViewOP(req, res) {
     // 运行入口
     this.run = function() { 
         this.init(req.url);
-        //var vop = new ViewOP(req, res);
         // 静态/禁访问:目录
         if(mkvs.dir=='forbid' || mkvs.dir=='static'){
             var code = mkvs.dir=='forbid' ? 403 : 200;
@@ -60,19 +60,25 @@ function ViewOP(req, res) {
     // mkv显示
     this.mkview = function(){
         var mkv3 = this.mksp(mkvs.mkv);
-        var path = '/'+mkvs.dir+'/'+mkv3.mod + '/';
-        var re = {},
-            fp = path + (mkv3.key) + '.htm';
-        if(mkv3.key) re = Tools.fsRead(fp);
-        if(!re.data){
-            fp = path + (mkv3.type) + '.htm';
-            re = Tools.fsRead(fp);
+        var dir = '/'+mkvs.dir+'/';
+        var tpl1 = mkv3.mod + '/' + mkv3.key;
+        var tpl2 = mkv3.mod + '/' + mkv3.type;
+        var flag = 0;
+        if(mkv3.key) flag = Tools.fsHas(dir+tpl1+'.htm');
+        if(flag){ 
+            tpl = tpl1;
+        }else{
+            tpl = tpl2;
+            flag = Tools.fsHas(dir+tpl2+'.htm');
         }
-        if(re.err){
-            res.write('NOT found : template : ['+fp+']!');
+        if(flag){
+            var mtpl = new Mintpl(tpl,dir);
+            var html = mtpl.run(mkvs,mkv3);
+            //res.write(html);
+            res.write('mkv SHOW : template : ['+dir+tpl1+']!');
         }else{
             // mkv 显示 
-            res.write('mkv SHOW : template : ['+fp+']!');
+            res.write('NOT found : template : ['+dir+tpl1+']!');
         }
         res.end();
     }

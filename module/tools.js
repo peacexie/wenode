@@ -18,14 +18,6 @@ exports.debug = function(erno,ermsg){
 }
 
 exports.fsRead = function(fp,basdir){
-        for (var i in data) { 
-            html += tpl.replace(/\{([^\}]*)\}/ig, function(m, p) {
-                return data[i][p] || '';
-            });
-        }
-}
-
-exports.fsRead = function(fp,basdir){
     var dir = basdir ? basdir : _dir;
     var data='', err=1;
     try{ // 不建议这样使用?!
