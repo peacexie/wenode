@@ -1,6 +1,7 @@
 
 var Config = require('./config'),
     Tools  = require('./tools'),
+    util   = require('util'),
     fs     = require("fs");
 
 function Mintpl(tpl,dir) {
@@ -12,13 +13,19 @@ function Mintpl(tpl,dir) {
         // data; tags; 
         data = re.data;
         data = this.vals(data,mkvs,'mkvs');
+        data = this.vals(data,mkv3,'mkv3');
         return data;
     };
 
     this.vals = function(html,arr,fix){
-        var reg =/^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/; 
-        return html.replace(/\{\$mkvs\.([^\}]*)\}/ig, function(m, p) {
-            return arr[p] || '['+p+']';
+        //var reg =/^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/; 
+        //var reg = new RegExp(key + "=([^(&|#)]*)",'ig');
+        //var reg = new RegExp("\{$mkvs.([\w]{1,24})\}",'ig');
+        return html.replace(/\{\$mkvs\.([\w]{1,24})\}/ig, function(m, p) { // ok
+        //return html.replace(reg, function(m, p) {
+            var tmp = arr[p];
+            if(typeof(tmp)=='object' || typeof(tmp)=='function') tmp = util.inspect(tmp);
+            return tmp || '['+p+']';
         });
     };
 

@@ -54,7 +54,9 @@ function ViewOP(req, res) {
         mkvs.dir = dir;
         mkvs.mkv = mkv;
         mkvs.query = ourl.query;
-        delete ourl['query'];
+        delete ourl["query"];
+        delete ourl["pathname"];
+        delete ourl["path"];
         mkvs.ourl = ourl;
     }
     // mkv显示
@@ -71,13 +73,18 @@ function ViewOP(req, res) {
             tpl = tpl2;
             flag = Tools.fsHas(dir+tpl2+'.htm');
         }
+
         if(flag){
+            this.head('html', 200);
             var mtpl = new Mintpl(tpl,dir);
             var html = mtpl.run(mkvs,mkv3);
-            //res.write(html);
+            res.write(html);
             res.write('mkv SHOW : template : ['+dir+tpl1+']!');
         }else{
             // mkv 显示 
+            this.head('html', 400);
+            res.write(util.inspect(mkvs)+'<br>');
+            res.write(util.inspect(mkv3)+'<br>');
             res.write('NOT found : template : ['+dir+tpl1+']!');
         }
         res.end();
@@ -104,6 +111,8 @@ function ViewOP(req, res) {
         if(type!='mhome'){
             key = tmp[1];
             view = tmp.length==3 ? tmp[2] : '';
+        }else{
+            key = 'index';
         }
         return {"err":0,"mod":tmp[0],"key":key,"view":view,"type":type};
     }
