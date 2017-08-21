@@ -4,8 +4,8 @@
 <title>socket.io 聊天室例子</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="./style.css"/>
-<script src='http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js'></script>
-<script src="./socket.io.js"></script>
+<script src='../static/js/jquery-3x.js'></script>
+<script src="../static/js/socket.io.js"></script>
 <script src="./func.js"></script>
 </head>
 <body>

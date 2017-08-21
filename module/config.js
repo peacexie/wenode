@@ -17,8 +17,11 @@ var config = {
     "dbtab"  : "chatroom_ys",
     // 静态/禁访问:目录
     "dircfgs" : {
+        '@bak'   : 'forbid',
         'client' : 'static',
+        'clog'   : 'forbid',
         'module' : 'forbid',
+        'static' : 'static',
     },
     // filter配置
     /*
