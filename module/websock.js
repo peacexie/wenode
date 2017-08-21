@@ -1,7 +1,8 @@
 
 var Config = require('./config'),
     //reqIp = require('request-ip'),
-    Tools = require('./tools');
+    Tools = require('./tools'),
+    Dbops = require('./dbops');
 
 var WebSock = function(ws,client){
     var curRoom, // zhibo.123, web.456, app.789
@@ -43,7 +44,7 @@ var WebSock = function(ws,client){
             return;
         }
         var mstamp = Date.parse(new Date()); // mstamp:时间戳(ms),取服务器时间
-        Tools.myIns(curRoom,curUser,msgs,curIP,mstamp);
+        Dbops.myIns(curRoom,curUser,msgs,curIP,mstamp);
         // 过滤
         var data = {'user':curUser, 'msgs':msgs, 'ip':curIP, 'mstamp':mstamp, 'room':curRoom};
         ws.to(curRoom).emit('emsg',data);
