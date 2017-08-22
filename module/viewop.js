@@ -77,13 +77,13 @@ function ViewOP(req, res) {
             var mtpl = new Mintpl(tpl,dir);
             var html = mtpl.run(mkvs,mkv3);
             res.write(html);
-            res.write('mkv SHOW : template : ['+dir+tpl1+']!');
+            res.write('mkv SHOW : template : ['+dir+tpl+']!');
         }else{
             // mkv 显示 
             this.head('html', 400);
             res.write(util.inspect(mkvs)+'<br>');
             res.write(util.inspect(mkv3)+'<br>');
-            res.write('NOT found : template : ['+dir+tpl1+']!');
+            res.write('NOT found : template : ['+dir+tpl+']!');
         }
         res.end();
     }
