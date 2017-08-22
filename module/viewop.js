@@ -12,6 +12,7 @@ function ViewOP(req, res) {
     // 运行入口
     this.run = function() { 
         this.init(req.url);
+        if(mkvs.path == "/favicon.ico"){ return; }
         // 静态/禁访问:目录
         if(mkvs.dir=='forbid' || mkvs.dir=='static'){
             var code = mkvs.dir=='forbid' ? 403 : 200;
@@ -72,6 +73,7 @@ function ViewOP(req, res) {
             tpl = tpl2;
             flag = Tools.fsHas(dir+tpl2+'.htm');
         }
+        // vtype(html,json,jsonp,xml),callback,page,psize,keyword,
         if(flag){
             this.head('html', 200);
             var mtpl = new Mintpl(tpl,dir);
@@ -133,20 +135,31 @@ function ViewOP(req, res) {
     this.head = function(fp, code){
         ext = fp.indexOf('.')>=0 ? fp.substring(fp.lastIndexOf(".")+1,fp.length) : fp;
         cfgs = {
+            // text,html
+            'txt'   : 'text/plain',
             'text'  : 'text/plain',
+            // asp,aspx,jsp,php
+            'htm'   : 'text/html',
             'html'  : 'text/html',
+            // css,js,data(xml,json,jsonp)
             'css'   : 'text/css',
             'js'    : 'text/javascript', 
+            'xml'   : 'text/xml', 
             'json'  : 'application/json',
             'jsonp' : 'application/jsonp',
-            'xml'   : 'text/xml', 
+            // image
+            'ico'   : 'image/x-icon',
+            'jpg'   : 'image/jpeg',
+            'jpeg'  : 'image/jpeg',
+            'gif'   : 'image/gif',
+            'png'   : 'image/png',
+            'tif'   : 'image/tiff',
+            // down
             'down'  : 'application/octet-stream',
         };
         code = code ? code : 200;
         type = cfgs[ext] ? cfgs[ext] : cfgs['html']; //console.log(code,ext,type,cfgs[ext]);
         res.writeHead(code, {'Content-Type' : type+'; charset=utf-8'});
     }
-
-
 };
 module.exports = ViewOP;
