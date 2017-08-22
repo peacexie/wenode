@@ -41,6 +41,8 @@ module.exports = Mintpl;
 
 {$abc}
 
+{tag:newsList=[p1=a][p2=b]/tag}
+
 {tag:dlist=[Page][modid,$this->mod][join,detail][show,1][stype][keywd][limit,10]}
 {:row}
 <li>{title($t_title,96,$v)}</li>

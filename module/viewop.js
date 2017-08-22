@@ -21,9 +21,8 @@ function ViewOP(req, res) {
             var flag = Tools.fsHas(fp);
             if(flag){
                 // 用户扩展处理
-                var sRout = require(_dir+fp);
-                var sub = new sRout(req, res);
-                return sub.run(mkvs); // 子路由
+                var sRouter = require(_dir+fp); // 子路由
+                new sRouter(req, res).run(mkvs);
             }else{
                 // sys-mkv-处理
                 return this.mkview();
@@ -73,7 +72,6 @@ function ViewOP(req, res) {
             tpl = tpl2;
             flag = Tools.fsHas(dir+tpl2+'.htm');
         }
-
         if(flag){
             this.head('html', 200);
             var mtpl = new Mintpl(tpl,dir);

@@ -3,15 +3,13 @@
 var http   = require('http'),
     SockIO = require('socket.io'),
     Config = require('./module/config'),
-    //Router = require('./module/router'),
     ViewOP = require('./module/viewop'),
     WebSock = require('./module/websock');
 global._dir = __dirname;
 
 // 新建server服务器
 var server = http.createServer(function(req, res){
-    var vop = new ViewOP(req, res);
-    vop.run();
+    new ViewOP(req, res).run();
 }).listen(Config.port, Config.host);
 
 // 聊天webSocket对象
