@@ -8,27 +8,30 @@ var Config = require('./config'),
 
 function ViewOP(req, res) {
 
-    var mkvs = {}; //path, dir, mkv, query, ourl; 
+    var mkvs = {}; // path,dir,mkv,query,ourl; type,mod,key,view,err
+
     // 运行入口
     this.run = function() { 
         this.init(req.url);
         if(mkvs.path == "/favicon.ico"){ return; }
+        this.imkv();
+        if(mkvs.err){
+            return this.static(mkvs.err,404);
+        }
         // 静态/禁访问:目录
         if(mkvs.dir=='forbid' || mkvs.dir=='static'){
             var code = mkvs.dir=='forbid' ? 403 : 200;
             return this.static(mkvs.path,code);
-        }else{
-            var fp = '/'+mkvs.dir+'/viewop.js';
-            var flag = Tools.fsHas(fp);
-            if(flag){
-                // 用户扩展处理
-                var sRouter = require(_dir+fp); // 子路由
-                new sRouter(req, res).run(mkvs);
-            }else{
-                // sys-mkv-处理
-                return this.mkview();
-            }
         }
+        var fp = '/'+mkvs.dir+'/viewop.js';
+        var flag = Tools.fsHas(fp);
+        // 用户扩展处理
+        if(flag){
+            var sRouter = require(_dir+fp); // 子路由
+            return new sRouter(req, res).run(mkvs);
+        }
+        // sys-mkv-处理
+        return this.mkview();
     };
     // 初始化mkv
     this.init = function(requrl){
@@ -56,77 +59,92 @@ function ViewOP(req, res) {
         mkvs.query = ourl.query;
         delete ourl["query"];
         delete ourl["pathname"];
-        delete ourl["path"];
+        delete ourl["href"];
         mkvs.ourl = ourl;
+    }
+    // 分离imkv
+    this.imkv = function(){
+        var tmp=[]; 
+        if(mkvs.mkv.indexOf('.')>0){
+            tmp = mkvs.mkv.split('.');
+            mkvs.type = 'detail';
+        }else if(mkvs.mkv.indexOf('-')>0){
+            tmp = mkvs.mkv.split('-');
+            mkvs.type = 'mtype';
+        }else{ // /about
+            tmp[0] = mkvs.mkv;
+            mkvs.type = 'mhome';
+        }
+        if(tmp.length>3 || !tmp[0] || !tmp[tmp.length-1]){
+            mkvs.err = 'Error mkv [a]';
+            return;
+        } 
+        for (var i = 0; i < tmp.length; i++) {
+            var flag = /^[\w]{1,24}$/.test(tmp[i]);
+            if(!tmp[i] || !flag){
+                mkvs.err = 'Error mkv [b]';
+                return;
+            } 
+        }
+        mkvs.mod = tmp[0];
+        mkvs.view = mkvs.key = '';
+        if(mkvs.type!='mhome'){
+            mkvs.key = tmp[1];
+            mkvs.view = tmp.length==3 ? tmp[2] : '';
+        }else{
+            mkvs.key = 'index';
+        }
     }
     // mkv显示
     this.mkview = function(){
-        var mkv3 = this.mksp(mkvs.mkv);
+        // 直接返回数据:vtype(html,json,jsonp,xml),callback
+        var q = mkvs.query;
+        if( (q.callback && !q.vtype) || (q.vtype && q.vtype!='html') ){
+            vtype = (q.callback && !q.vtype) ? 'jsonp' : q.vtype;
+            //var data = xxx();
+            this.head(vtype, 200);
+            res.write(data);
+            return res.end();
+        }
+        // 找模板
         var dir = '/'+mkvs.dir+'/';
-        var tpl1 = mkv3.mod + '/' + mkv3.key;
-        var tpl2 = mkv3.mod + '/' + mkv3.type;
+        var tpl1 = mkvs.mod + '/' + mkvs.key;
+        var tpl2 = mkvs.mod + '/' + mkvs.type;
         var flag = 0;
-        if(mkv3.key) flag = Tools.fsHas(dir+tpl1+'.htm');
+        if(mkvs.key) flag = Tools.fsHas(dir+tpl1+'.htm');
         if(flag){ 
             tpl = tpl1;
         }else{
             tpl = tpl2;
             flag = Tools.fsHas(dir+tpl2+'.htm');
         }
-        // vtype(html,json,jsonp,xml),callback,page,psize,keyword,
         if(flag){
+            // vtype(html,json,jsonp,xml),callback,page,psize,keyword,
             this.head('html', 200);
             var mtpl = new Mintpl(tpl,dir);
-            var html = mtpl.run(mkvs,mkv3);
+            var html = mtpl.run(mkvs);
             res.write(html);
             res.write('mkv SHOW : template : ['+dir+tpl+']!');
+            res.end();
         }else{
             // mkv 显示 
-            this.head('html', 400);
-            res.write(util.inspect(mkvs)+'<br>');
-            res.write(util.inspect(mkv3)+'<br>');
-            res.write('NOT found : template : ['+dir+tpl+']!');
+            return this.static('NOT found template : '+dir+tpl+'.htm',404);
         }
-        res.end();
     }
-    // 分离mkv
-    this.mksp = function(mkv3){
-        var tmp=[], mod=key=view=type='';
-        if(mkv3.indexOf('.')>0){
-            tmp = mkv3.split('.');
-            type = 'detail';
-        }else if(mkv3.indexOf('-')>0){
-            tmp = mkv3.split('-');
-            type = 'mtype';
-        }else{ // /about
-            tmp[0] = mkv3;
-            type = 'mhome';
-        }
-        if(tmp.length>3 || !tmp[0] || !tmp[tmp.length-1]) return {"err":1+':a'};
-        for (var i = 0; i < tmp.length; i++) {
-            var flag = /^[\w]{1,24}$/.test(tmp[i]);
-            if(!tmp[i] || !flag) return {"err":1+':b'+':'+tmp[i]+':'+flag};
-        }
-        mod = tmp[0];
-        if(type!='mhome'){
-            key = tmp[1];
-            view = tmp.length==3 ? tmp[2] : '';
-        }else{
-            key = 'index';
-        }
-        return {"err":0,"mod":tmp[0],"key":key,"view":view,"type":type};
-    }
+
     // 静态
     this.static = function(fp, code){
         var f4 = code==403 || code==404;
-        var re = Tools.fsRead(f4  ? '/static/_404.htm' : fp);
-        if(re.err || f4){
-            code = code ? code : 400;
-            this.head('html', code);
-            res.write(re.data ? re.data.replace('Oops!','Error:'+code+'! ') : 'Error 404!');
-        }else{
+        if(!f4){
+            var re = Tools.fsRead(fp);
+            code = re.err ? 404 : 200;
+        }
+        if(code==200){
             this.head(fp, code);
             res.write(re.data);
+        }else{
+            this.head('text', code);
+            res.write('Error '+code+'!\n'+fp);
         }
         res.end();
     }
