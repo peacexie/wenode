@@ -38,6 +38,7 @@ exports.query = function(sql,params,cb){
 exports.tab = function(tab){
     return Config.mysql.pre + tab + Config.mysql.suf;
 }
+
 // db-ins, 插入数据
 exports.ins = function(tab,data,cb){
     var fields = vals = '', params = [];

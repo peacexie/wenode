@@ -9,35 +9,28 @@ var config = {
     // mysql配置...
     "mysql" : {
         "host"     : "localhost",
+        "port"     : "3306",
         "user"     : "peace",
         "password" : "123456",
-        "port"     : "3306",
         "database" : "txext_main",
         "pre"      : "",
         "suf"      : "_ys"
     },
-    "dbtab"  : "chatroom_ys",
     // 静态/禁访问:目录
-    "dircfgs" : {
-        'client' : 'static',
-        'static' : 'static',
+    "dirs" : {
         '@bak'   : 'forbid',
         'clog'   : 'forbid',
+        'client' : 'static',
+        'static' : 'static',
         'module' : 'forbid',
-        'views'  : 'forbid',
     },
-    // filter配置
-    /*
-    "filtword" : "群发器;监听器;窃听器;发票",
-    "filtroom" : {
-        "room_1346",
-    }, 
-    "filtip" : {
-        "192.168.1.258",
+    // 视图目录:mkv/vop
+    "dirv" : {
+        'index' : 'mkv',
+        'demo'  : 'mkv',
+        'rest'  : 'mkv',
+        'uext'  : 'viewop.js',
     },
-    "filtuser" : {
-        "peace_1348",
-    },//*/
     // end
     "_flag" : "-End-",
 };

@@ -40,8 +40,8 @@ function ViewOP(req, res) {
         var dir, mkv,
             tmp = mkvs.path.split('/'),
             len = tmp.length;
-        if(Config.dircfgs[tmp[1]]){
-            dir = Config.dircfgs[tmp[1]];
+        if(Config.dirs[tmp[1]]){
+            dir = Config.dirs[tmp[1]];
             mkv = tmp[1];
         }else if(len==3){ // /rest/news-add, /rest/news.2017-ab-1234
             dir = tmp[1];
