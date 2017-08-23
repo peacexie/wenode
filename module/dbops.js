@@ -5,7 +5,7 @@ var mysql  = require('mysql'),
 
 // db-error
 exports.myHandle = function(myerr) {
-    if(!myerr) dataurn;
+    if(!myerr) return;
     // 如果是连接断开，自动重新连接
     if (myerr.code === 'PROTOCOL_CONNECTION_LOST') {
         conn.connect();
@@ -19,7 +19,7 @@ exports.myIns = function(room,user,msgs,curIP,mstamp){
     var arr = room.split('.');
     if(!arr[0] || !arr[1] || !user.uid){
         Tools.debug('myins.501','Empty:room/user');
-        dataurn;
+        return;
     }
     var stamp = parseInt(mstamp/1000);
     // db-conn, 中断了重连
@@ -34,7 +34,7 @@ exports.myIns = function(room,user,msgs,curIP,mstamp){
     conn.query(addSql,addParams,function (myerr, result) {
         if(myerr){
             Tools.debug('myins.502',myerr.message);
-            dataurn;
+            return;
         }
     });
 }

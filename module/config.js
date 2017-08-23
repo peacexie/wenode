@@ -12,7 +12,9 @@ var config = {
         "user"     : "peace",
         "password" : "123456",
         "port"     : "3306",
-        "database" : "txext_main"
+        "database" : "txext_main",
+        "pre"      : "",
+        "suf"      : "_ys"
     },
     "dbtab"  : "chatroom_ys",
     // 静态/禁访问:目录

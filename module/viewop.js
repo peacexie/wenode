@@ -101,9 +101,9 @@ function ViewOP(req, res) {
         var q = mkvs.query;
         if( (q.callback && !q.vtype) || (q.vtype && q.vtype!='html') ){
             vtype = (q.callback && !q.vtype) ? 'jsonp' : q.vtype;
-            //var data = xxx();
+            var data = {'test':'valabc'}; //xxx();
             this.head(vtype, 200);
-            res.write(data);
+            res.write(data); // data
             return res.end();
         }
         // 找模板

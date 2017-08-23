@@ -2,7 +2,7 @@
 var Config = require('./config'),
     //reqIp = require('request-ip'),
     Tools = require('./tools'),
-    Dbops = require('./dbops');
+    Mycurd = require('./mycurd');
 
 var WebSock = function(ws,client){
     var curRoom, // zhibo.123, web.456, app.789
@@ -44,7 +44,7 @@ var WebSock = function(ws,client){
             return;
         }
         var mstamp = Date.parse(new Date()); // mstamp:时间戳(ms),取服务器时间
-        Dbops.myIns(curRoom,curUser,msgs,curIP,mstamp);
+        save(msgs,mstamp);
         // 过滤
         var data = {'user':curUser, 'msgs':msgs, 'ip':curIP, 'mstamp':mstamp, 'room':curRoom};
         ws.to(curRoom).emit('emsg',data);
@@ -55,5 +55,27 @@ var WebSock = function(ws,client){
         client.leave(curRoom);
         ws.to(curRoom).emit('online',rooms[curRoom],-1);
     });
+    // db-save, 插入数据
+    var save = function(msgs,mstamp){
+        var user = curUser;
+        var arr = curRoom.split('.');
+        if(!arr[0] || !arr[1] || !user.uid){
+            Tools.debug('save.501','Empty:room/user');
+            return;
+        }
+        var data = {
+            "type" : arr[0],
+            "ufrom" : user.uid,
+            "uto" : arr[1],
+            "msgs" : msgs,
+            "aip" : curIP,
+            "atime" : parseInt(mstamp/1000),
+            "auser" : user.uname
+        };
+        Mycurd.ins('chatroom', data, function(res){
+            Tools.debug('save.502, id=',res.insertId);
+        });
+        return;
+    }
 };
 module.exports = WebSock;
