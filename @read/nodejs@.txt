@@ -1,5 +1,12 @@
 
 
+* task
+ - mysql
+ - mkv -> data
+ - tpl -> imp,inc
+ - tpl -> tag
+
+
 nodejs内置模块/常用工具
 
 Node.js 路由
