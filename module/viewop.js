@@ -31,7 +31,7 @@ function ViewOP(req, res) {
             return new sRouter(req, res).run(mkvs);
         }
         // sys-mkv-处理
-        return this.mkview();
+        return this.view();
     };
     // 初始化mkv
     this.init = function(requrl){
@@ -95,44 +95,37 @@ function ViewOP(req, res) {
             mkvs.key = 'index';
         }
     }
-    // mkv显示
-    this.mkview = function(){
+    // 显示操作
+    this.view = function(){
+        var data = {'test':'valabc', 'title':'vtitle',}; //xxx();
         // 直接返回数据:vtype(html,json,jsonp,xml),callback
         var q = mkvs.query;
         if( (q.callback && !q.vtype) || (q.vtype && q.vtype!='html') ){
             vtype = (q.callback && !q.vtype) ? 'jsonp' : q.vtype;
-            var data = {'test':'valabc'}; //xxx();
             this.head(vtype, 200);
-            res.write(data); // data
-            return res.end();
+            res.write(util.inspect(data));
+            res.end();
+            Tools.debug('data:'+vtype, q);
+            return 
         }
         // 找模板
-        var dir = '/'+mkvs.dir+'/';
-        var tpl1 = mkvs.mod + '/' + mkvs.key;
-        var tpl2 = mkvs.mod + '/' + mkvs.type;
-        var flag = 0;
-        if(mkvs.key) flag = Tools.fsHas(dir+tpl1+'.htm');
-        if(flag){ 
-            tpl = tpl1;
-        }else{
-            tpl = tpl2;
-            flag = Tools.fsHas(dir+tpl2+'.htm');
-        }
-        if(flag){
-            // vtype(html,json,jsonp,xml),callback,page,psize,keyword,
+        var mtpl = new Mintpl(mkvs);
+        var tplname = mtpl.get();
+        if(tplname){
+            // 模板显示
             this.head('html', 200);
-            var mtpl = new Mintpl(tpl,dir);
-            var html = mtpl.run(mkvs);
+            var html = mtpl.run(data);
             res.write(html);
-            res.write('mkv SHOW : template : ['+dir+tpl+']!');
             res.end();
+            Tools.debug('http:'+200, mkvs.dir+'/'+tplname);
         }else{
-            // mkv 显示 
-            return this.static('NOT found template : '+dir+tpl+'.htm',404);
+            // 模板错误
+            var tpl = mkvs.dir+'/'+mkvs.mod+'/('+(mkvs.key+'|'+mkvs.type)+')';
+            this.static('NOT found template : '+tpl+'.htm',404);
         }
     }
 
-    // 静态
+    // 静态显示
     this.static = function(fp, code){
         var f4 = code==403 || code==404;
         if(!f4){
@@ -147,6 +140,7 @@ function ViewOP(req, res) {
             res.write('Error '+code+'!\n'+fp);
         }
         res.end();
+        Tools.debug('http:'+code, fp);
     }
 
     // header
@@ -176,7 +170,7 @@ function ViewOP(req, res) {
             'down'  : 'application/octet-stream',
         };
         code = code ? code : 200;
-        type = cfgs[ext] ? cfgs[ext] : cfgs['html']; //console.log(code,ext,type,cfgs[ext]);
+        type = cfgs[ext] ? cfgs[ext] : cfgs['html']; 
         res.writeHead(code, {'Content-Type' : type+'; charset=utf-8'});
     }
 };

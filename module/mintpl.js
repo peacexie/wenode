@@ -4,20 +4,41 @@ var Config = require('./config'),
     util   = require('util'),
     fs     = require("fs");
 
-function Mintpl(tpl,dir) {
+function Mintpl(mkvs) {
+
+    var dir, tplname='';
+
+    // 通过mkv得到模板:news/detail
+    this.get = function(){
+        dir = '/'+mkvs.dir+'/';
+        var tpl1 = mkvs.mod + '/' + mkvs.key;
+        var tpl2 = mkvs.mod + '/' + mkvs.type;
+        var flag = 0;
+        if(mkvs.key) flag = Tools.fsHas(dir+tpl1+'.htm');
+        if(flag){ 
+            tplname = tpl1;
+            return tpl1;
+        }
+        flag = Tools.fsHas(dir+tpl2+'.htm');
+        if(flag){ 
+            tplname = tpl2;
+            return tpl2;
+        }
+        return '';
+    }
 
     // index, home/about
-    this.run = function(mkvs) { 
-        re = Tools.fsRead(dir+tpl+'.htm');
+    this.run = function(data) { 
+        res = Tools.fsRead(dir+tplname+'.htm');
         // imp,继承; inc,包含
         // data; tags; 
-        html = re.data;
+        html = res.data;
         html = this.vals(html,mkvs,'mkvs');
-        //var data = xxx();
-        //html = this.vals(html,data,'data');
+        html = this.vals(html,data,'data');
         return html;
     };
 
+    // 替换数据
     this.vals = function(html,arr,fix){
         var reg = new RegExp(/\{\$([\w]{1,24})\.([\w]{1,24})\}/,'gi');
         return html.replace(reg, function(m, p1, p2) {
@@ -30,6 +51,8 @@ function Mintpl(tpl,dir) {
             }
         });
     };
+
+
 
 };
 module.exports = Mintpl;

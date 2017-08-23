@@ -1,8 +1,8 @@
 
 var config = {
     "debug" : true, // 调试标记
-    "logfile" : '/clog/Y-m-d.txt', // 调试日志
-    "title" : "和平鸽-nodejs聊天室服务端",
+    "logfile" : '/cache/Y-m-d.txt', // 调试日志
+    "title" : "和平鸽-wenode",
 	// host
     "host" : "127.0.0.1", // 228,4
     "port" : 8821,
@@ -19,7 +19,7 @@ var config = {
     // 静态/禁访问:目录
     "dirs" : {
         '@bak'   : 'forbid',
-        'clog'   : 'forbid',
+        'cache'  : 'forbid',
         'client' : 'static',
         'static' : 'static',
         'module' : 'forbid',
