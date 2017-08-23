@@ -1,10 +1,10 @@
 
 
 * task
- - mysql
- - mkv -> data
- - tpl -> imp,inc
- - tpl -> tag
+ - mysql             --- ok
+ - mkv -> data       ---
+ - tpl -> imp,inc    ---
+ - tpl -> tag        ---
 
 
 nodejs内置模块/常用工具
