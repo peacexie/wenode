@@ -1,6 +1,6 @@
 
-var Config = require('../cache/config/config'),
-    Mimes = require('../cache/config/mimes'),
+var Config = require('./config'),
+    Mimes = require('.//mimes'),
     Tools  = require('./tools'),
     Mintpl = require('./mintpl'),
     url    = require("url"),

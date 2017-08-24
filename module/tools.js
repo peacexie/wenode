@@ -1,5 +1,5 @@
 
-var Config = require('../cache/config/config'),
+var Config = require('./config'),
     fs     = require("fs");
 
 // debug/save-log

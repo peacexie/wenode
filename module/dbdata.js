@@ -1,5 +1,5 @@
 
-var Config = require('../cache/config/config'),
+var Config = require('./config'),
     Tools  = require('./tools'),
     Mintpl = require('./mintpl'),
     url    = require("url"),

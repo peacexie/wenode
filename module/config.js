@@ -1,7 +1,7 @@
 
 var config = {
     "debug" : true, // 调试标记
-    "logfile" : '/cache/debug/Y-m-d.txt', // 调试日志
+    "logfile" : '/cache/debug-Y-m-d.log', // 调试日志
     "title" : "和平鸽-wenode",
 	// host
     "host" : "127.0.0.1", // 228,4
@@ -15,6 +15,15 @@ var config = {
         "database" : "txext_main",
         "pre"      : "",
         "suf"      : "_ys"
+    },
+    // 数据模型
+    "dbmod" : {
+        // 聊天相关
+        "chatroom" : "chat",
+        // 数据模型 : 类别(前缀)
+        "nrem" : "coms",
+        "news" : "docs",
+        "person" : "users",
     },
     // 静态/禁访问:目录
     "dirs" : {

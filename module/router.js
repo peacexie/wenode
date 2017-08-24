@@ -1,5 +1,5 @@
 
-var Config = require('../cache/config/config'),
+var Config = require('./config'),
     Tools  = require('./tools'),
     //ViewOP = require('./viewop'),
     url    = require("url"),

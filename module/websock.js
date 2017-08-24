@@ -1,5 +1,5 @@
 
-var Config = require('../cache/config/config'),
+var Config = require(cache/config),
     //reqIp = require('request-ip'),
     Tools = require('./tools'),
     Mycurd = require('./mycurd');
