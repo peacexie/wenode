@@ -98,19 +98,11 @@ function Mintpl(mkvs) {
         });
     };
 
-
-
 };
 module.exports = Mintpl;
 
 
 /*
-
-{imp:"m_about/about_alayout"}
-{inc:"c_pub/ahead"}
-{js}var abc = 0; {/js}
-
-{$abc}
 
 {tag:newsList=[p1=a][p2=b]/tag}
 
@@ -121,7 +113,4 @@ module.exports = Mintpl;
 <li>{title(page.bar)}</li>
 {/tag:dlist}
 
-    /*
-    mkvs.xxxx
-    data.xxxx
-    */
+*/

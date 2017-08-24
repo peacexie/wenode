@@ -28,7 +28,7 @@ var config = {
     "dirv" : {
         'index' : 'mkv',
         'demo'  : 'mkv',
-        'rest'  : 'mkv',
+        'rest'  : 'data',
         'uext'  : 'viewop.js',
     },
     // end

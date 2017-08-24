@@ -53,6 +53,7 @@ function ViewOP(req, res) {
             if(flag) mkv = 'home-' + mkv;
         }else{ // len>3, /rest/css/style.js
             dir = 'static';
+            mkv = tmp[1];
         }
         mkvs.dir = dir;
         mkvs.mkv = mkv;

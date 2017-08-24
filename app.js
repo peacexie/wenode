@@ -16,5 +16,5 @@ var server = http.createServer(function(req, res){
 global.rooms = {}; // 全局变量(统计各聊天室人数)
 var ws = SockIO.listen(server);
 ws.on('connection', function(client){
-    new WebSock(this,client);
+    new WebSock(this, client);
 });
