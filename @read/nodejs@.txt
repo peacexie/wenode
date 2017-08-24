@@ -1,4 +1,8 @@
 
+
+http://blog.csdn.net/dong123dddd/article/details/51727238
+nodejs读取图片返回给浏览器显示
+
 * vdata
 * vtpl
 
@@ -9,6 +13,7 @@
  - mkv -> data       ---
  - tpl -> imp/inc    --- ok    
  - tpl -> tag        ---
+ - img-show          --- 
 
 
 nodejs内置模块/常用工具
