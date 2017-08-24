@@ -1,7 +1,7 @@
 
 var mysql  = require('mysql'),
     Tools  = require('./tools'),
-    Config = require('./config'),
+    Config = require('../cache/config/config'),
     conn; // db-conn
 
 // db-error

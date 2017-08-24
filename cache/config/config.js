@@ -1,7 +1,7 @@
 
 var config = {
     "debug" : true, // 调试标记
-    "logfile" : '/cache/Y-m-d.txt', // 调试日志
+    "logfile" : '/cache/debug/Y-m-d.txt', // 调试日志
     "title" : "和平鸽-wenode",
 	// host
     "host" : "127.0.0.1", // 228,4

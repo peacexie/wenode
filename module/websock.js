@@ -1,5 +1,5 @@
 
-var Config = require('./config'),
+var Config = require('../cache/config/config'),
     //reqIp = require('request-ip'),
     Tools = require('./tools'),
     Mycurd = require('./mycurd');
@@ -60,7 +60,7 @@ var WebSock = function(ws, client){
         var user = curUser;
         var arr = curRoom.split('.');
         if(!arr[0] || !arr[1] || !user.uid){
-            Tools.debug('save.501', 'Empty:room/user');
+            Tools.debug('chat-save', 'Empty:room/user');
             return;
         }
         var data = {
@@ -73,7 +73,7 @@ var WebSock = function(ws, client){
             "auser" : user.uname
         };
         Mycurd.ins('chatroom', data, function(res){
-            Tools.debug('save.502, id=',res.insertId);
+            Tools.debug('chat-save, id=',res.insertId);
         });
         return;
     }

@@ -1,4 +1,4 @@
-var Config = require('../module/config'),
+var Config = require('../cache/config/config'),
     Tools  = require('../module/tools'),
     url    = require("url"),
     util   = require('util'),

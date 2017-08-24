@@ -2,7 +2,7 @@
 // modules/config
 var http   = require('http'),
     SockIO = require('socket.io'),
-    Config = require('./module/config'),
+    Config = require('./cache/config/config'),
     ViewOP = require('./module/viewop'),
     WebSock = require('./module/websock');
 global._dir = __dirname;

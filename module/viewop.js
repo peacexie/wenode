@@ -1,5 +1,6 @@
 
-var Config = require('./config'),
+var Config = require('../cache/config/config'),
+    Mimes = require('../cache/config/mimes'),
     Tools  = require('./tools'),
     Mintpl = require('./mintpl'),
     url    = require("url"),
@@ -13,15 +14,21 @@ function ViewOP(req, res) {
     // 运行入口
     this.run = function() { 
         this.init(req.url);
-        if(mkvs.path == "/favicon.ico"){ return; }
+        // 显示图片
+        var imgType = this.mine(mkvs.path, 'image');
+        if(imgType){
+            this.image(res, mkvs.path, imgType);
+            return;
+        }
+        // 分解mkv
         this.imkv();
         if(mkvs.err){
-            return this.static(mkvs.err,404);
+            return this.static(mkvs.err, 404);
         }
         // 静态/禁访问:目录
         if(mkvs.dir=='forbid' || mkvs.dir=='static'){
             var code = mkvs.dir=='forbid' ? 403 : 200;
-            return this.static(mkvs.path,code);
+            return this.static(mkvs.path, code);
         }
         var fp = '/'+mkvs.dir+'/viewop.js';
         var flag = Tools.fsHas(fp);
@@ -35,7 +42,7 @@ function ViewOP(req, res) {
     };
     // 初始化mkv
     this.init = function(requrl){
-        ourl = url.parse(requrl, true);
+        var ourl = url.parse(requrl, true);
         mkvs.path = ourl.pathname;
         var dir, mkv,
             tmp = mkvs.path.split('/'),
@@ -125,7 +132,6 @@ function ViewOP(req, res) {
             this.static('NOT found template : '+tpl+'.htm',404);
         }
     }
-
     // 静态显示
     this.static = function(fp, code){
         var f4 = code==403 || code==404;
@@ -143,36 +149,39 @@ function ViewOP(req, res) {
         res.end();
         Tools.debug('http:'+code, fp);
     }
-
+    // image
+    this.image = function(res, fp, imgType){
+        fs.readFile(_dir+fp, 'binary', function(err,  file)  {
+            if (err) {
+                res.end();
+                console.log("image 400, ", err);
+                return;
+            } else {
+                res.writeHead(200,  {'Content-Type':imgType});
+                res.write(file, 'binary');
+                res.end();
+                console.log("image 200, ", fp);
+                return;
+            }
+        });
+    }
     // header
-    this.head = function(fp, code){
-        ext = fp.indexOf('.')>=0 ? fp.substring(fp.lastIndexOf(".")+1,fp.length) : fp;
-        cfgs = {
-            // text,html
-            'txt'   : 'text/plain',
-            'text'  : 'text/plain',
-            // asp,aspx,jsp,php
-            'htm'   : 'text/html',
-            'html'  : 'text/html',
-            // css,js,data(xml,json,jsonp)
-            'css'   : 'text/css',
-            'js'    : 'text/javascript', 
-            'xml'   : 'text/xml', 
-            'json'  : 'application/json',
-            'jsonp' : 'application/jsonp',
-            // image
-            'ico'   : 'image/x-icon',
-            'jpg'   : 'image/jpeg',
-            'jpeg'  : 'image/jpeg',
-            'gif'   : 'image/gif',
-            'png'   : 'image/png',
-            'tif'   : 'image/tiff',
-            // down
-            'down'  : 'application/octet-stream',
-        };
-        code = code ? code : 200;
-        type = cfgs[ext] ? cfgs[ext] : cfgs['html']; 
+    this.head = function(fp, code){ 
+        var type = this.mine(fp, 'text');
+        code = code ? code : 200; 
         res.writeHead(code, {'Content-Type' : type+'; charset=utf-8'});
+    }
+    // mine
+    this.mine = function(fp, part){
+        var ext = fp.indexOf('.')>=0 ? fp.substring(fp.lastIndexOf(".")+1,fp.length) : fp;
+        //if(!part){ return ext; }
+        if(Mimes[part][ext]){
+            return Mimes[part][ext];
+        }else{
+            if(part=='text') return Mimes['text']['html'];
+            if(part=='image') return '';
+            return Mimes['stream']['down'];
+        }
     }
 };
 module.exports = ViewOP;

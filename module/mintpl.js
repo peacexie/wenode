@@ -1,5 +1,5 @@
 
-var Config = require('./config'),
+var Config = require('../cache/config/config'),
     Tools  = require('./tools'),
     util   = require('util'),
     fs     = require("fs");
