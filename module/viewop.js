@@ -154,7 +154,7 @@ function ViewOP(req, res) {
         fs.readFile(_dir+fp, 'binary', function(err,  file)  {
             if (err) {
                 res.end();
-                console.log("image 400, ", err);
+                console.log("image "+err.errno+", ", fp);
                 return;
             } else {
                 res.writeHead(200,  {'Content-Type':imgType});
