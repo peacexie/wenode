@@ -7,7 +7,7 @@
 * task
  - mysql             --- ok
  - mkv -> data       ---
- - tpl -> imp,inc    ---
+ - tpl -> imp/inc    --- ok    
  - tpl -> tag        ---
 
 
