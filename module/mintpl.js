@@ -27,16 +27,62 @@ function Mintpl(mkvs) {
         return '';
     }
 
-    // index, home/about
-    this.run = function(data) { 
+    // 填充tpl: index, home/about
+    this.fill = function(data) { 
         res = Tools.fsRead(dir+tplname+'.htm');
         // imp,继承; inc,包含
         // data; tags; 
-        html = res.data;
+        html = this.imp(res.data); // 模板继承; 
+        html = this.inc(html); // 模板包含; 
+        //html = this.tag(html); // tag解析; 
         html = this.vals(html,mkvs,'mkvs');
         html = this.vals(html,data,'data');
         return html;
     };
+
+    // inc:模板包含
+    this.tag = function(html) { 
+        return html;
+    }
+
+    // inc:模板包含
+    this.inc = function(html) { 
+        var reg = new RegExp(/{inc:\"(.*)\"}/,'gi');
+        itms = html.match(reg); 
+        if(!itms) return html; //没有inc
+        for (var i=0; i<itms.length; i++) {
+            var tpl = itms[i].replace('{inc:"','').replace('"}','');
+            var sinc = Tools.fsRead(dir+tpl+'.htm',1);
+            if(!sinc){ sinc = "<!-- {inc:`"+tpl+"`} -->"; }
+            html = html.replace(itms[i],sinc);
+            return this.inc(html);
+        }
+        return html;
+    }
+
+    // imp:模板继承
+    this.imp = function(html) { 
+        var reg = new RegExp(/\{imp:\"([\S]{3,48})\"\}/,'gi');
+        var itms = reg.exec(html);
+        if(!itms || !itms[1]) return html; //没有imp
+        var layout = Tools.fsRead(dir+itms[1]+'.htm',1);
+        reg = new RegExp(/\{block:([\w]{1,24})\}/,'gi');
+        itms = layout.match(reg); //Tools.debug(itms); 
+        if(!itms) return layout; //没有block
+        for (var i=0; i<itms.length; i++) {
+            var k1 = itms[i], k2 = k1.replace('{block:','{/block:');
+            var blk1 = Tools.getPos(html,k1,k2),
+                blkp = Tools.getPos(layout,k1,k2); 
+            if(blk1=='{:clear}'){
+                layout = layout.replace(k1+blkp+k2, '');
+            }else if(blk1){
+                if(blk1.indexOf('{:parent}')>=0) blk1 = blk1.replace("{:parent}", blkp);
+                layout = layout.replace(k1+blkp+k2, blk1);
+            }
+            layout = layout.replace(k1,'').replace(k2,''); // {:parent}
+        }
+        return layout;
+    }
 
     // 替换数据
     this.vals = function(html,arr,fix){

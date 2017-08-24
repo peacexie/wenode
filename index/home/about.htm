@@ -1,21 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
+{imp:"_incs/lay1"}<!--模板继承-->
 
-</head>
+{block:title}About - {:parent}{/block:title}
 
-<body> 
- 
-<div class="row">
-    <div class="http-error">
-        <h1>about page!</h1>
-        <p class="info">about page</p>
-        <p><i class="fa fa-home"></i></p>
-        <p><a href="/">Back to the home page</a></p>
-    </div>
+{block:main}
+
+<div>
+    <h1>about page!</h1>
+    <p class="info">about page</p>
+    <hr>
+    <p><a href="/">Back to the home page</a></p>
 </div>
 
-</body>
-</html>
+{/block:main}
 
-
+{block:foot}{:clear}{/block:foot}

@@ -80,7 +80,7 @@ function ViewOP(req, res) {
             return;
         } 
         for (var i = 0; i < tmp.length; i++) {
-            var flag = /^[\w]{1,24}$/.test(tmp[i]);
+            var flag = /^[a-z]{1}[\w]{0,24}$/.test(tmp[i]);
             if(!tmp[i] || !flag){
                 mkvs.err = 'Error mkv [b]';
                 return;
@@ -114,7 +114,7 @@ function ViewOP(req, res) {
         if(tplname){
             // 模板显示
             this.head('html', 200);
-            var html = mtpl.run(data);
+            var html = mtpl.fill(data);
             res.write(html);
             res.end();
             Tools.debug('http:'+200, mkvs.dir+'/'+tplname);

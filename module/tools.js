@@ -17,13 +17,14 @@ exports.debug = function(erno,ermsg){
     console.log(erno,ermsg);
 }
 
-exports.fsRead = function(fp,basdir){
+exports.fsRead = function(fp,redata,basdir){
     var dir = basdir ? basdir : _dir;
     var data='', err=1;
     try{ // 不建议这样使用?!
         data = fs.readFileSync(dir+fp, 'utf-8');
         err = 0;
     }catch(ex){}
+    if(redata) return data;
     var re = {'err':err, 'data':data};
     return re;
 }
@@ -36,6 +37,17 @@ exports.fsHas = function(path,basdir) {
         return false;
     }
     return true;
+}
+
+exports.getPos = function(data,k1,k2) {
+    if(!k2){ k1 = '<'+k1+'>'; k2 = '</'+k1+'>'; }
+    var p1 = data.indexOf(k1),
+        p2 = data.indexOf(k2);
+    if(p1>=0 && p2>p1){
+        return data.substring(p1+k1.length,p2);
+    }else{
+        return '';
+    }
 }
 
 
