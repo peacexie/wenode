@@ -1,4 +1,15 @@
 
+var Config = require('./config'),
+    Tools  = require('./tools'),
+
+    Mimes = require('./mimes'),
+    Mintpl = require('./mintpl'),
+    dbData = require('./dbdata'),
+    
+    url    = require('url'),
+    fs     = require('fs'),
+    util   = require('util');
+
 
 http://blog.csdn.net/dong123dddd/article/details/51727238
 nodejs读取图片返回给浏览器显示
@@ -13,7 +24,7 @@ nodejs读取图片返回给浏览器显示
  - mkv -> data       ---
  - tpl -> imp/inc    --- ok    
  - tpl -> tag        ---
- - img-show          --- 
+ - img-show          --- ok 
 
 
 nodejs内置模块/常用工具
