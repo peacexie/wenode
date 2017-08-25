@@ -2,7 +2,7 @@
 var Config = require('./config'),
     Tools  = require('./tools'),
     util   = require('util'),
-    fs     = require("fs");
+    fs     = require('fs');
 
 function Mintpl(mkvs) {
 
@@ -35,8 +35,8 @@ function Mintpl(mkvs) {
         html = this.imp(res.data); // 模板继承; 
         html = this.inc(html); // 模板包含; 
         //html = this.tag(html); // tag解析; 
-        html = this.vals(html,mkvs,'mkvs');
-        html = this.vals(html,data,'data');
+        html = this.vals(html, mkvs, 'mkvs');
+        html = this.vals(html, data, 'data');
         return html;
     };
 
@@ -52,7 +52,7 @@ function Mintpl(mkvs) {
         if(!itms) return html; //没有inc
         for (var i=0; i<itms.length; i++) {
             var tpl = itms[i].replace('{inc:"','').replace('"}','');
-            var sinc = Tools.fsRead(dir+tpl+'.htm',1);
+            var sinc = Tools.fsRead(dir+tpl+'.htm', 0, 1);
             if(!sinc){ sinc = "<!-- {inc:`"+tpl+"`} -->"; }
             html = html.replace(itms[i],sinc);
             return this.inc(html);
@@ -65,7 +65,7 @@ function Mintpl(mkvs) {
         var reg = new RegExp(/\{imp:\"([\S]{3,48})\"\}/,'gi');
         var itms = reg.exec(html);
         if(!itms || !itms[1]) return html; //没有imp
-        var layout = Tools.fsRead(dir+itms[1]+'.htm',1);
+        var layout = Tools.fsRead(dir+itms[1]+'.htm', 0, 1);
         reg = new RegExp(/\{block:([\w]{1,24})\}/,'gi');
         itms = layout.match(reg); //Tools.debug(itms); 
         if(!itms) return layout; //没有block
@@ -85,8 +85,8 @@ function Mintpl(mkvs) {
     }
 
     // 替换数据
-    this.vals = function(html,arr,fix){
-        var reg = new RegExp(/\{\$([\w]{1,24})\.([\w]{1,24})\}/,'gi');
+    this.vals = function(html, arr, fix){
+        var reg = new RegExp(/\{\$([\w]{1,24})\.([\w]{1,24})\}/, 'gi');
         return html.replace(reg, function(m, p1, p2) {
             if(p1==fix){
                 if(typeof(arr[p2])=='undefined') return '{'+fix+'.'+p2+'}';

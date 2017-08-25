@@ -2,13 +2,13 @@
 var Config = require('./config'),
     Tools  = require('./tools'),
     Mintpl = require('./mintpl'),
-    url    = require("url"),
+    url    = require('url'),
     util   = require('util'),
-    fs     = require("fs");
+    fs     = require('fs');
 
 function dbData(mkvs) {
 
-    //var mkvs = {}; // path,dir,mkv,query,ourl; type,mod,key,view,err
+    var data = {}; // 
 
     // 运行入口
     this.run = function() { 
@@ -35,25 +35,10 @@ function dbData(mkvs) {
         return this.view();*/
     };
 
-    // mhome
-    this.mhome = function(){
-        ourl = url.parse(requrl, true);
-        mkvs.ourl = ourl;
-    }
-    // mtype
-    this.mtype = function(){
-        var tmp=[]; 
-
-    }
-    // detail
-    this.detail = function(){
-        var data = {'test':'valabc', 'title':'vtitle',}; //xxx();
-        // 直接返回数据:vtype(html,json,jsonp,xml),callback 
-    }
-
-    // 静态显示
-    this.static = function(fp, code){
-
+    // exdata
+    this.exdata = function(){
+        //ourl = url.parse(requrl, true);
+        //mkvs.ourl = ourl;
     }
 
 };

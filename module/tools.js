@@ -1,27 +1,28 @@
 
 var Config = require('./config'),
-    fs     = require("fs");
+    fs     = require('fs');
 
 // debug/save-log
-exports.debug = function(erno,ermsg){
+exports.debug = function(erno, ermsg){
     if(Config.debug){
         var now = new Date();
         var ermsg = typeof(ermsg)=='object' ? JSON.stringify(ermsg) : ermsg;
         var data = now.toLocaleString()+' ['+erno+'] '+ermsg+'\n';
         var fplog = Config.logfile.replace('/Y-','/'+now.getFullYear()+'-');
-            fplog = fplog.replace('-m-','-'+(now.getMonth()+1)+'-').replace('-d.','-'+now.getDate()+'.');
-        fs.appendFile(_dir+fplog,data,'utf8',function(fserr){  
+            fplog = fplog.replace('-m-', '-'+(now.getMonth()+1)+'-').replace('-d.', '-'+now.getDate()+'.');
+        fs.appendFile(_dir+fplog, data, 'utf8', function(fserr){  
             if(fserr) console.log(fserr);
         });
     }
     console.log(erno,ermsg);
 }
 
-exports.fsRead = function(fp,redata,basdir){
+exports.fsRead = function(fp, encode, redata, basdir){
     var dir = basdir ? basdir : _dir;
     var data='', err=1;
     try{ // 不建议这样使用?!
-        data = fs.readFileSync(dir+fp, 'utf-8');
+        if(!encode) encode = 'utf-8';
+        data = fs.readFileSync(dir+fp, encode);
         err = 0;
     }catch(ex){}
     if(redata) return data;
@@ -32,7 +33,7 @@ exports.fsRead = function(fp,redata,basdir){
 exports.fsHas = function(path,basdir) {
     var dir = basdir ? basdir : _dir;
     try{
-        fs.accessSync(dir+path,fs.F_OK);
+        fs.accessSync(dir+path, fs.F_OK);
     }catch(e){
         return false;
     }
@@ -44,16 +45,8 @@ exports.getPos = function(data,k1,k2) {
     var p1 = data.indexOf(k1),
         p2 = data.indexOf(k2);
     if(p1>=0 && p2>p1){
-        return data.substring(p1+k1.length,p2);
+        return data.substring(p1+k1.length, p2);
     }else{
         return '';
     }
 }
-
-
-/*
-exports.fileExists = function(path) {
-    var flag = false;
-
-}
-*/

@@ -23,11 +23,11 @@ exports.con = function() {
     }
 }
 // db-query
-exports.query = function(sql,params,cb){
+exports.query = function(sql, params, cb){
     this.con(); 
     conn.query(sql,params,function (myerr, res) {
         if(myerr){
-            Tools.debug('mycurd.upd',myerr.message);
+            Tools.debug('mycurd.upd', myerr.message);
             return;
         }else{
             cb && cb(res);
@@ -40,7 +40,7 @@ exports.tab = function(tab){
 }
 
 // db-ins, 插入数据
-exports.ins = function(tab,data,cb){
+exports.ins = function(tab, data, cb){
     var fields = vals = '', params = [];
     for(var key in data){
         fields += (fields ? ',' : '') + key;
@@ -48,7 +48,7 @@ exports.ins = function(tab,data,cb){
         params.push(data[key]);
     }
     var sql = 'INSERT INTO '+this.tab(tab)+' ('+fields+') VALUES ('+vals+')';
-    this.query(sql,params,cb);
+    this.query(sql, params, cb);
 }
 /*
 Mycurd.ins('chatroom', data, function(res){
@@ -64,7 +64,7 @@ exports.upd = function(tab,data,where,cb){
         params.push(data[key]);
     }
     var sql = 'UPDATE '+this.tab(tab)+' SET '+fields+' WHERE '+where;
-    this.query(sql,params,cb);
+    this.query(sql, params, cb);
 }
 /*
 Mycurd.upd('chatroom', {"ufrom":"aaa","msgs":"bbb"}, "id=333 AND uto=1251", function(res){
@@ -73,13 +73,13 @@ Mycurd.upd('chatroom', {"ufrom":"aaa","msgs":"bbb"}, "id=333 AND uto=1251", func
 */
 
 // db-get, 查询数据
-exports.get = function(tab,opt,cb){
+exports.get = function(tab, opt, cb){
     var fields = opt.fields ? opt.fields : '*';
     var where = opt.where ? (' WHERE '+opt.where) : '';
     var order = opt.order ? (' ORDER BY '+opt.order) : '';
     var limit = opt.limit ? (' LIMIT '+opt.limit) : '';
     var sql = 'SELECT '+fields+' FROM '+this.tab(tab)+where+order+limit;
-    this.query(sql,{},cb);
+    this.query(sql, {}, cb);
 }
 /* opt = {fields, where, limit, order}
 Mycurd.get('chatroom', {"fields":"id,type,uto,msgs","where":"id>=330"},function(res){
@@ -88,10 +88,10 @@ Mycurd.get('chatroom', {"fields":"id,type,uto,msgs","where":"id>=330"},function(
 */
 
 // db-del, 删除数据
-exports.del = function(tab,where,cb){
+exports.del = function(tab, where, cb){
     where = where ? where : "1=2";
     var sql = 'DELETE FROM '+this.tab(tab)+' WHERE ' + where;
-    this.query(sql,{},cb);
+    this.query(sql, {}, cb);
 }
 /*
 Mycurd.del('chatroom', "id=329", function(res){
