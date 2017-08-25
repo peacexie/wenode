@@ -19,11 +19,11 @@ var config = {
     // 数据模型
     "dbmod" : {
         // 聊天相关
-        "chatroom" : "chat",
+        "chatroom" : ["chat",  'id'],
         // 数据模型 : 类别(前缀)
-        "nrem" : "coms",
-        "news" : "docs",
-        "person" : "users",
+        "nrem"     : ["coms", 'cid'],
+        "news"     : ["docs",  'did'],
+        "person"   : ["users", 'uid'],
     },
     // 静态/禁访问:目录
     "dirs" : {

@@ -30,7 +30,7 @@ exports.fsRead = function(fp, encode, redata, basdir){
     return re;
 }
 
-exports.fsHas = function(path,basdir) {
+exports.fsHas = function(path, basdir) {
     var dir = basdir ? basdir : _dir;
     try{
         fs.accessSync(dir+path, fs.F_OK);
@@ -40,7 +40,7 @@ exports.fsHas = function(path,basdir) {
     return true;
 }
 
-exports.getPos = function(data,k1,k2) {
+exports.getPos = function(data, k1, k2) {
     if(!k2){ k1 = '<'+k1+'>'; k2 = '</'+k1+'>'; }
     var p1 = data.indexOf(k1),
         p2 = data.indexOf(k2);

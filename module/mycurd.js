@@ -57,7 +57,7 @@ Mycurd.ins('chatroom', data, function(res){
 */
 
 // db-upd, 更新数据
-exports.upd = function(tab,data,where,cb){
+exports.upd = function(tab, data, where, cb){
     var fields = '', params = [];
     for(var key in data){
         fields += (fields ? ',' : '') + key + '=?';

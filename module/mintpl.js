@@ -47,14 +47,14 @@ function Mintpl(mkvs) {
 
     // inc:模板包含
     this.inc = function(html) { 
-        var reg = new RegExp(/{inc:\"(.*)\"}/,'gi');
+        var reg = new RegExp(/{inc:\"(.*)\"}/, 'gi');
         itms = html.match(reg); 
         if(!itms) return html; //没有inc
         for (var i=0; i<itms.length; i++) {
-            var tpl = itms[i].replace('{inc:"','').replace('"}','');
+            var tpl = itms[i].replace('{inc:"', '').replace('"}', '');
             var sinc = Tools.fsRead(dir+tpl+'.htm', 0, 1);
             if(!sinc){ sinc = "<!-- {inc:`"+tpl+"`} -->"; }
-            html = html.replace(itms[i],sinc);
+            html = html.replace(itms[i], sinc);
             return this.inc(html);
         }
         return html;
@@ -62,24 +62,24 @@ function Mintpl(mkvs) {
 
     // imp:模板继承
     this.imp = function(html) { 
-        var reg = new RegExp(/\{imp:\"([\S]{3,48})\"\}/,'gi');
+        var reg = new RegExp(/\{imp:\"([\S]{3,48})\"\}/, 'gi');
         var itms = reg.exec(html);
         if(!itms || !itms[1]) return html; //没有imp
         var layout = Tools.fsRead(dir+itms[1]+'.htm', 0, 1);
-        reg = new RegExp(/\{block:([\w]{1,24})\}/,'gi');
+        reg = new RegExp(/\{block:([\w]{1,24})\}/, 'gi');
         itms = layout.match(reg); //Tools.debug(itms); 
         if(!itms) return layout; //没有block
         for (var i=0; i<itms.length; i++) {
-            var k1 = itms[i], k2 = k1.replace('{block:','{/block:');
-            var blk1 = Tools.getPos(html,k1,k2),
-                blkp = Tools.getPos(layout,k1,k2); 
+            var k1 = itms[i], k2 = k1.replace('{block:', '{/block:');
+            var blk1 = Tools.getPos(html, k1, k2),
+                blkp = Tools.getPos(layout, k1, k2); 
             if(blk1=='{:clear}'){
                 layout = layout.replace(k1+blkp+k2, '');
             }else if(blk1){
                 if(blk1.indexOf('{:parent}')>=0) blk1 = blk1.replace("{:parent}", blkp);
                 layout = layout.replace(k1+blkp+k2, blk1);
             }
-            layout = layout.replace(k1,'').replace(k2,''); // {:parent}
+            layout = layout.replace(k1, '').replace(k2, ''); // {:parent}
         }
         return layout;
     }

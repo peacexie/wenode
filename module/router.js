@@ -2,6 +2,7 @@
 var Config = require('./config'),
     Tools  = require('./tools'),
     ViewOP = require('./viewop'),
+    url    = require('url'),
     util   = require('util');
 
 // 路由分发

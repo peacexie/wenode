@@ -11,7 +11,8 @@ function ViewOP(req, res) {
 
     // 显示操作
     this.view = function(mkvs){
-        var data = {'test':'valabc', 'title':'vtitle',}; //xxx();
+
+        var data = {'test':'valabc', 'title':'vtitle'}; //xxx();
         //var data = new dbData(mkvs).run();
         //    data = new exData(mkvs, data);
         // 直接返回数据:vtype(html,json,jsonp,xml),callback
@@ -37,7 +38,7 @@ function ViewOP(req, res) {
         }else{
             // 模板错误
             var tpl = '/'+mkvs.dir+'/'+mkvs.mod+'/('+(mkvs.key+'|'+mkvs.type)+')';
-            this.static('NOT found template : '+tpl+'.htm',404);
+            this.static('NOT found template : '+tpl+'.htm', 404);
         }
     }
     // 静态显示
@@ -62,7 +63,7 @@ function ViewOP(req, res) {
         if(ctype){
             cmine = this.mine(ctype);
         }
-        res.writeHead(code, {'Content-Type' : cmine[1]});
+        res.writeHead(code, {'Content-Type':cmine[1]});
         return ctype;
     }
     // mine

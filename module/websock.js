@@ -1,8 +1,8 @@
 
 var Config = require('./config'),
-    //reqIp = require('request-ip'),
     Tools = require('./tools'),
     Mycurd = require('./mycurd');
+    //reqIp = require('request-ip'),
 
 var WebSock = function(ws, client){
     var curRoom, // zhibo.123, web.456, app.789
@@ -27,7 +27,7 @@ var WebSock = function(ws, client){
             }else{
                 var erno = 'check.102', ermsg = 'Error Room';
             }
-            Tools.debug(erno,ermsg);
+            Tools.debug(erno, ermsg);
         }
         client.join(curRoom);
         if(!rooms[curRoom]) rooms[curRoom] = 0;
@@ -39,12 +39,12 @@ var WebSock = function(ws, client){
         msgs = msgs ? msgs.trim().replace(/<\/?[^>]*>/g,'') : '';
         if(!msgs){
             var erno = 'upmsg.201', ermsg = 'Empty:msgs';
-            ws.to(curRoom).emit('error',erno,ermsg);
-            Tools.debug(erno,ermsg);
+            ws.to(curRoom).emit('error', erno, ermsg);
+            Tools.debug(erno, ermsg);
             return;
         }
         var mstamp = Date.parse(new Date()); // mstamp:时间戳(ms),取服务器时间
-        save(msgs,mstamp);
+        save(msgs, mstamp);
         // 过滤
         var data = {'user':curUser, 'msgs':msgs, 'ip':curIP, 'mstamp':mstamp, 'room':curRoom};
         ws.to(curRoom).emit('emsg', data);
@@ -73,7 +73,7 @@ var WebSock = function(ws, client){
             "auser" : user.uname
         };
         Mycurd.ins('chatroom', data, function(res){
-            Tools.debug('chat-save, id=',res.insertId);
+            Tools.debug('chat-save, id=', res.insertId);
         });
         return;
     }
