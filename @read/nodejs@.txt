@@ -1,4 +1,11 @@
 
+
+http://www.jb51.net/article/58222.htm
+node.js中实现同步操作的3种实现方法
+
+
+mkvs.query.pid : fill
+
 var Config = require('./config'),
     Tools  = require('./tools'),
 
