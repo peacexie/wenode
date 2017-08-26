@@ -55,8 +55,7 @@ exports.getPos = function(data, k1, k2) {
 exports.exeOrder = function(funcs,count,sum){
     if(count==sum){
         return; 
-    }
-    else{
+    }else{
         funcs[count](function(){
             count++;
             exeOrder(funcs,count,sum);

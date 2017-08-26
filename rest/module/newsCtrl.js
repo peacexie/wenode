@@ -1,11 +1,9 @@
 
 var Config = require('../../module/config'),
     Tools  = require('../../module/tools'),
-    url    = require("url"),
-    util   = require('util'),
-    fs     = require("fs");
+    util   = require('util');
 
-function newsCtrl(mkvs, data) {
+function newsCtrl(mkvs, rdb) {
 
     this.init = function(key) { 
         var ext = {'ext1':'v1Extra-'+key, 'ext2':'v2Extra-'+key};
@@ -13,8 +11,14 @@ function newsCtrl(mkvs, data) {
     };
 
     // mhomeAct
-    this.mhomeAct = function(cb){
+    this.mhomeAct = function(cb){ 
         var ext = this.init('mhome');
+        cb && cb(ext);
+    }
+
+    // u123Act
+    this.u123Act = function(cb){
+        var ext = this.init('u123');
         cb && cb(ext);
     }
 

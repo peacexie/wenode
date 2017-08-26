@@ -11,10 +11,7 @@ function ViewOP(req, res) {
 
     this.run = function(mkvs){
         var _me = this;
-        new dbData(mkvs).run(function(data){
-            //var data = {'test':'valabc', 'title':'vtitle'}; //xxx();
-            //var data = {};
-            //data.res = res1;
+        new dbData(mkvs, res).run(function(data){
             _me.view(mkvs, data);
         });
     }
@@ -28,7 +25,7 @@ function ViewOP(req, res) {
             this.head(200, vtype);
             res.write(util.inspect(data));
             res.end();
-            Tools.debug('data:'+vtype+', '+mkvs.path, q);
+            Tools.debug('data.'+vtype+' '+mkvs.path, q);
             return 
         }
         // 找模板
@@ -40,11 +37,11 @@ function ViewOP(req, res) {
             var html = mtpl.fill(data);
             res.write(html);
             res.end();
-            Tools.debug('http:'+200, '/'+mkvs.dir+'/'+tplname);
+            Tools.debug('http.'+200, '[tpl]/'+mkvs.dir+'/'+tplname+'?'+util.inspect(q));
         }else{
             // 模板错误
             var tpl = '/'+mkvs.dir+'/'+mkvs.mod+'/('+(mkvs.key+'|'+mkvs.type)+')';
-            this.static('NOT found template : '+tpl+'.htm', 404);
+            this.static(tpl+'.htm', 404);
         }
     }
     // 静态显示
@@ -66,7 +63,7 @@ function ViewOP(req, res) {
             res.write(re.data, (cmine[0]=='image' ? 'binary' : 'utf-8'));
         }
         res.end();
-        Tools.debug('http:'+code, fp);
+        Tools.debug('http.'+code, fp);
     }
     // header
     this.head = function(code, ctype, cmine){

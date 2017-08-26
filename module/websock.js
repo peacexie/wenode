@@ -18,7 +18,7 @@ var WebSock = function(ws, client){
         if(!user.uid   || typeof(user.uid)=='object'   || typeof(user.uid)=='function')   user.uid = '';
         if(!user.uname || typeof(user.uname)=='object' || typeof(user.uname)=='function') user.uname = '游客';
         curUser = user;
-        Tools.debug('init.info',user.uname+' -> '+curRoom+' @ '+curIP); 
+        Tools.debug('chat.init',user.uname+' -> '+curRoom+' @ '+curIP); 
     });
     client.on('check', function(cfg){
         if(!curRoom || !curUser.uid){
@@ -60,7 +60,7 @@ var WebSock = function(ws, client){
         var user = curUser;
         var arr = curRoom.split('.');
         if(!arr[0] || !arr[1] || !user.uid){
-            Tools.debug('chat-save', 'Empty:room/user');
+            Tools.debug('chat.save', 'Empty:room/user');
             return;
         }
         var data = {
@@ -73,7 +73,7 @@ var WebSock = function(ws, client){
             "auser" : user.uname
         };
         Mycurd.ins('chatroom', data, function(res){
-            Tools.debug('chat-save, id=', res.insertId);
+            Tools.debug('chat.save, id=', res.insertId);
         });
         return;
     }

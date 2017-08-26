@@ -1,21 +1,7 @@
 <?php
 // 模板编译 类
 class vopComp{
-    
-    static $tplCfg = array(); //配置
-    
-    static function main($tplname) {
-        $vob = new self(); 
-        $vob->build($tplname); 
-        unset($vob); 
-    }
-    
-    function __construct($tpl='') {
-        global $_cbase;
-        self::$tplCfg = $_cbase['tpl']; 
-        if($tpl) return $this->build($tpl);
-    }
-    
+
     //模板编译 ---------- 
     function build($tpl){ 
         global $_cbase; 
@@ -45,62 +31,6 @@ class vopComp{
         return $template;
     }
 
-    // 解析{inc},
-    function incTpls($template=''){ 
-        preg_match_all("/{inc:\"(.*)\"}/ie", $template, $match); 
-        if(count($match[1])>0){ //解析模板包含
-            $arr = $match[1]; 
-            foreach($arr as $tpl){
-                $pfile = vopTpls::pinc($tpl,self::$tplCfg['tpl_ext']); 
-                $ptpl = $this->incTpls(comFiles::get($pfile)); 
-                if(empty($ptpl)) { $ptpl = "<!-- {inc:`$tpl`} -->"; }
-                $template = str_replace("{inc:\"$tpl\"}", $ptpl, $template);
-                $template = $this->incTpls($template);
-            }
-        }
-        return $template;
-    }
-
-    // 解析{code}
-    function incCodes($template=''){
-        preg_match_all("/{code:\"(.*)\"}/ie", $template, $match); 
-        if(count($match[1])>0){ //解析模板包含 
-            $arr = $match[1]; 
-            foreach($arr as $tpl){
-                $pfile = "vopTpls::pinc('$tpl','.php')"; 
-                $template = str_replace("{code:\"$tpl\"}", "<?php include $pfile; ?>", $template);
-            }
-        }
-        return $template;
-    }
-
-    // 模板继承extend,block,layout,parent,inherit
-    // {imp:"c_layout/news"] // {block:title]Welcome!{/block:title] // {block:title] {:parent} {:clear} News - Project Name{/block:title]
-    function impBlock($template=''){
-        preg_match("/\{imp:\"([\S]{3,48})\"\}/ie", $template, $match);
-        if(empty($match[0]) || empty($match[1])) return $template; //没有imp,原样返回
-        /*if(strpos($match[1],'[-mob]') && !basEnv::isMobile()){
-            $match[1] = str_replace('[-mob]','',$match[1]);
-        }*/
-        $layout = vopTpls::pinc($match[1],self::$tplCfg['tpl_ext']); 
-        $layout = comFiles::get($layout);
-        $template = substr($template,strlen($match[0]));
-        preg_match_all("/\{block:([a-z][a-z0-9_]{1,17})\}/i", $layout, $match);
-        if(empty($match[1])){ return $layout; }//没有block
-        foreach($match[1] as $key){ 
-            $k1 = "{block:$key}"; $k2 = "{/block:$key}";
-            $blk1 = basElm::getPos($template,array($k1,$k2));
-            $blkp = basElm::getPos($layout,array($k1,$k2));
-            if($blk1=='{:clear}'){ 
-                $layout = str_replace("$k1{$blkp}$k2", "", $layout);
-            }elseif(!empty($blk1)){ 
-                if(strlen($blkp)>6 && strstr($blk1,'{:parent}')) $blk1 = str_replace("{:parent}", $blkp, $blk1);
-                $layout = str_replace("$k1{$blkp}$k2", "{$blk1}", $layout);
-            }
-            $layout = str_replace(array($k1,$k2,'{:parent}'), "", $layout);
-        }
-        return $layout;
-    }
     
     // 基本php语法解析, 常量,变量,函数,php代码
     static function phpBasic($template=''){
@@ -172,16 +102,6 @@ class vopComp{
         return $template;
     }
     
-    // retpl : 直接返回模版文件路径
-    static function checkTpls($tpl,$retpl=0){ 
-        global $_cbase;
-        $tpldir = $_cbase['tpl']['tpl_dir']; 
-        $tplFile = vopTpls::path('tpl').'/'.$tpl.self::$tplCfg['tpl_ext'];
-        if($retpl) return $tplFile;
-        $cacheFile = vopTpls::path('tpc').'/'.$tpl.self::$tplCfg['tpc_ext']; 
-        if(!file_exists($tplFile)) glbError::show("$tplFile NOT Exists!"); 
-        comFiles::chkDirs($tpldir.'/'.$tpl,'ctpl'); 
-        return array($tplFile, $cacheFile);
-    }
+
     
 }

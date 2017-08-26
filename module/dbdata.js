@@ -3,61 +3,64 @@ var Config = require('./config'),
     Tools  = require('./tools'),
     Mintpl = require('./mintpl'),
     Mycurd = require('./mycurd'),
-    url    = require('url'),
-    util   = require('util'),
-    fs     = require('fs');
+    util   = require('util');
 
-function dbData(mkvs) {
+function dbData(mkvs, res) {
 
     var data={}, cdb=[], tab='', kid=''; // 
 
     // 运行入口
-    this.run = function(cb0) { 
+    this.run = function(cb) { 
         var _me = this;
         this.dbRes(function(){
-            //cb(data);
-            //*
             _me.dbExt(function(){
-                cb0(data);
-            });//*/
+                cb(data);
+            });
         });
     };
 
     // dbRes
     this.dbRes = function(cb){
         // mkv:data
-        if(Config['dbmod'][mkvs.mod]){
+        if(Config['dbmod'][mkvs.mod]){ // 有数据模型
             cdb = Config['dbmod'][mkvs.mod]; // ["docs", 'did']
-            tab = (cdb[0] ? cdb[0]+'_' : '')+mkvs.mod; kid = cdb[1];
+            tab = (cdb[0] ? cdb[0]+'_' : '')+mkvs.mod; 
+            kid = cdb[1];
+            var act = '';
             if(mkvs.type=='mhome' || mkvs.type=='mtype'){
-                this.dbList(function(res){
-                    data.res = res;
-                    cb && cb();
-                });
+                act = 'dbList';
             }else if(mkvs.type=='detail'){
-                this.dbDetail(function(res){
-                    data.res = res;
+                act = 'dbDetail';
+            }
+            if(act){ // 有相关方法
+                this[act](function(rdb){
+                    data.rdb = rdb;
                     cb && cb();
                 });
-            }
-        }
+            }else{ cb && cb(); }
+        }else{ cb && cb(); }
     }
     // dbExt
     this.dbExt = function(cb){
         // 用户扩展处理
         var cp = '/'+mkvs.dir+'/module/'+mkvs.mod+'Ctrl.js';
         var flag = Tools.fsHas(cp);
-        if(flag){
+        if(flag){ // 有控制器
             var modCtrl = require(_dir+cp);
-            var ctrl = new modCtrl(mkvs, data); // 控制器
-            var act = mkvs.type+'Act';
-            if(typeof(ctrl[act])=='function'){
-                ctrl[act](function(res){
-                    data.ext = res;
+            var ctrl = new modCtrl(mkvs, data.rdb); // 控制器
+            var act = '', tmp1 = mkvs.key+'Act', tmp2 = mkvs.type+'Act';
+            if(mkvs.type=='mtype' && typeof(ctrl[tmp1])=='function'){
+                act = tmp1; // keyAct;
+            }else if(typeof(ctrl[tmp2])=='function'){
+                act = tmp2; // typeAct;
+            }
+            if(act){ // 有方法
+                ctrl[act](function(rdb){
+                    data.rex = rdb;
                     cb && cb();
                 });
-            }
-        }
+            }else{ cb && cb(); }
+        }else{ cb && cb(); }
     }
 
     // dbList
@@ -66,8 +69,8 @@ function dbData(mkvs) {
         if(mkvs.query.pid){ opt.where = "pid='"+mkvs.query.pid+"'"; }
         opt.order = kid + ' DESC';
         opt.limit = 10;
-        Mycurd.get(tab, opt, function(res){
-            cb && cb(res);
+        Mycurd.get(tab, opt, function(rdb){
+            cb && cb(rdb);
         });
     }
 
@@ -75,8 +78,8 @@ function dbData(mkvs) {
     this.dbDetail = function(cb){
         var opt = {};
         opt.where = kid+"='"+mkvs.kid+"'";
-        Mycurd.get(tab, opt, function(res){
-            cb && cb(res);
+        Mycurd.get(tab, opt, function(rdb){
+            cb && cb(rdb);
         });
     }
 
