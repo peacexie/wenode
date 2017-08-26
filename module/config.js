@@ -19,7 +19,7 @@ var config = {
     // 数据模型
     "dbmod" : {
         // 聊天相关
-        "chatroom" : ["chat",  'id'],
+        //"chatroom" : ["",  'id'],
         // 数据模型 : 类别(前缀)
         "nrem"     : ["coms", 'cid'],
         "news"     : ["docs",  'did'],

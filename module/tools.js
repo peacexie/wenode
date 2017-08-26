@@ -50,3 +50,21 @@ exports.getPos = function(data, k1, k2) {
         return '';
     }
 }
+
+// 同步调用
+exports.exeOrder = function(funcs,count,sum){
+    if(count==sum){
+        return; 
+    }
+    else{
+        funcs[count](function(){
+            count++;
+            exeOrder(funcs,count,sum);
+        });
+    }  
+}
+/*
+    var funcs = [func1,func2,func3];
+    var len = funcs.length;
+    exeOrder(funcs,0,len);
+*/

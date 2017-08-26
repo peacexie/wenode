@@ -1,18 +1,36 @@
-var Config = require('../module/config'),
-    Tools  = require('../module/tools'),
+
+var Config = require('../../module/config'),
+    Tools  = require('../../module/tools'),
     url    = require("url"),
     util   = require('util'),
     fs     = require("fs");
 
-function ViewOP(req, res) {
+function newsCtrl(mkvs, data) {
 
-    this.run = function(mkvs) { 
-        res.writeHead(404);
-        res.write('User extra deel with : [' + mkvs.dir + '/index.js]');
-        res.end('\n\nmkv = ' + util.inspect(mkvs));
+    this.init = function(key) { 
+        var ext = {'ext1':'v1Extra-'+key, 'ext2':'v2Extra-'+key};
+        return ext;
     };
 
+    // mhomeAct
+    this.mhomeAct = function(cb){
+        var ext = this.init('mhome');
+        cb && cb(ext);
+    }
+
+    // mtypeAct
+    this.mtypeAct = function(cb){
+        var ext = this.init('mtype');
+        cb && cb(ext);
+    }
+
+    // detailAct
+    this.detailAct = function(cb){
+        var ext = this.init('detail');
+        cb && cb(ext);
+    }
+
 };
-module.exports = ViewOP;
+module.exports = newsCtrl;
 
 

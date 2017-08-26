@@ -33,7 +33,7 @@ function Router(req, res) {
             return new sop(req, res).run(mkvs);
         }
         // mkv-处理
-        return vop.view(mkvs);
+        return vop.run(mkvs);
     };
     // 初始化mkv
     this.init = function(requrl){

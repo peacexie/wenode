@@ -2,71 +2,96 @@
 var Config = require('./config'),
     Tools  = require('./tools'),
     Mintpl = require('./mintpl'),
+    Mycurd = require('./mycurd'),
     url    = require('url'),
     util   = require('util'),
     fs     = require('fs');
 
 function dbData(mkvs) {
 
-    var data = {}; // 
+    var data={}, cdb=[], tab='', kid=''; // 
 
     // 运行入口
-    this.run = function() { 
-
-        // mkv:data
-        if(Config['dbmod'][mkvs.mod]){
-            if(mkvs.type=='mhome' || mkvs.type=='mtype'){
-                data = this.dbList();
-            }else if(mkvs.type=='detail'){
-                data = this.dbDetail();
-            }
-        }
-
-        // 用户扩展处理
-        var cp = '/'+mkvs.dir+'/module/'+mkvs.mod+'/Ctrl.js';
-        var flag = Tools.fsHas(cp);
-        if(flag){
-            var Ctrl = require(cp);
-            var ctrl = new Ctrl(mkvs, data); // 控制器
-            var act = mkvs.type+'Act';
-            if(typeof(ctrl[act])=='function'){
-                data = ctrl[act](data);
-            }
-        }
-
-        /*
-        Tools.debug('xxx1:', typeof(this['test1'])); // xxx1: function
-        Tools.debug('xxx1:', typeof(this['test2'])); // xxx1: undefined
-        this['test1'](123); // xxx2 test1:123
-        this.test1= function(aaa){
-            Tools.debug('xxx2', 'test1:'+aaa);
-        }
-        */
-
+    this.run = function(cb0) { 
+        var _me = this;
+        this.dbRes(function(){
+            //cb(data);
+            //*
+            _me.dbExt(function(){
+                cb0(data);
+            });//*/
+        });
     };
 
+    // dbRes
+    this.dbRes = function(cb){
+        // mkv:data
+        if(Config['dbmod'][mkvs.mod]){
+            cdb = Config['dbmod'][mkvs.mod]; // ["docs", 'did']
+            tab = (cdb[0] ? cdb[0]+'_' : '')+mkvs.mod; kid = cdb[1];
+            if(mkvs.type=='mhome' || mkvs.type=='mtype'){
+                this.dbList(function(res){
+                    data.res = res;
+                    cb && cb();
+                });
+            }else if(mkvs.type=='detail'){
+                this.dbDetail(function(res){
+                    data.res = res;
+                    cb && cb();
+                });
+            }
+        }
+    }
+    // dbExt
+    this.dbExt = function(cb){
+        // 用户扩展处理
+        var cp = '/'+mkvs.dir+'/module/'+mkvs.mod+'Ctrl.js';
+        var flag = Tools.fsHas(cp);
+        if(flag){
+            var modCtrl = require(_dir+cp);
+            var ctrl = new modCtrl(mkvs, data); // 控制器
+            var act = mkvs.type+'Act';
+            if(typeof(ctrl[act])=='function'){
+                ctrl[act](function(res){
+                    data.ext = res;
+                    cb && cb();
+                });
+            }
+        }
+    }
+
     // dbList
-    this.dbList = function(){
-        //xxx
+    this.dbList = function(cb){
+        var opt = {};
+        if(mkvs.query.pid){ opt.where = "pid='"+mkvs.query.pid+"'"; }
+        opt.order = kid + ' DESC';
+        opt.limit = 10;
+        Mycurd.get(tab, opt, function(res){
+            cb && cb(res);
+        });
     }
 
     // dbDetail
-    this.dbDetail = function(){
-        //xxx
+    this.dbDetail = function(cb){
+        var opt = {};
+        opt.where = kid+"='"+mkvs.kid+"'";
+        Mycurd.get(tab, opt, function(res){
+            cb && cb(res);
+        });
     }
 
     // !!! 自行扩展,执行前自行判断权限 !!! 
 
     // dbAdd
-    this.dbAdd = function(){
+    this.dbAdd = function(cb){
         //xxx
     }
     // dbUpd
-    this.dbUpd = function(){
+    this.dbUpd = function(cb){
         //xxx
     }
     // dbDel
-    this.dbDel = function(){
+    this.dbDel = function(cb){
         //xxx
     }
 
@@ -74,6 +99,14 @@ function dbData(mkvs) {
 module.exports = dbData;
 
 /*
+--------------------------------- POST 
+        
+Tools.debug('xxx1:', typeof(this['test1'])); // xxx1: function
+Tools.debug('xxx1:', typeof(this['test2'])); // xxx1: undefined
+this['test1'](123); // xxx2 test1:123
+this.test1= function(aaa){
+    Tools.debug('xxx2', 'test1:'+aaa);
+}
 
 news-add + post
 news-upd + post

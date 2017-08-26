@@ -29,7 +29,7 @@ var mimes = {
     },
 
     // 
-    "down" : {
+    "stream" : {
         // down
         'down'  : 'application/octet-stream',
     },

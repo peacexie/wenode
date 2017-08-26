@@ -9,12 +9,18 @@ var Config = require('./config'),
 // mkv-显示
 function ViewOP(req, res) {
 
-    // 显示操作
-    this.view = function(mkvs){
+    this.run = function(mkvs){
+        var _me = this;
+        new dbData(mkvs).run(function(data){
+            //var data = {'test':'valabc', 'title':'vtitle'}; //xxx();
+            //var data = {};
+            //data.res = res1;
+            _me.view(mkvs, data);
+        });
+    }
 
-        var data = {'test':'valabc', 'title':'vtitle'}; //xxx();
-        //var data = new dbData(mkvs).run();
-        //    data = new exData(mkvs, data);
+    // 显示操作
+    this.view = function(mkvs, data){
         // 直接返回数据:vtype(html,json,jsonp,xml),callback
         var q = mkvs.query;
         if( (q.callback && !q.vtype) || (q.vtype && q.vtype!='html') ){
@@ -22,7 +28,7 @@ function ViewOP(req, res) {
             this.head(200, vtype);
             res.write(util.inspect(data));
             res.end();
-            Tools.debug('data:'+vtype, q);
+            Tools.debug('data:'+vtype+', '+mkvs.path, q);
             return 
         }
         // 找模板
@@ -52,6 +58,11 @@ function ViewOP(req, res) {
             var re = Tools.fsRead(fp, (cmine[0]=='image' ? 'binary' : 0));
             code = re.err ? 404 : 200;
             this.head(code, 0, cmine);
+            if(code==404){
+                re.data = 'Error 404, NOT found : '+fp;
+                if(cmine[2]=='js') re.data = '\n// '+re.data+'\n';
+                if(cmine[2]=='css') re.data = '\n/* '+re.data+' */\n';
+            } 
             res.write(re.data, (cmine[0]=='image' ? 'binary' : 'utf-8'));
         }
         res.end();
@@ -76,10 +87,10 @@ function ViewOP(req, res) {
             ctype = 'image';
             cmine = Mimes['image'][ext];
         }else{
-            ctype = 'down';
+            ctype = 'stream';
             cmine = Mimes['stream']['down'];
         }
-        return [ctype, cmine];
+        return [ctype, cmine, ext];
     }
 };
 module.exports = ViewOP;
