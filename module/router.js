@@ -21,8 +21,15 @@ function Router(req, res) {
             return vop.static(mkvs.err, 404);
         }
         // 静态/禁访问:目录
-        if(mkvs.dir=='forbid' || mkvs.dir=='static' || mkvs.path=='/favicon.ico'){
-            var code = mkvs.dir=='forbid' ? 403 : 200;
+        if(mkvs.dir=='forbid' || mkvs.dir=='static' || !Config.dirv[mkvs.dir] || mkvs.path=='/favicon.ico'){
+            var code = 200;
+            if(mkvs.dir=='forbid'){
+                code = 403;
+            }else if(mkvs.dir=='static'){
+                code = 200;
+            }else if(!Config.dirv[mkvs.dir]){
+                code = 404;
+            }
             return vop.static(mkvs.path, code);
         }
         // 用户扩展处理
@@ -81,7 +88,7 @@ function Router(req, res) {
         if(tmp.length>3 || !tmp[0] || !tmp[tmp.length-1]){
             mkvs.err = 'Error mkv [a]';
             return;
-        } 
+        }
         for (var i = 0; i < tmp.length; i++) {
             var flag = /^[0-9a-z]{1}[\w]{0,24}$/.test(tmp[i]);
             if(!tmp[i] || !flag){
