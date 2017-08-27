@@ -1,5 +1,52 @@
 
 
+
+REST-API
+
+* home [nav]
+ - news (list) [json,xml,jsonp]
+ - news-sub1
+ - news-sub2
+ - news.id + nres(10)
+
+
+* task
+ - mysql             --- ok
+ - mkv -> data       --- ok
+ - tpl -> imp/inc    --- ok    
+ - tpl -> tag        --- xxx 
+ - img-show          --- ok 
+ - markdown          --- ok 
+ - xml               --- ok 
+
+
+
+/info?abc=123&rev=<script>alert("a-%27-3")</script>
+
+    // *** Safe4过滤标题
+    static function filSafe4($xStr,$exa=array('%')){
+        $def = array('<','>','"',"'","\\"); //开始为前4个,\,%后续加上
+        if(!empty($exa)){ 
+            foreach($exa as $val) $def[] = $val;
+        }
+        $xStr = str_replace($def,'',$xStr); 
+        return $xStr;
+    }
+
+    // QUERY-7参数检测
+    static function urlQstr7($re=0){ 
+        $q = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '';
+        $q = urldecode($q);
+        if($q!=str_replace(array('<','>','"',"'","\\","\r","\n"),'',$q)){
+            if($re) return false;
+            $msg = "[QUERY]Error!";
+            basMsg::show($msg,'die'); 
+        }
+        return true;
+    }
+
+
+
 http://www.jb51.net/article/58222.htm
 node.js中实现同步操作的3种实现方法
 
@@ -20,18 +67,6 @@ var Config = require('./config'),
 
 http://blog.csdn.net/dong123dddd/article/details/51727238
 nodejs读取图片返回给浏览器显示
-
-* vdata
-* vtpl
-
-
-
-* task
- - mysql             --- ok
- - mkv -> data       ---
- - tpl -> imp/inc    --- ok    
- - tpl -> tag        ---
- - img-show          --- ok 
 
 
 nodejs内置模块/常用工具
