@@ -14,7 +14,7 @@ REST-API
  - mysql             --- ok
  - mkv -> data       --- ok
  - tpl -> imp/inc    --- ok    
- - tpl -> tag        ---  
+ - tpl -> tag        --- ok
  - img-show          --- ok 
  - markdown          --- ok 
  - xml               --- ok 
