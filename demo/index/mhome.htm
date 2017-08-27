@@ -1,0 +1,60 @@
+{imp:"index:_incs/lay1"}<!--模板继承-->
+
+{block:title} Demo Home{/block:title}
+
+{block:main}
+
+
+<h1>Demo Home</h1>
+<p class="tr"><a href="/">Back Home</a></p>
+
+<div class="block">   
+    <h2>docs_news</h2>
+    <p><a href="/client/cmini.htm">Mini-Chat</a></p>
+    <p><a href="/client/ckefu.htm">Kefu-Chat</a></p>
+    <p><a href="#/client/cpush.htm">App-Push</a></p>
+    <p><a href="#/client/cupd.htm">App-Update</a></p>
+</div>
+
+<div class="block right">   
+    <h2>coms_nrem</h2>
+    <p><a href="/">Home-page</a></p>
+    <p><a href="/about">About-page</a></p>
+    <p><a href="/info?abc=123">Info-page</a></p>
+    <p><a href="/sub123?param1=abc">Defalut page1</a>
+     # <a href="/sub123?param1=def">page2</a>
+     # <a href="/sub456?param1=ijk">page3</a>
+    </p>
+</div>
+
+<div class="clear"></div>
+
+<div class="block">   
+    <h2>person</h2>
+    <p><a href="/demo/news">news-Home</a></p>
+    <p><a href="/demo/news-sub2">news-sub2</a></p>
+    <p><a href="/demo/news-sub3">news-sub3</a></p>
+    <p><a href="/demo/news.2017abcd">news-detail</a></p>
+    <p><a href="/uext/mod-abcd">uext:mod-abcd</a></p>
+    
+</div>
+
+<div class="block right">   
+    <h2>chatroom</h2>
+    <p><a href="/rest/">(Rest-Home)</a>
+    <br><span>实际应用，可不要这页</span>
+    </p>
+    <p><a href="/rest/news">news</a> # <a href="/rest/news-n1018">sub-type</a>
+     # <a href="/rest/news.2015-9c-m4k1">detail</a>
+    <br><span>detail 扩展了相关的评论</span>
+    </p>
+    <p><a href="/rest/person?vtype=xml">person</a> # <a href="/rest/person-pvip?vtype=jsonp&callback=mycb">sub-type</a>
+     # <a href="/rest/person.2015-c2-q9d1?vtype=html">detail</a>
+    <br><span>添加vtype, callback参数返回不同格式</span>
+    <p><a href="/rest/nrem">nrem</a> # <a href="/rest/nrem-pvip?pid=2015-9c-m4k1">pid-recs</a>
+     # <a href="/rest/nrem.2015-c2-q9d1?pid=2015-88-8888">detail</a>
+    <br><span>添加vtype, callback参数返回不同格式</span>
+    </p>
+</div>
+
+{/block:main}

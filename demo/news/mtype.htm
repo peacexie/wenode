@@ -1,0 +1,26 @@
+{imp:"index:_incs/lay1"}<!--模板继承-->
+
+{block:title}News list{/block:title}
+
+{block:main}
+
+<h1>News list</h1>
+<p class="tr"><a href="/demo/news">Back News</a></p>
+
+<div>   
+    <h2>News list</h2>
+    <p><i>did:</i> {$rdb.did}</p>
+    <p><i>catid:</i> {$rdb.catid}</p>
+    <p><i>hinfo:</i> {$rdb.hinfo}</p>
+    <p><i>click:</i> {$rdb.click}</p>
+    <p><i>aip:</i> {$rdb.aip}</p>
+    <p><i>atime:</i> {$rdb.atime}</p>
+    <p><i>auser:</i> {$rdb.auser}</p>
+</div>
+
+<div>   
+    <h2>pager</h2>
+    <p>page-bar</p>
+</div>
+
+{/block:main}

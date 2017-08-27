@@ -29,12 +29,17 @@ function Mintpl(mkvs) {
 
     // 填充tpl: index, home/about
     this.fill = function(data) { 
-        res = Tools.fsRead(dir+tplname+'.htm');
+        var html = this.read(tplname);
+        // {use:"news/mtype"}
+        var reg = new RegExp(/\{use:\"([\S]{3,48})\"\}/, 'gi');
+        var itms = reg.exec(html);
+        if(itms && itms[1]){
+            html = this.read(itms[1]);    
+        }
         // imp,继承; inc,包含
-        // data; tags; 
-        html = this.imp(res.data); // 模板继承; 
+        html = this.imp(html); // 模板继承; 
         html = this.inc(html); // 模板包含; 
-        //html = this.tag(html); // tag解析; 
+        html = this.tag(html, data); // tag解析; 
         html = this.vals(html, data.rdb, 'rdb');
         html = this.vals(html, data.rex, 'rex');
         html = this.vals(html, mkvs, 'mkvs');
@@ -43,8 +48,31 @@ function Mintpl(mkvs) {
     };
 
     // inc:模板包含
-    this.tag = function(html) { 
+    this.tag = function(html, data) { 
+        reg = new RegExp(/\{tag:([\w|\.]{1,24})\}/, 'gi');
+        itms = html.match(reg); // {tag:data.rex}, <p><i>{$title}</i>{$detail}</p>
+        if(!itms) return html; //没有tag
+        for (var i=0; i<itms.length; i++) {
+            var k1 = itms[i], k2 = k1.replace('{tag:', '{/tag:');
+            var tpl = Tools.getPos(html, k1, k2); 
+            var vtag = this.vtag(k1, data); Tools.debug(k1+':',vtag); 
+            var list = '';
+            var reg = new RegExp(/\{\$([\w]{1,24})\}/, 'gi');
+            for(var key in vtag){
+                list += tpl.replace(reg, function(m, p1) {
+                    if(typeof(vtag[key][p1])=='undefined') return '{'+p1+'}';
+                    if(typeof(vtag[key][p1])=='object' || typeof(vtag[key][p1])=='function') vtag[key][p1] = util.inspect(vtag[key][p1]);
+                    return vtag[key][p1]; 
+                });
+            }
+            html = html.replace(k1+tpl+k2, list);
+        }
         return html;
+        /*
+            {tag:data.rex}
+            <p><i>{$title}</i><br>{$detail}</p>
+            {/tag:data.rex}
+        */
     }
 
     // inc:模板包含
@@ -54,7 +82,7 @@ function Mintpl(mkvs) {
         if(!itms) return html; //没有inc
         for (var i=0; i<itms.length; i++) {
             var tpl = itms[i].replace('{inc:"', '').replace('"}', '');
-            var sinc = Tools.fsRead(dir+tpl+'.htm', 0, 1);
+            var sinc = this.read(tpl);
             if(!sinc){ sinc = "<!-- {inc:`"+tpl+"`} -->"; }
             html = html.replace(itms[i], sinc);
             return this.inc(html);
@@ -67,7 +95,7 @@ function Mintpl(mkvs) {
         var reg = new RegExp(/\{imp:\"([\S]{3,48})\"\}/, 'gi');
         var itms = reg.exec(html);
         if(!itms || !itms[1]) return html; //没有imp
-        var layout = Tools.fsRead(dir+itms[1]+'.htm', 0, 1);
+        var layout = this.read(itms[1]);
         reg = new RegExp(/\{block:([\w]{1,24})\}/, 'gi');
         itms = layout.match(reg); //Tools.debug(itms); 
         if(!itms) return layout; //没有block
@@ -86,6 +114,17 @@ function Mintpl(mkvs) {
         return layout;
     }
 
+    // {tag:data.rex}
+    this.vtag = function(tag, data){
+        var arr = tag.replace('{tag:','').replace('}','').split('.');
+        var dre={};
+        for(var i=0; i<arr.length-1; i++){
+            if(arr[i]=='data') dre = data;
+            else{ dre = dre[arr[i]]; }
+        }
+        return dre;
+    }
+
     // 替换数据
     this.vals = function(html, arr, fix){
         if(!arr) return html;
@@ -100,6 +139,13 @@ function Mintpl(mkvs) {
             }
         });
     };
+
+    // read:imp/inc
+    this.read = function(tpl) { 
+        var fp = tpl.indexOf(':')>0 ? '/'+tpl.replace(':','/') : dir+tpl;
+        data = Tools.fsRead(fp+'.htm', 0, 1);
+        return data;
+    }
 
 };
 module.exports = Mintpl;

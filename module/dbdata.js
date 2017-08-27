@@ -82,7 +82,7 @@ function dbData(mkvs, res) {
         var opt = {};
         opt.where = kid+"='"+mkvs.key+"'";
         Mycurd.get(tab, opt, function(rdb){
-            cb && cb(rdb);
+            cb && cb(rdb[0]);
         });
     }
 

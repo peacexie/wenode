@@ -10,6 +10,7 @@ body{ width:760px; margin:auto; }
 .block { width:370px; float:left; margin-bottom:10px; border:0px solid #CCC; }
 .right{ float:right; }
 .clear{ clear:both; }
+.tr{ text-align:right; }
 nav{ display:block; clear:both; padding:10px; }
 h1{ display:block; clear:both; text-align:center; }
 nav li{ width:120px; display:inline-block; float:left; }
@@ -25,14 +26,14 @@ footer{ clear:both; text-align:center; padding:10px; }
 </head>
 <body> 
 
-{inc:"_incs/top1"}
+{inc:"index:_incs/top1"}
 
 {block:main}{/block:main}
 
 {inc:"_incs/end123"}
 <footer>
 {block:foot}
-<p class="clear">debug:{$config.debug} @ {$rex.tplname}</p>
+<p class="clear">debug:{$config.debug} @ /{$mkvs.dir}/{$rex.tplname}</p>
 {/block:foot}
 License under MIT / 遵循MIT协议
 </footer>

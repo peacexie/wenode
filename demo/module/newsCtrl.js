@@ -17,18 +17,6 @@ function newsCtrl(mkvs, rdb) {
         cb && cb(ext);
     }
 
-    // u123Act
-    this.u123Act = function(cb){
-        var ext = this.init('u123');
-        cb && cb(ext);
-    }
-
-    // mtypeAct
-    this.mtypeAct = function(cb){
-        var ext = this.init('mtype');
-        cb && cb(ext);
-    }
-
     // detailAct
     this.detailAct = function(cb){
         // 处理: pid, page, order, limit ... 
