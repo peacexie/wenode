@@ -1,10 +1,9 @@
 {imp:"_incs/lay1"}<!--模板继承-->
 
-{block:title}About - {:parent}{/block:title}
-
 {block:main}
 
-<h1>Node js for … </h1>
+<h1>Wenode</h1>
+<p>A mini Node.js App Framework, for Web-Chatroom, Info-push, REST-API!</p>
 
 <div class="block">   
     <h2>Chatroom - Client</h2>
@@ -36,10 +35,20 @@
 </div>
 
 <div class="block right">   
-    <h2>Web - Mkv-REST</h2>
-    <p><a href="/rest/XXX">news</a> # <a href="/rest/XXX">jsonp</a>
-     # <a href="/rest/XXX">xml</a>
-    <br><span>Notes...</span>
+    <h2>REST-API</h2>
+    <p><a href="/rest/">(Rest-Home)</a>
+    <br><span>实际应用，可不要这页</span>
+    </p>
+    <p><a href="/rest/news">news</a> # <a href="/rest/news-n1018">sub-type</a>
+     # <a href="/rest/news.2015-9c-m4k1">detail</a>
+    <br><span>detail 扩展了相关的评论</span>
+    </p>
+    <p><a href="/rest/person?vtype=xml">person</a> # <a href="/rest/person-pvip?vtype=jsonp&callback=mycb">sub-type</a>
+     # <a href="/rest/person.2015-c2-q9d1?vtype=html">detail</a>
+    <br><span>添加vtype, callback参数返回不同格式</span>
+    <p><a href="/rest/nrem">nrem</a> # <a href="/rest/nrem-pvip?pid=2015-9c-m4k1">pid-recs</a>
+     # <a href="/rest/nrem.2015-c2-q9d1?pid=2015-88-8888">detail</a>
+    <br><span>添加vtype, callback参数返回不同格式</span>
     </p>
 </div>
 

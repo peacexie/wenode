@@ -59,7 +59,7 @@ function ViewOP(req, res) {
             }else{
                 res.write(json);
             }
-        }
+        }//else{ res.write(' '); }
         res.end();
         Tools.debug('data.'+code+'('+vtype+') '+mkvs.path, q); 
     }

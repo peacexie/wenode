@@ -2,7 +2,7 @@
 var config = {
     "debug" : true, // 调试标记
     "logfile" : '/cache/debug-Y-m-d.log', // 调试日志
-    "title" : "和平鸽-wenode",
+    "title" : "Wenode - A mini Node.js App Framework!",
 	// host
     "host" : "127.0.0.1", // 228,4
     "port" : 8821,

@@ -46,7 +46,7 @@ function dbData(mkvs, res) {
         var cp = '/'+mkvs.dir+'/module/'+mkvs.mod+'Ctrl.js';
         var flag = Tools.fsHas(cp);
         if(flag){ // 有控制器
-            var modCtrl = require(_dir+cp);
+            var modCtrl = require(_dir+cp); 
             var ctrl = new modCtrl(mkvs, data.rdb); // 控制器
             var act = '', tmp1 = mkvs.key+'Act', tmp2 = mkvs.type+'Act';
             if(mkvs.type=='mtype' && typeof(ctrl[tmp1])=='function'){
@@ -65,6 +65,7 @@ function dbData(mkvs, res) {
 
     // dbList
     this.dbList = function(cb){
+        // 处理: pid, page, order, limit ... 
         var opt = {};
         if(mkvs.query.pid){ opt.where = "pid='"+mkvs.query.pid+"'"; }
         opt.order = kid + ' DESC';
@@ -77,7 +78,7 @@ function dbData(mkvs, res) {
     // dbDetail
     this.dbDetail = function(cb){
         var opt = {};
-        opt.where = kid+"='"+mkvs.kid+"'";
+        opt.where = kid+"='"+mkvs.key+"'";
         Mycurd.get(tab, opt, function(rdb){
             cb && cb(rdb);
         });
@@ -122,9 +123,6 @@ news.2017-ab-1234
 
 http://www.runoob.com/nodejs/node-js-get-post.html
 
-var http = require('http');
-var querystring = require('querystring');
- 
 http.createServer(function(req, res){
     // 定义了一个post变量，用于暂存请求体的信息
     var post = '';     

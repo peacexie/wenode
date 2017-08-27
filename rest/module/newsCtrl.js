@@ -1,6 +1,7 @@
 
 var Config = require('../../module/config'),
     Tools  = require('../../module/tools'),
+    Mycurd = require('../../module/mycurd'),
     util   = require('util');
 
 function newsCtrl(mkvs, rdb) {
@@ -30,8 +31,19 @@ function newsCtrl(mkvs, rdb) {
 
     // detailAct
     this.detailAct = function(cb){
+        /*
         var ext = this.init('detail');
         cb && cb(ext);
+        */
+        // 处理: pid, page, order, limit ... 
+        var opt = {};
+        opt.where = "pid='"+mkvs.key+"'";
+        opt.order = 'cid DESC';
+        opt.limit = 10;
+        Mycurd.get('coms_nrem', opt, function(rdb){
+            cb && cb(rdb);
+        });
+
     }
 
 };
