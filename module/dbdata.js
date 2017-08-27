@@ -111,13 +111,6 @@ module.exports = dbData;
 
 /*
 --------------------------------- POST 
-        
-Tools.debug('xxx1:', typeof(this['test1'])); // xxx1: function
-Tools.debug('xxx1:', typeof(this['test2'])); // xxx1: undefined
-this['test1'](123); // xxx2 test1:123
-this.test1= function(aaa){
-    Tools.debug('xxx2', 'test1:'+aaa);
-}
 
 news-add + post
 news-upd + post

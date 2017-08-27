@@ -112,8 +112,3 @@ function Router(req, res) {
 
 };
 module.exports = Router;
-
-/*
-
-*/
-
