@@ -52,13 +52,14 @@ exports.getPos = function(data, k1, k2) {
 }
 
 // 同步调用
-exports.exeOrder = function(funcs,count,sum){
+exports.exeOrder = function(funcs, count, sum, cb){
     if(count==sum){
+        cb && cb();
         return; 
     }else{
         funcs[count](function(){
             count++;
-            exeOrder(funcs,count,sum);
+            this.exeOrder(funcs, count, sum, cb);
         });
     }  
 }
