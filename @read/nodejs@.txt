@@ -14,37 +14,10 @@ REST-API
  - mysql             --- ok
  - mkv -> data       --- ok
  - tpl -> imp/inc    --- ok    
- - tpl -> tag        --- xxx 
+ - tpl -> tag        ---  
  - img-show          --- ok 
  - markdown          --- ok 
  - xml               --- ok 
-
-
-
-/info?abc=123&rev=<script>alert("a-%27-3")</script>
-
-    // *** Safe4过滤标题
-    static function filSafe4($xStr,$exa=array('%')){
-        $def = array('<','>','"',"'","\\"); //开始为前4个,\,%后续加上
-        if(!empty($exa)){ 
-            foreach($exa as $val) $def[] = $val;
-        }
-        $xStr = str_replace($def,'',$xStr); 
-        return $xStr;
-    }
-
-    // QUERY-7参数检测
-    static function urlQstr7($re=0){ 
-        $q = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '';
-        $q = urldecode($q);
-        if($q!=str_replace(array('<','>','"',"'","\\","\r","\n"),'',$q)){
-            if($re) return false;
-            $msg = "[QUERY]Error!";
-            basMsg::show($msg,'die'); 
-        }
-        return true;
-    }
-
 
 
 http://www.jb51.net/article/58222.htm
