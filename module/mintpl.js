@@ -36,7 +36,8 @@ function Mintpl(mkvs) {
         html = this.inc(html); // 模板包含; 
         //html = this.tag(html); // tag解析; 
         html = this.vals(html, mkvs, 'mkvs');
-        html = this.vals(html, data, 'data');
+        html = this.vals(html, data.rdb, 'rdb');
+        html = this.vals(html, data.rex, 'rex');
         return html;
     };
 

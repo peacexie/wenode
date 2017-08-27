@@ -34,7 +34,7 @@ function ViewOP(req, res) {
             var html = mtpl.fill(data);
             res.write(html);
             res.end();
-            Tools.debug('http.'+200, '[tpl]/'+mkvs.dir+'/'+tplname+'?'+util.inspect(mkvs.query));
+            Tools.debug('http.200', '[tpl]/'+mkvs.dir+'/'+tplname+'?'+util.inspect(mkvs.query));
         }else{
             // 模板错误
             var tpl = '/'+mkvs.dir+'/'+mkvs.mod+'/('+(mkvs.key+'|'+mkvs.type)+')';
@@ -46,19 +46,22 @@ function ViewOP(req, res) {
         var q = mkvs.query;
         var vtype = q.vtype ? q.vtype : 'json';
         var json = util.inspect(data);
-        this.head(200, vtype); // vtype, 'html'
-        if(vtype=='jsonp'){
-            var cb = q.callback ? q.callback : 'cb';
-            json = cb+'('+json+');';
-            res.write(json);
-        }else if(vtype=='xml'){
-            var xml = this.vxml(data);
-            res.write(xml);
-        }else{
-            res.write(json);
+        var code = json=='{}' ? 404 : 200;
+        this.head(code, vtype);
+        if(code==200){
+            if(vtype=='jsonp'){
+                var cb = q.callback ? q.callback : 'cb';
+                json = cb+'('+json+');';
+                res.write(json);
+            }else if(vtype=='xml'){
+                var xml = this.xmlDoc(data);
+                res.write(xml);
+            }else{
+                res.write(json);
+            }
         }
         res.end();
-        Tools.debug('data.'+vtype+' '+mkvs.path, q); 
+        Tools.debug('data.'+code+'('+vtype+') '+mkvs.path, q); 
     }
     // 静态显示
     this.static = function(fp, code){
@@ -106,7 +109,7 @@ function ViewOP(req, res) {
         return [ctype, cmine, ext];
     }
 
-    this.vxml = function(data){
+    this.xmlDoc = function(data){
         var xml = '';
         xml  = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
         xml += "<root>\n";
@@ -115,30 +118,27 @@ function ViewOP(req, res) {
         return xml;
     }
     this.xmlRow = function(data, item, id){
-        var xml='', attr='', val='';
+        var xml='', attr='', val='', ival='';
         if(util.isArray(data)){
             for(var i=0; i<data.length; i++) {
                 attr = ' id="'+i+'"';
-                ival = data[i];
+                ival = data[i]; val = ival;
                 if(typeof(ival)=='object' || util.isArray(ival)){
                     val = this.xmlRow(ival, item, id);
                 }else if(typeof(ival)=='string'){ 
                     val = ival.replace(/\&/g,"&amp;").replace(/\</g,"&lt;").replace(/\>/g,"&gt;");
                 }
-                //val = util.inspect(val);
                 xml += "<"+item+attr+">"+val+"</"+item+">\n";
             }
         }else{
             for(var key in data){
-                attr = '';
                 ival = data[key]; val = ival;
                 if(typeof(ival)=='object' || util.isArray(ival)){
                     val = this.xmlRow(ival, item, id);
                 }else if(typeof(ival)=='string'){ 
                     val = ival.replace(/\&/g,"&amp;").replace(/\</g,"&lt;").replace(/\>/g,"&gt;");
                 }
-                //val = util.inspect(val);
-                xml += "<"+key+attr+">"+val+"</"+key+">\n";
+                xml += "<"+key+">"+val+"</"+key+">\n";
             }            
         }
         return xml;
