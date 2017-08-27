@@ -67,3 +67,17 @@ exports.exeOrder = function(funcs,count,sum){
     var len = funcs.length;
     exeOrder(funcs,0,len);
 */
+
+// 
+exports.safeFill = function(str, test){
+    // fill ", ', <, >
+    var reg = new RegExp(/(\%22|\%27|\%3C|\%3E)/, 'gi');
+    var rep = {"x22":"&quot;", "x27":"&#039;", "x3C":"[", "x3E":"]",}; 
+    if(test){ // &lt; , &gt;
+        return str.match(reg); 
+    }else{
+        return str.replace(reg, function(m, p1) {
+            return rep['x'+p1.replace('%','')];
+        }); 
+    }
+}

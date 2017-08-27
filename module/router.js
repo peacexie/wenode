@@ -32,10 +32,9 @@ function Router(req, res) {
             }
             return vop.static(mkvs.path, code);
         }
-        // 用户扩展处理
-        var fop = '/'+mkvs.dir+'/viewop.js';
-        var flag = Tools.fsHas(fop);
-        if(flag){
+        // 处理用户扩展
+        if(Config.dirv[mkvs.dir]=='viewop.js'){
+            var fop = '/'+mkvs.dir+'/viewop.js';
             var sop = require(_dir+fop); // 子路由
             return new sop(req, res).run(mkvs);
         }
@@ -74,6 +73,11 @@ function Router(req, res) {
     }
     // 分离imkv
     this.imkv = function(){
+        // fill ", ', <, >
+        if(Tools.safeFill(mkvs.ourl.search, 1)){ 
+            mkvs.err = 'Error path [0]: '+Tools.safeFill(mkvs.ourl.search, 0);
+            return;
+        }
         var tmp=[]; 
         if(mkvs.mkv.indexOf('.')>0){
             tmp = mkvs.mkv.split('.');
@@ -86,13 +90,13 @@ function Router(req, res) {
             mkvs.type = 'mhome';
         }
         if(tmp.length>3 || !tmp[0] || !tmp[tmp.length-1]){
-            mkvs.err = 'Error mkv [a]';
+            mkvs.err = 'Error mkv [a]: '+util.inspect(mkvs.mkv);
             return;
         }
         for (var i = 0; i < tmp.length; i++) {
             var flag = /^[0-9a-z]{1}[\w]{0,24}$/.test(tmp[i]);
             if(!tmp[i] || !flag){
-                mkvs.err = 'Error mkv [b]';
+                mkvs.err = 'Error mkv [b]: '+util.inspect(mkvs.mkv);
                 return;
             } 
         }

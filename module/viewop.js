@@ -9,24 +9,21 @@ var Config = require('./config'),
 // mkv-显示
 function ViewOP(req, res) {
 
-    this.run = function(mkvs){
+    var mkvs={}, data={};
+
+    this.run = function(mkp){
+        mkvs = mkp;
         var _me = this;
-        new dbData(mkvs, res).run(function(data){
-            _me.view(mkvs, data);
+        new dbData(mkvs, res).run(function(rep){
+            data = rep;
+            _me.view();
         });
     }
-
     // 显示操作
-    this.view = function(mkvs, data){
+    this.view = function(){
         // 直接返回数据:vtype(html,json,jsonp,xml),callback
-        var q = mkvs.query;
-        if( (q.callback && !q.vtype) || (q.vtype && q.vtype!='html') ){
-            vtype = (q.callback && !q.vtype) ? 'jsonp' : q.vtype;
-            this.head(200, vtype);
-            res.write(util.inspect(data));
-            res.end();
-            Tools.debug('data.'+vtype+' '+mkvs.path, q);
-            return 
+        if(Config.dirv[mkvs.dir]=='vdata'){
+            return this.vdata();
         }
         // 找模板
         var mtpl = new Mintpl(mkvs);
@@ -37,12 +34,31 @@ function ViewOP(req, res) {
             var html = mtpl.fill(data);
             res.write(html);
             res.end();
-            Tools.debug('http.'+200, '[tpl]/'+mkvs.dir+'/'+tplname+'?'+util.inspect(q));
+            Tools.debug('http.'+200, '[tpl]/'+mkvs.dir+'/'+tplname+'?'+util.inspect(mkvs.query));
         }else{
             // 模板错误
             var tpl = '/'+mkvs.dir+'/'+mkvs.mod+'/('+(mkvs.key+'|'+mkvs.type)+')';
             this.static(tpl+'.htm', 404);
         }
+    }
+    // 纯数据显示
+    this.vdata = function(){
+        var q = mkvs.query;
+        var vtype = q.vtype ? q.vtype : 'json';
+        var json = util.inspect(data);
+        this.head(200, vtype); // vtype, 'html'
+        if(vtype=='jsonp'){
+            var cb = q.callback ? q.callback : 'cb';
+            json = cb+'('+json+');';
+            res.write(json);
+        }else if(vtype=='xml'){
+            var xml = this.vxml(data);
+            res.write(xml);
+        }else{
+            res.write(json);
+        }
+        res.end();
+        Tools.debug('data.'+vtype+' '+mkvs.path, q); 
     }
     // 静态显示
     this.static = function(fp, code){
@@ -89,5 +105,44 @@ function ViewOP(req, res) {
         }
         return [ctype, cmine, ext];
     }
+
+    this.vxml = function(data){
+        var xml = '';
+        xml  = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
+        xml += "<root>\n";
+        xml += this.xmlRow(data, 'item', 'id');
+        xml += "</root>\n";
+        return xml;
+    }
+    this.xmlRow = function(data, item, id){
+        var xml='', attr='', val='';
+        if(util.isArray(data)){
+            for(var i=0; i<data.length; i++) {
+                attr = ' id="'+i+'"';
+                ival = data[i];
+                if(typeof(ival)=='object' || util.isArray(ival)){
+                    val = this.xmlRow(ival, item, id);
+                }else if(typeof(ival)=='string'){ 
+                    val = ival.replace(/\&/g,"&amp;").replace(/\</g,"&lt;").replace(/\>/g,"&gt;");
+                }
+                //val = util.inspect(val);
+                xml += "<"+item+attr+">"+val+"</"+item+">\n";
+            }
+        }else{
+            for(var key in data){
+                attr = '';
+                ival = data[key]; val = ival;
+                if(typeof(ival)=='object' || util.isArray(ival)){
+                    val = this.xmlRow(ival, item, id);
+                }else if(typeof(ival)=='string'){ 
+                    val = ival.replace(/\&/g,"&amp;").replace(/\</g,"&lt;").replace(/\>/g,"&gt;");
+                }
+                //val = util.inspect(val);
+                xml += "<"+key+attr+">"+val+"</"+key+">\n";
+            }            
+        }
+        return xml;
+    }
+
 };
 module.exports = ViewOP;

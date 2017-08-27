@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Node js for … Chatroom, Info-push, REST-API </title>
-<base target="_blank">
-</head>
+{imp:"_incs/lay1"}<!--模板继承-->
 
-<body> 
+{block:title}About - {:parent}{/block:title}
+
+{block:main}
 
 <h1>Node js for … </h1>
 
@@ -18,7 +15,7 @@
     <p><a href="http://127.0.0.1/peace/wenode/trunk/client/csets.php?aid=1251&uname=%E5%AE%A2%E6%9C%8DC&type=kefu">Admin-Chats(Other Server)</a></p>
 </div>
 
-<div class="block">   
+<div class="block right">   
     <h2>Web - Home</h2>
     <p><a href="/">Home-page</a></p>
     <p><a href="/info?abc=123">Info-page</a></p>
@@ -26,25 +23,43 @@
     <p><a href="/sub123">Defalut-page</a></p>
 </div>
 
+<div class="clear"></div>
+
 <div class="block">   
-    <h2>Web - Mkv</h2>
-    <p><a href="/rest/news">news-Home</a></p>
-    <p><a href="/rest/news-sub2">news-sub2</a></p>
-    <p><a href="/rest/news-sub3">news-sub3</a></p>
-    <p><a href="/rest/news.2017abcd">news-detail</a></p>
+    <h2>Web - Mkv-Demo</h2>
+    <p><a href="/demo/news">news-Home</a></p>
+    <p><a href="/demo/news-sub2">news-sub2</a></p>
+    <p><a href="/demo/news-sub3">news-sub3</a></p>
+    <p><a href="/demo/news.2017abcd">news-detail</a></p>
     <p><a href="/uext/mod-abcd">uext:mod-abcd</a></p>
+    
 </div>
 
+<div class="block right">   
+    <h2>Web - Mkv-REST</h2>
+    <p><a href="/rest/XXX">news</a> # <a href="/rest/XXX">jsonp</a>
+     # <a href="/rest/XXX">xml</a>
+    <br><span>Notes...</span>
+    </p>
+</div>
+
+<div class="clear"></div>
+
 <div class="block">  
-    <h2>404,Static,Forbid</h2>
+    <h2>Static</h2>
     <p><a href="/static/page1.htm">Static-page</a></p>
     <p><a href="/static/pa123.htm">Static-404(htm)</a></p>
     <p><a href="/static/pa123.js">Static-404(js)</a></p>
     <p><a href="/static/pa123.css">Static-404(css)</a></p>
+</div>
+
+<div class="block">  
+    <h2>404,Forbid</h2>
     <p><a href="/cache/config/config.js">Forbid-page</a></p>
     <p><a href="/somedir/news">404-page(list)</a></p>
     <p><a href="/somedir/news.2017-ab-1234">404-page(detail)</a></p>
 </div>
 
-</body>
-</html>
+{/block:main}
+
+{block:foot}{:clear}{/block:foot}
