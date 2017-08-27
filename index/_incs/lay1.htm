@@ -29,12 +29,11 @@ footer{ clear:both; text-align:center; padding:10px; }
 
 {block:main}{/block:main}
 
-{block:foot}
-<p>isfooter!</p>
-{/block:foot}
-
 {inc:"_incs/end123"}
 <footer>
+{block:foot}
+<p class="clear">debug:{$config.debug} @ {$rex.tplname}</p>
+{/block:foot}
 License under MIT / 遵循MIT协议
 </footer>
 

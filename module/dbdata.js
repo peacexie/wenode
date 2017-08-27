@@ -14,6 +14,8 @@ function dbData(mkvs, res) {
         var _me = this;
         this.dbRes(function(){
             _me.dbExt(function(){
+                if(!data.rdb) data.rdb = {};
+                if(!data.rex) data.rex = {};
                 cb(data);
             });
         });

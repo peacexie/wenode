@@ -1,5 +1,7 @@
 {imp:"_incs/lay1"}<!--模板继承-->
 
+{block:title}About wenode{/block:title}
+
 {block:imp}<script src="/static/js/jquery-3x.js"></script>
 <script src="/static/js/marked.min.js"></script>{/block:imp}
 
@@ -15,5 +17,3 @@ $('#mdstr').html(marked($("#mdstr").html()))
 </script>
 
 {/block:main}
-
-{block:foot}{:clear}{/block:foot}

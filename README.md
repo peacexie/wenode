@@ -1,7 +1,8 @@
 
-# wenode
-Node js for Chatroom, Info-push, REST-API
+# Wenode
 
+A mini Node.js App Framework, for Web-Chatroom, Info-push, REST-API!  
+一个适合于：网页聊天, 信息推送, REST-API, 微信扫码交互的 Node.js 微框架！
 
 ----------------------------------- 
 

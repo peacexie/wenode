@@ -35,9 +35,10 @@ function Mintpl(mkvs) {
         html = this.imp(res.data); // 模板继承; 
         html = this.inc(html); // 模板包含; 
         //html = this.tag(html); // tag解析; 
-        html = this.vals(html, mkvs, 'mkvs');
         html = this.vals(html, data.rdb, 'rdb');
         html = this.vals(html, data.rex, 'rex');
+        html = this.vals(html, mkvs, 'mkvs');
+        html = this.vals(html, Config, 'config');
         return html;
     };
 
@@ -87,6 +88,7 @@ function Mintpl(mkvs) {
 
     // 替换数据
     this.vals = function(html, arr, fix){
+        if(!arr) return html;
         var reg = new RegExp(/\{\$([\w]{1,24})\.([\w]{1,24})\}/, 'gi');
         return html.replace(reg, function(m, p1, p2) {
             if(p1==fix){

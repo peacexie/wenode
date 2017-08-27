@@ -30,6 +30,7 @@ function ViewOP(req, res) {
         var tplname = mtpl.get();
         if(tplname){
             // 模板显示
+            data.rex.tplname = tplname;
             this.head(200, 'html');
             var html = mtpl.fill(data);
             res.write(html);
