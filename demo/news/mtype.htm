@@ -9,18 +9,9 @@
 
 <div>   
     <h2>News list</h2>
-    <p><i>did:</i> {$rdb.did}</p>
-    <p><i>catid:</i> {$rdb.catid}</p>
-    <p><i>hinfo:</i> {$rdb.hinfo}</p>
-    <p><i>click:</i> {$rdb.click}</p>
-    <p><i>aip:</i> {$rdb.aip}</p>
-    <p><i>atime:</i> {$rdb.atime}</p>
-    <p><i>auser:</i> {$rdb.auser}</p>
-</div>
-
-<div>   
-    <h2>pager</h2>
-    <p>page-bar</p>
+    {tag:data.rdb}
+    <li><a href="/demo/news.{$did}">{$title}</a><i>{$did}</i></li>
+    {/tag:data.rdb}
 </div>
 
 {/block:main}

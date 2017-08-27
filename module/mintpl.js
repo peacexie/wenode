@@ -55,7 +55,7 @@ function Mintpl(mkvs) {
         for (var i=0; i<itms.length; i++) {
             var k1 = itms[i], k2 = k1.replace('{tag:', '{/tag:');
             var tpl = Tools.getPos(html, k1, k2); 
-            var vtag = this.vtag(k1, data); Tools.debug(k1+':',vtag); 
+            var vtag = this.vtag(k1, data);
             var list = '';
             var reg = new RegExp(/\{\$([\w]{1,24})\}/, 'gi');
             for(var key in vtag){
@@ -117,10 +117,10 @@ function Mintpl(mkvs) {
     // {tag:data.rex}
     this.vtag = function(tag, data){
         var arr = tag.replace('{tag:','').replace('}','').split('.');
-        var dre={};
-        for(var i=0; i<arr.length-1; i++){
-            if(arr[i]=='data') dre = data;
-            else{ dre = dre[arr[i]]; }
+        var dre={}, tmp={};
+        for(var i=0; i<arr.length; i++){
+            if(arr[i]=='data'){ tmp = data; }
+            else{ dre = tmp[arr[i]]; tmp=dre; }
         }
         return dre;
     }

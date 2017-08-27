@@ -10,10 +10,9 @@
 
 <div class="block">   
     <h2>docs_news</h2>
-    <p><a href="/client/cmini.htm">Mini-Chat</a></p>
-    <p><a href="/client/ckefu.htm">Kefu-Chat</a></p>
-    <p><a href="#/client/cpush.htm">App-Push</a></p>
-    <p><a href="#/client/cupd.htm">App-Update</a></p>
+    {tag:data.rdb.news}
+    <li><a href="/demo/news.{$did}">{$title}</a><i>{$did}</i></li>
+    {/tag:data.rdb.news}
 </div>
 
 <div class="block right">   

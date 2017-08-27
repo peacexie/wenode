@@ -93,7 +93,7 @@ function Router(req, res) {
             mkvs.err = 'Error mkv [a]: '+util.inspect(mkvs.mkv);
             return;
         }
-        for (var i = 0; i < tmp.length; i++) {
+        for (var i=0; i<tmp.length; i++) {
             var flag = /^[0-9a-z]{1}[\w|\-]{0,24}$/.test(tmp[i]);
             if(!tmp[i] || !flag){
                 mkvs.err = 'Error mkv [b]: '+util.inspect(mkvs.mkv);
