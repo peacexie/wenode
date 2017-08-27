@@ -69,7 +69,12 @@ function dbData(mkvs, res) {
     this.dbList = function(cb){
         // 处理: pid, page, order, limit ... 
         var opt = {};
-        if(mkvs.query.pid){ opt.where = "pid='"+mkvs.query.pid+"'"; }
+        opt.where = '';
+        if(mkvs.query.pid){ opt.where += "pid='"+mkvs.query.pid+"'"; }
+        var stype = '';
+        if(kid=='did') stype = 'catid';
+        if(kid=='uid') stype = 'grade';
+        if(stype && mkvs.key && mkvs.key!='index'){ opt.where += (opt.where ? ' AND ' : '') + stype+"='"+mkvs.key+"'"; }
         opt.order = kid + ' DESC';
         opt.limit = 10;
         Mycurd.get(tab, opt, function(rdb){
