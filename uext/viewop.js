@@ -1,8 +1,8 @@
 var Config = require('../module/config'),
     Tools  = require('../module/tools'),
-    url    = require("url"),
-    util   = require('util'),
-    fs     = require("fs");
+    url    = require('url'),
+    fs     = require('fs'),
+    util   = require('util');
 
 function ViewOP(req, res) {
 
