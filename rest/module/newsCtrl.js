@@ -11,8 +11,8 @@ function newsCtrl(mkvs, rdb) {
         return ext;
     };
 
-    // mhomeAct
-    this.mhomeAct = function(cb){ 
+    // indexAct
+    this.indexAct = function(cb){ 
         var ext = this.init('mhome');
         cb && cb(ext);
     }

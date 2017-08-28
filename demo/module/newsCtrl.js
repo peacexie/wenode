@@ -4,15 +4,15 @@ var Config = require('../../module/config'),
     Mycurd = require('../../module/mycurd'),
     util   = require('util');
 
-function newsCtrl(mkvs, rdb) {
+function newsCtrl(mkvs, rdb, req, res) {
 
     this.init = function(key) { 
         var ext = {'ext1':'v1Extra-'+key, 'ext2':'v2Extra-'+key};
         return ext;
     };
 
-    // mhomeAct
-    this.mhomeAct = function(cb){ 
+    // indexAct
+    this.indexAct = function(cb){ 
         var ext = this.init('mhome');
         cb && cb(ext);
     }

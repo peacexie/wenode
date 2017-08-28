@@ -16,7 +16,7 @@ exports.debug = function(erno, ermsg){
     }
     console.log(erno,ermsg);
 }
-
+// 同步读取文件
 exports.fsRead = function(fp, encode, redata, basdir){
     var dir = basdir ? basdir : _dir;
     var data='', err=1;
@@ -29,7 +29,7 @@ exports.fsRead = function(fp, encode, redata, basdir){
     var re = {'err':err, 'data':data};
     return re;
 }
-
+// 同步检测文件存在
 exports.fsHas = function(path, basdir) {
     var dir = basdir ? basdir : _dir;
     try{
@@ -39,7 +39,7 @@ exports.fsHas = function(path, basdir) {
     }
     return true;
 }
-
+// 两点定位一段文本
 exports.getPos = function(data, k1, k2) {
     if(!k2){ k1 = '<'+k1+'>'; k2 = '</'+k1+'>'; }
     var p1 = data.indexOf(k1),
@@ -50,26 +50,27 @@ exports.getPos = function(data, k1, k2) {
         return '';
     }
 }
-
 // 同步调用
 exports.exeOrder = function(funcs, count, sum, cb){
-    if(count==sum){
-        cb && cb();
-        return; 
-    }else{
-        funcs[count](function(){
-            count++;
-            this.exeOrder(funcs, count, sum, cb);
-        });
-    }  
+    var doFuncs = function(funcs, count, sum, cb){
+        if(count==sum){
+            cb && cb();
+            return; 
+        }else{
+            funcs[count](function(){
+                count++;
+                doFuncs(funcs, count, sum, cb);
+            });
+        }  
+    }
+    doFuncs(funcs, count, sum, cb);
 }
 /*
     var funcs = [func1,func2,func3];
     var len = funcs.length;
-    exeOrder(funcs,0,len);
+    Tools.exeOrder(funcs,0,len);
 */
-
-// 
+// 安全过滤
 exports.safeFill = function(str, test){
     // fill ", ', <, >
     var reg = new RegExp(/(\%22|\%27|\%3C|\%3E)/, 'gi');
@@ -82,3 +83,15 @@ exports.safeFill = function(str, test){
         }); 
     }
 }
+// 客户端IP
+exports.clientIp = function(req) {
+    var ip = req.headers['x-forwarded-for'] ||
+        req.ip ||
+        req.connection.remoteAddress ||
+        req.socket.remoteAddress ||
+        req.connection.socket.remoteAddress || '';
+    /*if(ip.split(',').length>0){
+        ip = ip.split(',')[0]
+    }*/
+    return ip;
+};

@@ -9,8 +9,7 @@ var WebSock = function(ws, client){
         curUser, // 用户对象:uid,uname,uicon,...
         curIP; // user-ip
     client.on('init', function(room, user){
-        //curIP = reqIp.getClientIp(client.request); 
-        curIP = client.request.connection.remoteAddress;
+        curIP = Tools.clientIp(client.request);
         // room:字符串`type.123`格式
         if(typeof(room)=='string' && room.indexOf('.')>0){
             curRoom = room;

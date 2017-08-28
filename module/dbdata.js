@@ -5,12 +5,13 @@ var Config = require('./config'),
     Mycurd = require('./mycurd'),
     util   = require('util');
 
-function dbData(mkvs, res) {
+function dbData(mkvs, req, res) {
 
     var data={}, cdb=[], tab='', kid=''; // 
 
     // 运行入口
     this.run = function(cb) { 
+        //*
         var _me = this;
         this.dbRes(function(){
             _me.dbExt(function(){
@@ -18,7 +19,14 @@ function dbData(mkvs, res) {
                 if(!data.rex) data.rex = {};
                 cb(data);
             });
-        });
+        });//*/
+        /* ??? 
+        var funcs = [this.dbRes, this.dbExt];
+        Tools.exeOrder(funcs, 0, funcs.length, function(){
+            if(!data.rdb) data.rdb = {};
+            if(!data.rex) data.rex = {};
+            cb && cb(data);
+        });//*/
     };
 
     // dbRes
@@ -49,12 +57,18 @@ function dbData(mkvs, res) {
         var flag = Tools.fsHas(cp);
         if(flag){ // 有控制器
             var modCtrl = require(_dir+cp); 
-            var ctrl = new modCtrl(mkvs, data.rdb); // 控制器
+            var ctrl = new modCtrl(mkvs, data.rdb, req, res); // 控制器
             var act = '', tmp1 = mkvs.key+'Act', tmp2 = mkvs.type+'Act';
-            if(mkvs.type=='mtype' && typeof(ctrl[tmp1])=='function'){
-                act = tmp1; // keyAct;
-            }else if(typeof(ctrl[tmp2])=='function'){
-                act = tmp2; // typeAct;
+            if(mkvs.type=='mhome'){
+                act = typeof(ctrl['indexAct'])=='function' ? 'indexAct' : ''; 
+            }else if(mkvs.type=='detail'){
+                act = typeof(ctrl['detailAct'])=='function' ? 'detailAct' : ''; 
+            }else{ // mtype
+                if(typeof(ctrl[tmp1])=='function'){
+                    act = tmp1; // keyAct;
+                }else if(typeof(ctrl[tmp2])=='function'){
+                    act = tmp2; // typeAct;
+                }
             }
             if(act){ // 有方法
                 ctrl[act](function(rdb){

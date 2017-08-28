@@ -14,7 +14,7 @@ function ViewOP(req, res) {
     this.run = function(mkp){
         mkvs = mkp;
         var _me = this;
-        new dbData(mkvs, res).run(function(rep){
+        new dbData(mkvs, req, res).run(function(rep){
             data = rep;
             _me.view();
         });

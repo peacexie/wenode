@@ -16,12 +16,8 @@
     <p><i>systype:</i> {$rex.systype}</p>
     <p><i>release:</i> {$rex.release}</p>
     <p><i>hostname:</i> {$rex.hostname}</p>
-    <p><i>cpus:</i> {$rex.cpus}</p>
-    <!--
-    <p><i>networkInterfaces:</i> {$rex.networkInterfaces}</p>
-    <p><i>xxx:</i> {$rex.xxx}</p>
-    <p><i>endianness:</i> {$rex.endianness}</p>
-    -->
+    <p><i>clientIp:</i> {$rex.clientIp}</p>
+    <p><i>cpusModel:</i> {$rex.cpusModel}</p>
 </div>
 
 <div class="block right">   
@@ -48,31 +44,9 @@
     <p><i>abced:</i> {$config.abced}</p>
 </div>
 
+<div class="block right">    
+    <h2>networkInterfaces</h2>
+    <p>{$rex.networkInterfaces}</p>
+</div>
+
 {/block:main}
-
-<p><i>name:</i> {$rex.val}</p>
-
-    <p><hr></p>
-    <h3><i>---</i> mkvs.x</h3>
-
-    <p><i>path:</i> {$mkvs.path}</p>
-    <p><i>dir:</i> {$mkvs.dir}</p>
-    <p><i>mkv:</i> {$mkvs.mkv}</p>
-    <p><i>query:</i> {$mkvs.query}</p>
-    <p><i>ourl:</i> {$mkvs.ourl}</p>
-
-    <p><hr></p>
-    <h3><i>---</i> mkv3.x</h3>
-
-    <p><i>mod:</i> {$mkvs.mod}</p>
-    <p><i>key:</i> {$mkvs.key}</p>
-    <p><i>view:</i> {$mkvs.view}</p>
-    <p><i>type:</i> {$mkvs.type}</p>
-    <p><i>abc123:</i> {$mkvs.abc123}</p>
-
-    <p><hr></p>
-    <h3><i>---</i> data.x</h3>
-
-    <p><i>title:</i> {$data.title}</p>
-    <p><i>abc123:</i> {$data.abc123}</p>
-

@@ -4,7 +4,7 @@ var Config = require('../../module/config'),
     os     = require('os'),
     util   = require('util');
 
-function homeCtrl(mkvs, rdb) {
+function homeCtrl(mkvs, rdb, req, res) {
 
     // aboutAct
     this.aboutAct = function(cb){ 
@@ -19,9 +19,10 @@ function homeCtrl(mkvs, rdb) {
         data.systype = os.type(); // linux, Darwin, Windows_NT
         data.hostname = os.hostname();
         data.release = os.release();
-        data.cpus = os.cpus();
+        data.cpusModel = os.cpus()[0]['model'];
         data.networkInterfaces = os.networkInterfaces();
         data.endianness = os.endianness();
+        data.clientIp = Tools.clientIp(req);
         cb && cb(data);
         // ip
     }

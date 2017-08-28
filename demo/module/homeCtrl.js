@@ -4,26 +4,14 @@ var Config = require('../../module/config'),
     Mycurd = require('../../module/mycurd'),
     util   = require('util');
 
-function indexCtrl(mkvs, rdb) {
+function indexCtrl(mkvs, rdb, req, res) {
 
     var data = {};
 
-    // mhomeAct
-    this.mhomeAct = function(cb){ 
-        var exeOrder = function(funcs, count, sum, cb){
-            if(count==sum){
-                cb && cb();
-                return; 
-            }else{
-                funcs[count](function(){
-                    count++;
-                    exeOrder(funcs, count, sum, cb);
-                });
-            }  
-        }
+    // indexAct
+    this.indexAct = function(cb){ 
         var funcs = [this.topNews, this.topPerson, this.topChats, this.topRems];
-        var len = funcs.length;
-        exeOrder(funcs, 0, len, function(){
+        Tools.exeOrder(funcs, 0, funcs.length, function(){
             cb && cb(data);
         });
     }

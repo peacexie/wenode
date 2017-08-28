@@ -7,7 +7,7 @@ A mini Node.js App Framework, for Web-Chatroom, Info-push, REST-API!
 ----------------------------------- 
 
 
-# nodejs学习/聊天室搭建 # 
+# Wenode - Node.js 微框架！ # 
 
 
 ### 需求分析
@@ -101,37 +101,8 @@ A mini Node.js App Framework, for Web-Chatroom, Info-push, REST-API!
     node.js的15个应用场景
 
 
-* db-sql
-
-
-```
-    DROP TABLE IF EXISTS `chatroom_ys`;
-    CREATE TABLE `chatroom_ys` (
-      `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-      `type` varchar(24) NOT NULL DEFAULT '',
-      `ufrom` varchar(255) NOT NULL DEFAULT '',
-      `uto` varchar(24) NOT NULL DEFAULT '',
-      `msgs` varchar(255) NOT NULL DEFAULT '',
-      `show` tinyint(4) NOT NULL DEFAULT '1',
-      `aip` varchar(255) NOT NULL DEFAULT '',
-      `atime` int(11) NOT NULL DEFAULT '0',
-      `auser` varchar(255) NOT NULL DEFAULT '',
-      PRIMARY KEY (`id`)
-    ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-```
-
 ----------------------------------- 
 
-var get_client_ip = function(req) {
-    var ip = req.headers['x-forwarded-for'] ||
-        req.ip ||
-        req.connection.remoteAddress ||
-        req.socket.remoteAddress ||
-        req.connection.socket.remoteAddress || '';
-    if(ip.split(',').length>0){
-        ip = ip.split(',')[0]
-    }
-    return ip;
-};
+
 
 
