@@ -4,32 +4,56 @@
 A mini Node.js App Framework, for Web-Chatroom, Info-push, REST-API!  
 一个适合于：网页聊天, 信息推送, REST-API, 微信扫码交互的 Node.js 微框架！
 
+
 ----------------------------------- 
 
 
 # Wenode - Node.js 微框架！ # 
 
 
-### 需求分析
+### 聊天室功能
 
-* php不适合做长连接
- - 可用：PHP socket实现（我没有成功过）
- - ajax/js不断请求php，做假文字直播：
- - http://house.08cms.com/fcsp/201411/593997/1.html
+* 已有功能
+  - 分聊天室，
+  - 同一人员，加入多聊天室（客户端）
 
-* 选nodejs
- - 天生的异步/非阻塞
- - 这里只做服务端(nodejs可做完整网站，见下`Hello-World`)
+* 使用情景
+  - 直播聊天
+  - APP消息推送 : 升级,提示,消息
+  - 微信扫码交互 : 登录,绑定,
+  - Web客服聊天 : 
 
-* 代码实现
- - 精简 - 只接受发送消息
- - 多房间...(底版本socket.io无此功能)
- - 具体流程分析...见代码
+* 聊天室扩展(待实现)
+  - 上传文件/图片
+  - 消息屏蔽过滤
 
-* 客户端调用:demo 
- - chatc.php
- - chatc.htm
- - chatc-func.js
+
+### Web功能
+
+* REST-API
+  - /rest/news (新闻首页)
+  - /rest/news-a1002 (新闻栏目)
+  - /rest/news-a1008 (新闻栏目)
+  - /rest/news.2017-ab-1234 (新闻详情：id=2017-ab-1234)
+  - 以下根据需要扩展实现
+  - /rest/news-add + POST (增加)
+  - /rest/news-upd + POST (更新)
+  - /rest/news-del + id=2017-ab-1234 (删除)
+
+* Web常用功能
+  - 图片，静态解析
+  - 模板继承
+  - 模板包含
+  - 列表标签
+  - 纯数据展示（见：REST-API）
+  - xml解析
+  - md解析
+  - 自定义数据扩展
+  - 自定义扩展显示
+
+* Web扩展(待实现)
+  - 上传文件/图片，静态解析
+  - 标签显示里面：数据处理（过滤，剪切，格式化）
 
 
 ### 服务器配置
@@ -39,44 +63,34 @@ A mini Node.js App Framework, for Web-Chatroom, Info-push, REST-API!
  - 安装模块：npm install socket.io -g
  - 安装模块：npm install mysql -g
 
-* 版本区别(安装走过的坑)
- - 本地node.js-v6 (-g全局模块可用)
- - 家里node.js-v8 (-g的模块不能用)
-
 * 配置应用/运行
- - 配置db：db-sql见下
- - 配置nodejs：chats-cfgs.js (注意手动建立相关日志目录)
- - 运行：node chats.js
+ - 配置db：/@bak/data.sql
+ - 配置nodejs：/module/config.js (注意手动建立相关日志目录)
+ - 运行：node app.js
 
 
-### node.js 扩展
+### 深度DIY提示
 
-* 聊天室扩展
- - 上传文件/图片
- - chats-cfgs.js `filter过滤配置` `xxx消息被屏蔽...`
+* 精简,nodejs只做聊天服务端
+  - https://github.com/peacexie/wenode/tree/wemin
 
-* 其他应用场合：
- - 微信扫码等长连接
- - (摘录) RESTFUL API / 实时聊天 / APP信息推送 
+* 其他web功能由其他web服务器实现
+  - 如：Apache, IIS, Nginx
+
+* php和长连接
+
+* 选nodejs
+ - 静态文件
+ - 回调
+
+* 文件列表：
+ - /@bak/tree_fdir.txt
+
 
 ----------------------------------- 
 
 
 ### 相关资源
-
-* 本地资源
- - chatc.htm : 外部集成,调用参考
- - chatc.php : php综合,调用参考
- - chatc-func.js : 客户端js
- - chatc-kefu.htm : 游客(我)同时与3个客服聊天,调用参考
- - chatc-style.css : demo用css
- - chats.js : node.js 服务器端
- - chats-cfgs.js : 服务器配置
- - run.cmd : win的cmd命令
-
-* 本地 demo
- - http://127.0.0.1/peace/nodejs/live/chatc.php
- - 
 
 * 外部链接
 

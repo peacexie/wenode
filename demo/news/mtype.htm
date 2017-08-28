@@ -9,9 +9,9 @@
 
 <div>   
     <h2>News list - {$mkvs.key}</h2>
-    {tag:data.rdb}
+    {list:data.rdb}
     <li><a href="/demo/news.{$did}">{$title}</a><i>{$did}</i></li>
-    {/tag:data.rdb}
+    {/list:data.rdb}
 </div>
 
 {/block:main}

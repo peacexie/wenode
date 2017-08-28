@@ -2,7 +2,6 @@
 var Config = require('./config'),
     Tools = require('./tools'),
     Mycurd = require('./mycurd');
-    //reqIp = require('request-ip'),
 
 var WebSock = function(ws, client){
     var curRoom, // zhibo.123, web.456, app.789

@@ -10,16 +10,16 @@
 
 <div class="block">   
     <h2>docs_news</h2>
-    {tag:data.rex.news}
+    {list:data.rex.news}
     <li><a href="/demo/news.{$did}">{$title}</a></li>
-    {/tag:data.rex.news}
+    {/list:data.rex.news}
 </div>
 
 <div class="block right">   
     <h2>person</h2>
-    {tag:data.rex.person}
+    {list:data.rex.person}
     <li><a href="/demo/person.{$uid}">{$mname} {$uname}</a></li>
-    {/tag:data.rex.person}
+    {/list:data.rex.person}
     
 </div>
 
@@ -27,16 +27,16 @@
 
 <div class="block right">   
     <h2>coms_nrem</h2>
-    {tag:data.rex.rems}
+    {list:data.rex.rems}
     <li><a x="#person.{$cid}">{$title} {$mname}</a></li>
-    {/tag:data.rex.rems}
+    {/list:data.rex.rems}
 </div>
 
 <div class="block right">   
     <h2>chatroom</h2>
-    {tag:data.rex.chats}
+    {list:data.rex.chats}
     <li><a x="#{$id}">{$ufrom} {$uto} {$msgs}</a></li>
-    {/tag:data.rex.chats}
+    {/list:data.rex.chats}
 </div>
 
 {/block:main}
