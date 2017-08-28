@@ -1,5 +1,10 @@
 
+* 
+/index/home-index 
+/demo/home-index 
 
+* 
+Tools.exeOrder
 
 REST-API
 
@@ -21,7 +26,7 @@ REST-API
 
 
 http://www.jb51.net/article/58222.htm
-node.js中实现同步操作的3种实现方法
+node.js脰脨脢碌脧脰脥卢虏陆虏脵脳梅碌脛3脰脰脢碌脧脰路陆路篓
 
 
 mkvs.query.pid : fill
@@ -39,41 +44,41 @@ var Config = require('./config'),
 
 
 http://blog.csdn.net/dong123dddd/article/details/51727238
-nodejs读取图片返回给浏览器显示
+nodejs露脕脠隆脥录脝卢路碌禄脴赂酶盲炉脌脌脝梅脧脭脢戮
 
 
-nodejs内置模块/常用工具
+nodejs脛脷脰脙脛拢驴茅/鲁拢脫脙鹿陇戮脽
 
-Node.js 路由
-Node.js 全局对象
+Node.js 脗路脫脡
+Node.js 脠芦戮脰露脭脧贸
 
-Node.js GET/POST请求
-Node.js 工具模块
+Node.js GET/POST脟毛脟贸
+Node.js 鹿陇戮脽脛拢驴茅
 
-nodejs 我们可用场合：
- - 直播聊天:zhibo.aid / 
- - APP消息推送:App.abc / 升级,提示,消息
- - Scan扫码登录:Scan.123 / 登录,绑定,
- - 客服聊天:kefu.456 / 
+nodejs 脦脪脙脟驴脡脫脙鲁隆潞脧拢潞
+ - 脰卤虏楼脕脛脤矛:zhibo.aid / 
+ - APP脧没脧垄脥脝脣脥:App.abc / 脡媒录露,脤谩脢戮,脧没脧垄
+ - Scan脡篓脗毛碌脟脗录:Scan.123 / 碌脟脗录,掳贸露篓,
+ - 驴脥路镁脕脛脤矛:kefu.456 / 
 
 ------------------------------------------------
 
-* Node.js 创建第一个应用
+* Node.js 麓麓陆篓碌脷脪禄赂枚脫娄脫脙
 http://www.runoob.com/nodejs/nodejs-http-server.html
 
-* Express 应用生成器
+* Express 脫娄脫脙脡煤鲁脡脝梅
 http://www.expressjs.com.cn/starter/generator.html
 
 set DEBUG=chat & npm start
 set DEBUG=myapp & npm start
 
-* node.js用来做什么？请大侠讲一下应用实例
+* node.js脫脙脌麓脳枚脢虏脙麓拢驴脟毛麓贸脧脌陆虏脪禄脧脗脫娄脫脙脢碌脌媒
 http://www.oschina.net/question/91955_47352?sort=time
 
 * events.js:160
 throw er; // Unhandled 'error' event
 run CMD by Admin!!!
 
-* Node.js模块全局安装路径配置
+* Node.js脛拢驴茅脠芦戮脰掳虏脳掳脗路戮露脜盲脰脙
 http://blog.csdn.net/williamfan21c/article/details/55517558
 
