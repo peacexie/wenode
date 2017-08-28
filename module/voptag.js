@@ -6,8 +6,6 @@ var Config = require('./config'),
 
 function Voptag(html) {
 
-    //var dir, tplname='';
-
     // run
     this.run = function(data, mkvs){
         this.list(data); // tag解析; 
@@ -18,7 +16,6 @@ function Voptag(html) {
         return html;
     }
 
-
     // list:标签
     this.list = function(data) { 
         reg = new RegExp(/\{list:([\w|\.]{1,24})\}/, 'gi');
@@ -27,7 +24,7 @@ function Voptag(html) {
         for (var i=0; i<itms.length; i++) {
             var k1 = itms[i], k2 = k1.replace('{list:', '{/list:');
             var tpl = Tools.getPos(html, k1, k2); 
-            var vtag = this.vtag(k1, data);
+            var vtag = this.varr(k1, data);
             var list = '';
             var reg = new RegExp(/\{\$([\w]{1,24})\}/, 'gi');
             for(var key in vtag){
@@ -39,7 +36,6 @@ function Voptag(html) {
             }
             html = html.replace(k1+tpl+k2, list);
         }
-        //return html;
         /*
             {list:data.rex}
             <p><i>{$title}</i><br>{$detail}</p>
@@ -47,8 +43,8 @@ function Voptag(html) {
         */
     }
 
-    // {list:data.rex}
-    this.vtag = function(tag, data){
+    // 标签数组 : {list:data.rex}
+    this.varr = function(tag, data){
         var arr = tag.replace('{list:','').replace('}','').split('.');
         var dre={}, tmp={};
         for(var i=0; i<arr.length; i++){
@@ -73,8 +69,6 @@ function Voptag(html) {
         });
     };
 
-
-
 };
 module.exports = Voptag;
 
@@ -86,9 +80,9 @@ module.exports = Voptag;
 {/list:data.rex}
 
 <li>{cut($t_title,96,$v)}</li>
-<li>{thumb($t_title,96,$v)}</li>
-<li>{time(1234567890,'Y-m-d')}</li>
+<li>{date(1234567890,'Y-m-d')}</li>
 <li>{opt({},'<span class='itm-(k)'>(v)</span>')}</li>
 <li>{title('hn','china')}</li> 'hn'=>'湖南'
+<li>{thumb($t_title,96,$v)}</li>
 
 */
