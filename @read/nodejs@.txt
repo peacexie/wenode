@@ -18,18 +18,8 @@ REST-API
  - news.id + nres(10)
 
 
-* task
- - mysql             --- ok
- - mkv -> data       --- ok
- - tpl -> imp/inc    --- ok    
- - tpl -> tag        --- ok
- - img-show          --- ok 
- - markdown          --- ok 
- - xml               --- ok 
-
-
 http://www.jb51.net/article/58222.htm
-node.jsÖÐÊµÏÖÍ¬²½²Ù×÷µÄ3ÖÖÊµÏÖ·½·¨
+node.js中实现同步操作的3种实现方法
 
 
 mkvs.query.pid : fill
@@ -47,41 +37,37 @@ var Config = require('./config'),
 
 
 http://blog.csdn.net/dong123dddd/article/details/51727238
-nodejs¶ÁÈ¡Í¼Æ¬·µ»Ø¸øä¯ÀÀÆ÷ÏÔÊ¾
+nodejs读取图片返回给浏览器显示
 
 
-nodejsÄÚÖÃÄ£¿é/³£ÓÃ¹¤¾ß
+nodejs内置模块/常用工具
 
-Node.js Â·ÓÉ
-Node.js È«¾Ö¶ÔÏó
+Node.js 路由
+Node.js 全局对象
 
-Node.js GET/POSTÇëÇó
-Node.js ¹¤¾ßÄ£¿é
+Node.js GET/POST请求
+Node.js 工具模块
 
-nodejs ÎÒÃÇ¿ÉÓÃ³¡ºÏ£º
- - Ö±²¥ÁÄÌì:zhibo.aid / 
- - APPÏûÏ¢ÍÆËÍ:App.abc / Éý¼¶,ÌáÊ¾,ÏûÏ¢
- - ScanÉ¨ÂëµÇÂ¼:Scan.123 / µÇÂ¼,°ó¶¨,
- - ¿Í·þÁÄÌì:kefu.456 / 
+
 
 ------------------------------------------------
 
-* Node.js ´´½¨µÚÒ»¸öÓ¦ÓÃ
+* Node.js 创建第一个应用
 http://www.runoob.com/nodejs/nodejs-http-server.html
 
-* Express Ó¦ÓÃÉú³ÉÆ÷
+* Express 应用生成器
 http://www.expressjs.com.cn/starter/generator.html
 
 set DEBUG=chat & npm start
 set DEBUG=myapp & npm start
 
-* node.jsÓÃÀ´×öÊ²Ã´£¿Çë´óÏÀ½²Ò»ÏÂÓ¦ÓÃÊµÀý
+* node.js用来做什么？请大侠讲一下应用实例
 http://www.oschina.net/question/91955_47352?sort=time
 
 * events.js:160
 throw er; // Unhandled 'error' event
 run CMD by Admin!!!
 
-* Node.jsÄ£¿éÈ«¾Ö°²×°Â·¾¶ÅäÖÃ
+* Node.js模块全局安装路径配置
 http://blog.csdn.net/williamfan21c/article/details/55517558
 
