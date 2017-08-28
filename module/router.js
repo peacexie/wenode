@@ -15,11 +15,8 @@ function Router(req, res) {
     this.run = function() { 
         vop = new ViewOP(req, res);
         // init-mkv
-        this.init(req.url);
-        this.imkv();
-        if(mkvs.err){
-            return vop.static(mkvs.err, 404);
-        }
+        this.init(req.url); if(mkvs.err) return vop.static(mkvs.err, 404);
+        this.imkv();        if(mkvs.err) return vop.static(mkvs.err, 404);
         // 静态/禁访问:目录
         if(mkvs.dir=='forbid' || mkvs.dir=='static' || !Config.dirv[mkvs.dir] || mkvs.path=='/favicon.ico'){
             var code = 200;
@@ -48,6 +45,16 @@ function Router(req, res) {
         var dir, mkv,
             tmp = mkvs.path.split('/'),
             len = tmp.length;
+        // fill ", ', <, >
+        if(Tools.safeFill(ourl.search, 1)){ 
+            mkvs.err = 'Error path [a1]: '+Tools.safeFill(ourl.search, 0);
+            return;
+        }
+        // /index/home-index 
+        if(tmp[1]=='index' || /(^home\-)|(\-index$)|(^index$)/.test(tmp[tmp.length-1])){
+            mkvs.err = 'Error path [a2]: '+Tools.safeFill(mkvs.path, 0);
+            return;
+        }
         if(Config.dirs[tmp[1]]){
             dir = Config.dirs[tmp[1]];
             mkv = tmp[1];
@@ -73,11 +80,6 @@ function Router(req, res) {
     }
     // 分离imkv
     this.imkv = function(){
-        // fill ", ', <, >
-        if(Tools.safeFill(mkvs.ourl.search, 1)){ 
-            mkvs.err = 'Error path [0]: '+Tools.safeFill(mkvs.ourl.search, 0);
-            return;
-        }
         var tmp=[]; 
         if(mkvs.mkv.indexOf('.')>0){
             tmp = mkvs.mkv.split('.');
@@ -90,13 +92,13 @@ function Router(req, res) {
             mkvs.type = 'mhome';
         }
         if(tmp.length>3 || !tmp[0] || !tmp[tmp.length-1]){
-            mkvs.err = 'Error mkv [a]: '+util.inspect(mkvs.mkv);
+            mkvs.err = 'Error mkv [b1]: '+util.inspect(mkvs.mkv);
             return;
         }
         for (var i=0; i<tmp.length; i++) {
             var flag = /^[0-9a-z]{1}[\w|\-]{0,24}$/.test(tmp[i]);
             if(!tmp[i] || !flag){
-                mkvs.err = 'Error mkv [b]: '+util.inspect(mkvs.mkv);
+                mkvs.err = 'Error mkv [b2]: '+util.inspect(mkvs.mkv);
                 return;
             } 
         }

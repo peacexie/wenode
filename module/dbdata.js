@@ -124,18 +124,14 @@ function dbData(mkvs, req, res) {
 module.exports = dbData;
 
 /*
---------------------------------- POST 
-
-news-add + post
-news-upd + post
-news-del + id:2017-ab-1234
-news
-news-n1002
-news.2017-ab-1234
 
 --------------------------------- POST 
 
 http://www.runoob.com/nodejs/node-js-get-post.html
+
+news-add + post
+news-upd + post
+news-del + id:2017-ab-1234
 
 http.createServer(function(req, res){
     // 定义了一个post变量，用于暂存请求体的信息

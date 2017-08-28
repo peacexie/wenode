@@ -1,0 +1,79 @@
+﻿
+[ROOT]:.
+│   app.js
+│   package.json
+│   README.md
+│   run.cmd
+│   
+├───@bak // 备用文件
+│       tree_0cmd.bat
+├───cache // 缓存文件
+│       .gitkeep.txt
+│       
+├───client // 聊天客服端
+│       ckefu.htm
+│       cmini.htm
+│       csets.php
+│       func.js
+│       style.css
+│       
+├───demo // demo 展示分组
+│   ├───home
+│   │       index.htm
+│   │       test.htm
+│   │       
+│   ├───module
+│   │       homeCtrl.js
+│   │       newsCtrl.js
+│   │       
+│   └───news
+│           detail.htm
+│           index.htm
+│           mtype.htm
+│           
+├───index // 默认 展示分组
+│   ├───home
+│   │       about.htm
+│   │       index.htm
+│   │       info.htm
+│   │       mtype.htm
+│   │       
+│   ├───module
+│   │       homeCtrl.js
+│   │       
+│   └───_incs
+│           comp.php
+│           lay1.htm
+│           top1.htm
+│           
+├───module // 核心模块
+│       config.js // 核心配置
+│       dbdata.js // 模型数据
+│       mimes.js // mime头
+│       mintpl.js // 迷你模板引擎
+│       mycurd.js // mysql-数据操作
+│       router.js // 核心路由
+│       tools.js // 核心工具
+│       viewop.js // 核心显示操作
+│       websock.js // 聊天服务端
+│       
+├───rest // REST-API 展示分组
+│   └───module
+│           homeCtrl.js
+│           newsCtrl.js
+│           
+├───static // 静态文件
+│   │   page1.htm
+│   │   
+│   ├───imgs
+│   │       favicon.ico
+│   │       gezi1-40x.jpg
+│   │       
+│   └───js
+│           jquery-3x.js
+│           marked.min.js
+│           socket.io.js
+│           
+└───uext // 用户扩展显示
+        viewop.js
+        
