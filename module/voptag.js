@@ -4,7 +4,7 @@ var Config = require('./config'),
     util   = require('util'),
     fs     = require('fs');
 
-function Mintag(html) {
+function Voptag(html) {
 
     //var dir, tplname='';
 
@@ -76,7 +76,7 @@ function Mintag(html) {
 
 
 };
-module.exports = Mintag;
+module.exports = Voptag;
 
 
 /*

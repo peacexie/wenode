@@ -1,7 +1,7 @@
 
 var Config = require('./config'),
     Tools  = require('./tools'),
-    Mintpl = require('./mintpl'),
+    Voptpl = require('./voptpl'),
     Mycurd = require('./mycurd'),
     util   = require('util');
 

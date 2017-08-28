@@ -2,7 +2,7 @@
 var Config = require('./config'),
     Tools  = require('./tools'),
     Mimes = require('./mimes'),
-    Mintpl = require('./mintpl'),
+    Voptpl = require('./voptpl'),
     dbData = require('./dbdata'),
     util   = require('util');
 
@@ -26,13 +26,13 @@ function ViewOP(req, res) {
             return this.vdata();
         }
         // 找模板
-        var mtpl = new Mintpl(mkvs);
-        var tplname = mtpl.get();
+        var vtpl = new Voptpl(mkvs);
+        var tplname = vtpl.get();
         if(tplname){
             // 模板显示
             data.rex.tplname = tplname;
             this.head(200, 'html');
-            var html = mtpl.fill(data);
+            var html = vtpl.fill(data);
             res.write(html);
             res.end();
             Tools.debug('http.200', '[tpl]/'+mkvs.dir+'/'+tplname+'?'+util.inspect(mkvs.query));

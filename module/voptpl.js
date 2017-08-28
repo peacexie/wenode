@@ -1,11 +1,11 @@
 
 var Config = require('./config'),
     Tools  = require('./tools'),
-    Mintag = require('./mintag'),
+    Voptag = require('./voptag'),
     util   = require('util'),
     fs     = require('fs');
 
-function Mintpl(mkvs) {
+function Voptpl(mkvs) {
 
     var dir, tplname='';
 
@@ -40,7 +40,7 @@ function Mintpl(mkvs) {
         // imp,继承; inc,包含
         html = this.imp(html); // 模板继承; 
         html = this.inc(html); // 模板包含; 
-        html = new Mintag(html).run(data, mkvs); // tag解析; 
+        html = new Voptag(html).run(data, mkvs); // tag解析; 
         return html;
     };
 
@@ -92,4 +92,4 @@ function Mintpl(mkvs) {
     }
 
 };
-module.exports = Mintpl;
+module.exports = Voptpl;
