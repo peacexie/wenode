@@ -16,30 +16,6 @@ var config = {
         "pre"      : "",
         "suf"      : "_ys"
     },
-    // 数据模型
-    "dbmod" : {
-        // 聊天相关
-        //"chatroom" : ["",  'id'],
-        // 数据模型 : 类别(前缀)
-        "nrem"     : ["coms", 'cid'],
-        "news"     : ["docs",  'did'],
-        "person"   : ["users", 'uid'],
-    },
-    // 静态/禁访问:目录
-    "dirs" : {
-        '@bak'   : 'forbid',
-        'cache'  : 'forbid',
-        'client' : 'static',
-        'static' : 'static',
-        'module' : 'forbid',
-    },
-    // 视图目录:mkv/vop
-    "dirv" : {
-        'index' : 'mkv',
-        'demo'  : 'mkv',
-        'rest'  : 'vdata',
-        'uext'  : 'viewop.js',
-    },
     // end
     "_flag" : "-End-",
 };
