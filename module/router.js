@@ -53,7 +53,7 @@ function Router(req, res) {
             mkv = tmp[1];
         }else if(len==3){ // /rest/news-add, /rest/news.2017-ab-1234
             dir = tmp[1];
-            mkv = tmp[2] ? tmp[2] : 'index';
+            mkv = tmp[2] ? tmp[2] : 'home';
         }else if(len==2){ // /, /about.htm
             dir = 'index';
             mkv = tmp[1] ? tmp[1] : 'index';

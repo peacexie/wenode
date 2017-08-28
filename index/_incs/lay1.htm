@@ -33,7 +33,11 @@ footer{ clear:both; text-align:center; padding:10px; }
 {inc:"_incs/end123"}
 <footer>
 {block:foot}
-<p class="clear">debug:{$config.debug} @ /{$mkvs.dir}/{$rex.tplname}</p>
+<p class="clear">
+  debug:{$config.debug},
+  mkv:{$mkvs.mod}+{$mkvs.key}+{$mkvs.view},
+  tpl:/{$mkvs.dir}/{$rex.tplname}
+</p>
 {/block:foot}
 License under MIT / 遵循MIT协议
 </footer>

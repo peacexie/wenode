@@ -5,8 +5,8 @@ var Config = require('../../module/config'),
 
 function indexCtrl(mkvs, rdb) {
 
-    // mhomeAct
-    this.mhomeAct = function(cb){ 
+    // indexAct
+    this.indexAct = function(cb){ 
         var data = {"hello":"Hi, Rest-API!"};
         cb && cb(data);
     }
