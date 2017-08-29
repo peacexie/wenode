@@ -4,6 +4,7 @@ var Config = require('./config'),
     util   = require('util'),
     fs     = require('fs');
 
+// 标签:解析/替换
 function Voptag(html) {
 
     // run

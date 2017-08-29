@@ -4,6 +4,8 @@ var mysql  = require('mysql'),
     Config = require('./config'),
     conn; // db-conn
 
+// * mysql数据库
+
 // db-error
 exports.handle = function(myerr) {
     if(!myerr) return;

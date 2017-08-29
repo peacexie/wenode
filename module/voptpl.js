@@ -5,6 +5,7 @@ var Config = require('./config'),
     util   = require('util'),
     fs     = require('fs');
 
+// 模板:解析/替换
 function Voptpl(mkvs) {
 
     var dir, tplname='';

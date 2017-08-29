@@ -6,7 +6,7 @@ var Config = require('./config'),
     dbData = require('./dbdata'),
     util   = require('util');
 
-// mkv-显示
+// mkv-显示控制
 function ViewOP(req, res) {
 
     var mkvs={}, data={};

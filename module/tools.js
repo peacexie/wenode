@@ -2,6 +2,8 @@
 var Config = require('./config'),
     fs     = require('fs');
 
+// * 工具
+
 // debug/save-log
 exports.debug = function(erno, ermsg){
     if(Config.debug){

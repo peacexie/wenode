@@ -1,4 +1,5 @@
 
+// 系统配置
 var config = {
     "debug" : true, // 调试标记
     "logfile" : '/cache/debug-Y-m-d.log', // 调试日志

@@ -1,4 +1,5 @@
 
+// mime头配置
 var mimes = {
 
     // 

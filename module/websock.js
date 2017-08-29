@@ -3,6 +3,7 @@ var Config = require('./config'),
     Tools = require('./tools'),
     Mycurd = require('./mycurd');
 
+// WebSock聊天服务端
 var WebSock = function(ws, client){
     var curRoom, // zhibo.123, web.456, app.789
         curUser, // 用户对象:uid,uname,uicon,...
@@ -44,7 +45,7 @@ var WebSock = function(ws, client){
         var mstamp = Date.parse(new Date()); // mstamp:时间戳(ms),取服务器时间
         save(msgs, mstamp);
         // 过滤
-        var data = {'user':curUser, 'msgs':msgs, 'ip':curIP, 'mstamp':mstamp, 'room':curRoom};
+        var data = {'user':curUser, 'msgs':msgs, 'ip':curIP, 'stime':Tools.fmtStamp(mstamp,'Y-m-d H:i:s',1), 'room':curRoom};
         ws.to(curRoom).emit('emsg', data);
     });
     // 监听退出

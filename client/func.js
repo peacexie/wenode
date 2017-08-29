@@ -17,11 +17,11 @@
             });
             // 监听:服务器下发的信息
             ws[id].on('emsg',function(data){
-                var user = data.user; // {'user':curUser, 'msgs':msgs, 'mstamp':mstamp}
+                var user = data.user; // {'user':curUser, 'msgs':msgs, 'stime':stime}
                 var data = {
                     "uname" : user.uname + ((user.uid==chat_user.uid) ? '(我)' : ''),
                     "ip"    : data.ip,
-                    "stime" : fmtStamp(data.mstamp),
+                    "stime" : data.stime,
                     "msgs"  : data.msgs.replace(/\r\n/g,'<br>').replace(/\r/g,'<br>').replace(/\n/g,'<br>'),
                 };
                 var tpl = $('#msgRow').html();
@@ -82,25 +82,4 @@ function msgSend(msgs){
 }
 function msgClear(){
     $('#chatLists').html('');
-}
-
-function fmtStamp(mstamp,format){
-    if(!format) format = 'y-m-d H:i';
-    var D = new Date(parseInt(mstamp));
-    var date = {
-      "Y+": D.getFullYear(),
-      "y+": D.getFullYear().toString().substr(2,2),
-      "m+": D.getMonth() + 1,
-      "d+": D.getDate(),
-      "H+": D.getHours(),
-      "i+": D.getMinutes(),
-      "s+": D.getSeconds(),
-      "S+": D.getMilliseconds()
-    };
-    for (var k in date) {
-        if (new RegExp("(" + k + ")").test(format)) {
-            format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
-        }
-    }
-    return format;
 }

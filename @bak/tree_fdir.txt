@@ -20,7 +20,6 @@
 ├───demo // demo 展示分组
 │   ├───home
 │   │       index.htm
-│   │       test.htm
 │   │       
 │   ├───module
 │   │       homeCtrl.js
@@ -50,11 +49,12 @@
 │       config.js // 核心配置
 │       dbdata.js // 模型数据
 │       mimes.js // mime头
-│       mintpl.js // 迷你模板引擎
 │       mycurd.js // mysql-数据操作
 │       router.js // 核心路由
 │       tools.js // 核心工具
 │       viewop.js // 核心显示操作
+│       voptag.js // 模板解析
+│       voptpl.js // 标签解析
 │       websock.js // 聊天服务端
 │       
 ├───rest // REST-API 展示分组

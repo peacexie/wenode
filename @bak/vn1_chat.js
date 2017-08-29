@@ -13,7 +13,7 @@ var app  =express();
 
 app.use(express.static(__dirname));
 
-var server = app.listen(8888, '192.168.1.228'); //192.168.1.228 http://localhost:7051
+var server = app.listen(8831, '127.0.0.1'); //192.168.1.228 http://localhost:7051
 
 
 var ws = io.listen(server);

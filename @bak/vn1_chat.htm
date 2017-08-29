@@ -2,11 +2,9 @@
 <html>
 <head>
     <title>socket.io 聊天室例子</title>
+	<script src='../static/js/jquery-3x.js'></script>
+    <script src="../static/js/socket.io.js"></script>
     <meta charset="utf-8">
-
-    <link rel="stylesheet" href="css/reset.css"/>
-    <link rel="stylesheet" href="css/bootstrap.css"/>
-    <link rel="stylesheet" href="css/app.css"/>
 </head>
 <body>
     <div class="wrapper">
@@ -21,10 +19,10 @@
              <button class="btn btn-success" id="send">发送</button>
          </div>
     </div>
-    <script type="text/javascript" src="js/socket.io.js"></script>
+
     <script type="text/javascript">
 
-          var ws = io.connect('http://192.168.1.228:8888');
+          var ws = io.connect('http://127.0.0.1:8831');
           var sendMsg = function(msg){
               ws.emit('send.message', msg);
           }

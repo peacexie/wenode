@@ -5,6 +5,7 @@ var Config = require('./config'),
     Mycurd = require('./mycurd'),
     util   = require('util');
 
+// 数据库操作
 function dbData(mkvs, req, res) {
 
     var data={}, cdb=[], tab='', kid=''; // 

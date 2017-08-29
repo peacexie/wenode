@@ -5,7 +5,7 @@ var Config = require('./config'),
     url    = require('url'),
     util   = require('util');
 
-// 路由分发
+// mkv路由分发
 function Router(req, res) {
 
     var mkvs = {}, // path,dir,mkv,query,ourl; type,mod,key,view,err
