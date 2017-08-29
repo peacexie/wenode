@@ -6,12 +6,7 @@ Tools.exeOrder
 
 * tag
 
-
-http://www.jb51.net/article/58222.htm
-node.js中实现同步操作的3种实现方法
-
-
-mkvs.query.pid : fill
+--------------------------------------
 
 var Config = require('./config'),
     Tools  = require('./tools'),
@@ -23,10 +18,6 @@ var Config = require('./config'),
     url    = require('url'),
     fs     = require('fs'),
     util   = require('util');
-
-
-http://blog.csdn.net/dong123dddd/article/details/51727238
-nodejs读取图片返回给浏览器显示
 
 
 nodejs内置模块/常用工具
