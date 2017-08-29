@@ -38,7 +38,7 @@ function indexCtrl(mkvs, rdb, req, res) {
     this.topNews = function(cb){ 
         var opt = {};
         opt.order = 'did DESC';
-        opt.limit = 3;
+        opt.limit = 5;
         Mycurd.get('docs_news', opt, function(rdb){
             data.news = rdb;
             cb && cb();
@@ -56,5 +56,4 @@ function indexCtrl(mkvs, rdb, req, res) {
 
 };
 module.exports = indexCtrl;
-
 

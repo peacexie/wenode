@@ -10,13 +10,8 @@
 <div>   
     <h2>News list - {$mkvs.key}</h2>
     {list:data.rdb}
-    <li><a href="/demo/news.{$did}">{cut({$title},24,...)}</a> <i>{date({$atime},Y-m-d H:i)}</i></li>
+    <li><a href="/demo/news.{$did}">{cut({$title},18,...)}</a> <i>{date({$atime},Y-m-d H:i)}</i></li>
     {/list:data.rdb}
 </div>
-
-<!--
-<utag class='abc'>{$title}</utag></a>
-{cut(<utag class='abc'>*</utag>,12,...)}
--->
 
 {/block:main}

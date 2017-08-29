@@ -11,7 +11,7 @@
 <div class="block">   
     <h2>docs_news</h2>
     {list:data.rex.news}
-    <li><a href="/demo/news.{$did}">{$title}</a></li>
+    <li><a href="/demo/news.{$did}">{cut({$title},15,...)}</a></li>
     {/list:data.rex.news}
 </div>
 
@@ -28,14 +28,14 @@
 <div class="block right">   
     <h2>coms_nrem</h2>
     {list:data.rex.rems}
-    <li><a x="#person.{$cid}">{$title} {$mname}</a></li>
+    <li><a x="#person.{$cid}">{cut({$title},12,...)} {$mname}</a></li>
     {/list:data.rex.rems}
 </div>
 
 <div class="block right">   
     <h2>chatroom</h2>
     {list:data.rex.chats}
-    <li><a x="#{$id}">{$ufrom} {$uto} {$msgs}</a></li>
+    <li><a x="#{$id}">{$ufrom} [{date({$atime},H:i)}] {cut({$msgs},12,...)}</a></li>
     {/list:data.rex.chats}
 </div>
 
