@@ -6,7 +6,10 @@ var Config = require('./config'),
 
 // debug/save-log
 exports.debug = function(erno, ermsg){
-    if(Config.debug){
+    if(!Config.debug) return;
+    if(Config.debug==1){
+        console.log(erno,ermsg);
+    }else{
         var now = new Date();
         var ermsg = typeof(ermsg)=='object' ? JSON.stringify(ermsg) : ermsg;
         var data = now.toLocaleString()+' ['+erno+'] '+ermsg+'\n';
@@ -16,7 +19,6 @@ exports.debug = function(erno, ermsg){
             if(fserr) console.log(fserr);
         });
     }
-    console.log(erno,ermsg);
 }
 // 同步读取文件
 exports.fsRead = function(fp, encode, redata, basdir){

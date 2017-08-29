@@ -35,7 +35,7 @@ function ViewOP(req, res) {
             var html = vtpl.fill(data);
             res.write(html);
             res.end();
-            Tools.debug('http.200', '[tpl]/'+mkvs.dir+'/'+tplname+'?'+util.inspect(mkvs.query));
+            Tools.debug('http.200', '[tpl]/'+mkvs.dir+'/'+tplname);
         }else{
             // 模板错误
             var tpl = '/'+mkvs.dir+'/'+mkvs.mod+'/('+(mkvs.key+'|'+mkvs.type)+')';
@@ -60,7 +60,7 @@ function ViewOP(req, res) {
             }else{
                 res.write(json);
             }
-        }//else{ res.write(' '); }
+        }
         res.end();
         Tools.debug('data.'+code+'('+vtype+') '+mkvs.path, q); 
     }

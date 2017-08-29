@@ -1,7 +1,7 @@
 
 // 系统配置
 var config = {
-    "debug" : true, // 调试标记
+    "debug" : 1, // 调试标记: 0-不记录, 1-控制台, file-文件
     "logfile" : '/cache/debug-Y-m-d.log', // 调试日志
     "title" : "Wenode - A mini Node.js App Framework!",
 	// host
