@@ -95,3 +95,50 @@ exports.clientIp = function(req) {
     }*/
     return ip;
 };
+
+exports.cutStr = function(str, max, dot) {
+    var now = 0, slen = 0;
+    str_cut = new String();
+    max = max * 2;
+    slen = str.length;
+    for (var i = 0; i < slen; i++) {
+        a = str.charAt(i);
+        now++;
+        if (escape(a).length > 4) {
+            //中文字符的长度经编码之后大于4  
+            now++;
+        }
+        str_cut = str_cut.concat(a);
+        if (now >= max) {
+            str_cut = str_cut.concat(dot ? dot : '');
+            return str_cut;
+        }
+    }
+    //如果给定字符串小于指定长度，则返回源字符串；  
+    if (now < max) {
+        return str;
+    }
+}
+
+exports.fmtStamp = function(stamp,format,mstamp){
+    if(!format) format = 'y-m-d H:i';
+    if(!mstamp) stamp *= 1000;
+    var D = new Date(parseInt(stamp));
+    var date = {
+      "Y+": D.getFullYear(),
+      "y+": D.getFullYear().toString().substr(2,2),
+      "m+": D.getMonth() + 1,
+      "d+": D.getDate(),
+      "H+": D.getHours(),
+      "i+": D.getMinutes(),
+      "s+": D.getSeconds(),
+      "S+": D.getMilliseconds()
+    };
+    for (var k in date) {
+        if (new RegExp("(" + k + ")").test(format)) {
+            var val = date[k]>9 ? date[k] : '0'+date[k];
+            format = format.replace(RegExp.$1, val);
+        }
+    }
+    return format;
+}
