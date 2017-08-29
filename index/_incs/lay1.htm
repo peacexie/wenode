@@ -10,16 +10,17 @@ body{ width:760px; margin:auto; }
 .block { width:370px; float:left; margin-bottom:10px; border:0px solid #CCC; }
 .right{ float:right; }
 .clear{ clear:both; }
-.tr{ text-align:right; }
+.tr{ text-align:right; padding-right:10px; }
 nav{ display:block; clear:both; padding:10px; }
-h1{ display:block; clear:both; text-align:center; }
-nav li{ width:120px; display:inline-block; float:left; }
+nav li{ width:110px; display:inline-block; float:left; }
 nav li.logo{ float:right; }
+h1{ display:block; clear:both; text-align:center; }
 footer{ clear:both; text-align:center; padding:10px; }
 /*media*/
 @media only screen and (max-width:765px) {
-    body{ width:100%; }
+    body{ width:100%; margin:10px; }
     .block { width:100%; float:initial; margin:auto 10px 10px 10px; }
+    nav{ text-align:center; }
     nav li.logo{ width:100%; clear:both; float:initial; display:block; text-align:center; }
 }
 </style>
