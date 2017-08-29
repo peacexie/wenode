@@ -1,6 +1,7 @@
 
 # Wenode
 
+
 A mini Node.js App Framework, for Web-Chatroom, Info-push, REST-API!  
 一个适合于：网页聊天, 信息推送, REST-API, 微信扫码交互的 Node.js 微框架！
 
@@ -40,48 +41,44 @@ A mini Node.js App Framework, for Web-Chatroom, Info-push, REST-API!
   - /rest/news-upd + POST (更新)
   - /rest/news-del + id=2017-ab-1234 (删除)
 
-* Web常用功能
-  - 图片，静态解析
-  - 模板继承
-  - 模板包含
-  - 列表标签
+* Web常用功能 (未使用express)
+  - 图片, 静态解析
+  - 模板继承, 模板包含
+  - 标签: 数据列表, 字符截取, 时间格式化 (更多请按需求扩展吧)
   - 纯数据展示（见：REST-API）
-  - xml解析
-  - md解析
+  - xml解析, md解析
   - 自定义数据扩展
   - 自定义扩展显示
 
 * Web扩展(待实现)
   - 上传文件/图片，静态解析
-  - 标签显示里面：数据处理（过滤，剪切，格式化）
+  - 更丰富的标签显示，数据处理
 
 
 ### 服务器配置
 
 * 安装器配 node.js和模块
- - 安装：node.js
- - 安装模块：npm install socket.io -g
- - 安装模块：npm install mysql -g
+  - 安装：node.js
+  - 安装模块：npm install socket.io -g
+  - 安装模块：npm install mysql -g
 
 * 配置应用/运行
- - 配置db：/@bak/data.sql
- - 配置nodejs：/module/config.js (注意手动建立相关日志目录)
- - 运行：node app.js
+  - 配置db：/@bak/data.sql
+  - 配置nodejs：/module/config.js (注意手动建立相关日志目录)
+  - 运行：node app.js
 
 
 ### 深度DIY提示
 
-* 精简,nodejs只做聊天服务端
-  - https://github.com/peacexie/wenode/tree/wemin
+* 静态文件处理
+  - 静态文件(js/css/html)显示，还要写代码处理(很不想这样做)  
+  - 建议：大量静态处理用其他web服务器（如：Apache, IIS, Nginx）
+  - 建议：精简nodejs只做聊天服务端, REST-API 等
+  - 精简的 nodejs 聊天室：https://github.com/peacexie/wenode/tree/wemin
 
-* 其他web功能由其他web服务器实现
-  - 如：Apache, IIS, Nginx
-
-* php和长连接
-
-* 选nodejs
- - 静态文件
- - 回调
+* 异步与回调
+  - 初学一定要好好体会，否则是个很大的坑
+  - php做 WebSocket 长连接，见：/@bak/php_server.php
 
 * 文件列表：
  - /@bak/tree_fdir.txt

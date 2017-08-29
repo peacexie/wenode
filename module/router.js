@@ -97,7 +97,7 @@ function Router(req, res) {
         }
         for (var i=0; i<tmp.length; i++) {
             var flag = /^[0-9a-z]{1}[\w|\-]{0,24}$/.test(tmp[i]);
-            if(!tmp[i] || !flag){
+            if(!tmp[i] || !flag || tmp[i]=='0'){
                 mkvs.err = 'Error mkv [b2]: '+util.inspect(mkvs.mkv);
                 return;
             } 

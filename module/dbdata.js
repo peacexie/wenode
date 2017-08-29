@@ -12,8 +12,8 @@ function dbData(mkvs, req, res) {
 
     // 运行入口
     this.run = function(cb) { 
-        //*
         var _me = this;
+        //*
         this.dbRes(function(){
             _me.dbExt(function(){
                 if(!data.rdb) data.rdb = {};
