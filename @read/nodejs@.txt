@@ -1,21 +1,10 @@
 
-*                  --- ok
-/index/home-index 
-/demo/home-index 
-/demo/home-test
 
 * 
 Tools.exeOrder
+  - this[act]()
 
 * tag
-
-REST-API
-
-* home [nav]
- - news (list) [json,xml,jsonp]
- - news-sub1
- - news-sub2
- - news.id + nres(10)
 
 
 http://www.jb51.net/article/58222.htm
@@ -47,27 +36,4 @@ Node.js 全局对象
 
 Node.js GET/POST请求
 Node.js 工具模块
-
-
-
-------------------------------------------------
-
-* Node.js 创建第一个应用
-http://www.runoob.com/nodejs/nodejs-http-server.html
-
-* Express 应用生成器
-http://www.expressjs.com.cn/starter/generator.html
-
-set DEBUG=chat & npm start
-set DEBUG=myapp & npm start
-
-* node.js用来做什么？请大侠讲一下应用实例
-http://www.oschina.net/question/91955_47352?sort=time
-
-* events.js:160
-throw er; // Unhandled 'error' event
-run CMD by Admin!!!
-
-* Node.js模块全局安装路径配置
-http://blog.csdn.net/williamfan21c/article/details/55517558
 
