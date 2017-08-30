@@ -1,6 +1,7 @@
 
 var Config = require('./config'),
-    fs     = require('fs');
+    fs     = require('fs'),
+    util   = require('util');
 
 // * 工具
 
@@ -145,4 +146,17 @@ exports.fmtStamp = function(stamp,format,mstamp){
         }
     }
     return format;
+}
+
+exports.tplFill = function(tpl, arr, reg){
+    if(!reg) reg = new RegExp(/\{\$([\w]{1,48})\}/, 'gi');
+    var data = '';
+    for(var key in arr){
+        var data = tpl.replace(reg, function(m, p1) {
+            if(typeof(arr[p1])=='undefined') return '{'+p1+'}';
+            if(typeof(arr[p1])=='object') arr[p1] = util.inspect(arr[p1]);
+            return arr[p1]; 
+        });
+    }
+    return data;
 }

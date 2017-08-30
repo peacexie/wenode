@@ -34,16 +34,76 @@
 
 <div class="block">   
     <h2>Test-Vals</h2>
-    <p><i>ourl:</i> {$mkvs.ourl}</p>
-    <p><i>abc123:</i> {$mkvs.abc123}</p>
-    <p><i>dbvalue:</i> {$rdb.dbvalue}</p>
-    <p><i>exval:</i> {$rex.exval}</p>
-    <p><i>abced:</i> {$config.abced}</p>
+    <p>{$mkvs.abc123}, {$config.abced}</p>
+    <p>{$rdb.dbvalue}, {$rex.exval}</p>
 </div>
 
 <div class="block right">    
+    <h2>mkvs.ourl</h2>
+    <p>{$mkvs.ourl}</p>
+</div>
+
+<div class="clear"></div>
+
+<table border="1" width="100%">
+    {list:data.rex.cpusModels}
+    <tr>
+    <td>id={id:key}</td>
+    <td>{$model}</td>
+    <td>{$speed}</td>
+    </tr>
+    <tr>
+    <td colspan="3">{sub({$times},1)}</td>
+    </tr>
+    {/list:data.rex.cpusModels}
+</table>
+
+
+<table border="1" width="100%">
+  <tr>
+    <td>address</td>
+    <td>netmask</td>
+    <td>family</td>
+    <td>mac</td>
+    <td>scopeid</td>
+    <td>internal</td>
+  </tr>
+  {list:data.rex.networkInterfaces}
+  <tr>
+    <td colspan="6">{id:key}</td>
+    </tr>
+    <tr>{sub({$0},2)}</tr>
+    <tr>{sub({$1},2)}</tr>
+  </tr>
+  {/list:data.rex.networkInterfaces}
+</table>
+
+<div class="clear"></div>
+
+<div>    
     <h2>networkInterfaces</h2>
     <p>{$rex.networkInterfaces}</p>
 </div>
+
+<div>    
+    <h2>cpusModels</h2>
+    <p>{$rex.cpusModels}</p>
+</div>
+
+(aaa)
+<div style="display: none;">
+<start=subtpls>
+<ys/>
+user={$user}, <b>nice={$nice}</b>, sys={$sys}, <b>idle={$idle}</b>, irq={$irq}
+<ys/>
+<td>{$address}</td>
+<td>{$netmask}</td>
+<td>{$family}</td>
+<td>{$mac}</td>
+<td>{$scopeid}</td>
+<td>{$internal}</td>
+<end=subtpls>
+</div>
+(bbb)
 
 {/block:main}

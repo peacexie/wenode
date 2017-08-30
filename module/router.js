@@ -12,7 +12,7 @@ function Router(req, res) {
         vop = null;
 
     // 运行入口
-    this.run = function() { //console.log(process.execPath);
+    this.run = function() {
         vop = new ViewOP(req, res);
         // init-mkv
         this.init(req.url); if(mkvs.err) return vop.static(mkvs.err, 404);

@@ -7,6 +7,8 @@ var Config = require('./config'),
 // 标签:解析/替换
 function Voptag(html) {
 
+    var subtpls = [];
+
     // run
     this.run = function(data, mkvs){
         this.conv();
@@ -15,17 +17,24 @@ function Voptag(html) {
         this.vals(data.rex, 'rex');
         this.vals(mkvs, 'mkvs');
         this.vals(Config, 'config');
+        this.sub();
         this.date();
         this.cut();
-        //this.opt();
         //this.title();
         //this.thumb();
         return html;
     }
-    // 为大段文本添加一个后缀`<ys/>`, 以便后续方便解析
+    // 转换数据, 以便后续方便解析
     this.conv = function() { // {func({$title},12,...)}
-        reg = new RegExp(/\{(cut|opt|title|thumb)\(\{\$([\w]+)\}\,/, 'gi'); // |date
-        itms = html.match(reg);
+        // 子列表模板
+        var subtstr = Tools.getPos(html, '<start=subtpls>', '<end=subtpls>');
+        if(subtstr){
+            subtpls = subtstr.split('<ys/>');
+            html = html.replace(subtstr, '');
+        }
+        // 为大段文本添加一个后缀`<ys/>`
+        var reg = new RegExp(/\{(cut|sub|title|thumb)\(\{\$([\w]+)\}\,/, 'gi'); // |date
+        var itms = html.match(reg);
         if(!itms) return; //没有tag
         for (var i=0; i<itms.length; i++) {
             var val = itms[i].replace(/\}\,/g,'}<ys/>,');
@@ -35,8 +44,8 @@ function Voptag(html) {
 
     // 时间戳转日期时间 {date({$atime},Y-m-d H:i)}
     this.date = function() {
-        reg = new RegExp(/\{date\(([\w|\,|\-|\:|\.| ]{8,32})\)\}/, 'gi');
-        itms = html.match(reg);
+        var reg = new RegExp(/\{date\(([\w|\,|\-|\:|\.| ]{8,32})\)\}/, 'gi');
+        var itms = html.match(reg);
         if(!itms) return; //没有tag
         for (var i=0; i<itms.length; i++) {
             var val = itms[i].replace('{date(','').replace(')}','');
@@ -47,8 +56,8 @@ function Voptag(html) {
     }
     // 字符串截取 {cut({$title},18,...)}
     this.cut = function() {
-        reg = new RegExp(/\{cut\(([^\n\r]+)\)\}/, 'gi');
-        itms = html.match(reg);
+        var reg = new RegExp(/\{cut\(([^\n\r]+)\)\}/, 'gi');
+        var itms = html.match(reg);
         if(!itms) return; //没有tag
         for (var i=0; i<itms.length; i++) {
             var val = itms[i].replace('{cut(','').replace(')}','');
@@ -60,23 +69,54 @@ function Voptag(html) {
         }
     }
 
+    // 子列表 {sub({$times},tplcups)} // 定义id=tplcups的模板
+    this.sub = function() { // 
+        var reg = new RegExp(/\{sub\(([^<]+)\<ys\/\>\,([\w]{1,24})\)\}/, 'gi');
+        var itms = html.match(reg);
+        if(!itms) return; //没有tag
+        for (var i=0; i<itms.length; i++) {
+            var val = itms[i].replace('{sub(','').replace(')}',''); 
+            if(val.indexOf('<ys/>')<=0) return;
+            var ar0 = val.split('<ys/>,'); val = ar0[0]; 
+            var ar1 = ar0[1].split(','), tplid = ar1[0], sp = ar1[1] ? ar1[1] : ','; 
+            var sitm = this.sitm(val, tplid, sp);
+            html = html.replace(itms[i], sitm, '...'); // /g?
+        }
+    }
+
+    // {sitm({ user: 502557, nice: 0, sys: 468065, idle: 20318849, irq: 1388 }<ys/>,tplcups)}
+    this.sitm = function(data, tplid, sp) { //
+        //console.log('\naaaa:', tplid, sp, subtpls[tplid]); 
+        //console.log(typeof(subtpls[tplid])); 
+        var tpl = typeof(subtpls[tplid]=='string') ? subtpls[tplid] : '';
+        if(data.indexOf(':')>0 && data.match(/^[\{]/) && data.match(/[\}]$/)){
+            try{
+                eval('var _arr = '+data); //console.log('\naaaa:', _arr);  
+            }catch(err){}
+        }else if(data.indexOf(sp)>0){
+            var _arr = data.split(sp);
+        }
+        if(typeof(_arr)!='undefined'){
+            data = Tools.tplFill(tpl, _arr);
+        }
+        return data; //data
+    }
+
     // list:标签 {list:data.rex}<li>{$title}</li>{/list:data.rex}
     this.list = function(data) {
-        reg = new RegExp(/\{list:([\w|\.]{1,24})\}/, 'gi');
-        itms = html.match(reg);
+        var reg = new RegExp(/\{list:([\w|\.]{1,48})\}/, 'gi');
+        var itms = html.match(reg);
         if(!itms) return; //没有tag
         for (var i=0; i<itms.length; i++) {
             var k1 = itms[i], k2 = k1.replace('{list:', '{/list:');
             var tpl = Tools.getPos(html, k1, k2); 
             var vtag = this.varr(k1, data);
             var list = '';
-            var reg = new RegExp(/\{\$([\w]{1,24})\}/, 'gi');
+            var reg = new RegExp(/\{\$([\w]{1,48})\}/, 'gi');
             for(var key in vtag){
-                list += tpl.replace(reg, function(m, p1) {
-                    if(typeof(vtag[key][p1])=='undefined') return '{'+p1+'}';
-                    if(typeof(vtag[key][p1])=='object') vtag[key][p1] = util.inspect(vtag[key][p1]);
-                    return vtag[key][p1]; 
-                });
+                var srow = Tools.tplFill(tpl, vtag[key]);
+                srow = srow.replace(/\{id\:key\}/gi, key);
+                list += srow;
             }
             html = html.replace(k1+tpl+k2, list);
         }
