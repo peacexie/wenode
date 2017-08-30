@@ -16,18 +16,18 @@ function homeCtrl(mkvs, rdb, req, res) {
     // infoAct
     this.infoAct = function(cb){ 
         var data = {};
-        data.version = process.version;
         data.systype = os.type(); // linux, Darwin, Windows_NT
         data.hostname = os.hostname();
         data.release = os.release();
-        data.cpusModels = os.cpus();
-        data.cpusModel = data.cpusModels[0]['model'];
-        data.networkInterfaces = os.networkInterfaces();
         data.endianness = os.endianness();
+        data.networkInterfaces = os.networkInterfaces();
+        data.cpusModels = os.cpus();
+        data.cpusModel = os.cpus()[0]['model'];
         data.clientIp = Tools.clientIp(req);
+        data.version = process.version;
         data.execPath = process.execPath;
         data.platform = process.platform;
-        //this.test(data.networkInterfaces); // os.cpus()
+        //this.test(os.networkInterfaces); // os.cpus()
         cb && cb(data);
         // ip
     }

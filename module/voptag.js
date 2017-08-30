@@ -34,7 +34,7 @@ function Voptag(html) {
             html = html.replace(k1+subtstr+k2, '');
         }
         // 为大段文本添加一个后缀`<ys/>`
-        var reg = new RegExp(/\{(cut|sub|title|thumb)\(\{\$([\w]+)\}\,/, 'gi'); // |date
+        var reg = new RegExp(/\{(cut|sub|title|thumb)\(\{\$([\w]+)\}\,/, 'gi');
         var itms = html.match(reg);
         if(!itms) return; //没有tag
         for (var i=0; i<itms.length; i++) {

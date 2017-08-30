@@ -139,7 +139,7 @@ exports.fmtStamp = function(stamp,format,mstamp){
       "s+": D.getSeconds(),
       "S+": D.getMilliseconds()
     };
-    for (var k in date) {
+    for(var k in date) {
         if (new RegExp("(" + k + ")").test(format)) {
             var val = date[k]>9 ? date[k] : '0'+date[k];
             format = format.replace(RegExp.$1, val);
