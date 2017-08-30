@@ -1,7 +1,7 @@
 
 var Config = require('./config'),
     Tools  = require('./tools'),
-    Mimes = require('./mimes'),
+    Mimes  = require('./mimes'),
     Voptpl = require('./voptpl'),
     dbData = require('./dbdata'),
     util   = require('util');

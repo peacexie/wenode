@@ -17,14 +17,14 @@ function Router(req, res) {
         // init-mkv
         this.init(req.url); if(mkvs.err) return vop.static(mkvs.err, 404);
         this.imkv();        if(mkvs.err) return vop.static(mkvs.err, 404);
-        // 静态/禁访问:目录
+        // 目录:禁止访问/静态目录/未定义目录
         if(mkvs.dir=='forbid' || mkvs.dir=='static' || !Config.dirv[mkvs.dir] || mkvs.path=='/favicon.ico'){
             var code = 200;
-            if(mkvs.dir=='forbid'){
+            if(mkvs.dir=='forbid'){ // 禁止访问
                 code = 403;
-            }else if(mkvs.dir=='static'){
+            }else if(mkvs.dir=='static'){ // 静态目录,favicon
                 code = 200;
-            }else if(!Config.dirv[mkvs.dir]){
+            }else if(!Config.dirv[mkvs.dir]){ // 未定义目录
                 code = 404;
             }
             return vop.static(mkvs.path, code);
