@@ -28,10 +28,9 @@ var config = {
     },
     // 静态/禁访问:目录
     "dirs" : {
-        '@bak'   : 'forbid',
-        'cache'  : 'forbid',
         'client' : 'static',
         'static' : 'static',
+        'cache'  : 'forbid',
         'module' : 'forbid',
     },
     // 视图目录:mkv/vop

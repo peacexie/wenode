@@ -60,8 +60,8 @@ A mini Node.js App Framework, for Web-Chatroom, Info-push, REST-API!
   - 安装模块：npm install mysql -g
 
 * 配置应用/运行
-  - 配置db：/@bak/data.sql
-  - 配置nodejs：/module/config.js (注意手动建立相关日志目录)
+  - 配置db：/cache/data.sql
+  - 配置nodejs：/module/config.js
   - 运行：node app.js
 
 
