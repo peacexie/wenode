@@ -27,7 +27,7 @@
     <textarea id="msg_box" rows="6" cols="50" onkeydown="confirm(event)"></textarea><br>
     <input type="button" value="发送" onclick="send()">
 </div>
-<p>提示：请先运行服务端，如：`>php ./path/php_server.php` 进行测试.<br>
+<p>提示：请先运行服务端，如：`>php ./php/phpserver.php` 进行测试.<br>
 From: http://www.cnblogs.com/zhenbianshu/p/6111257.html</p>
 </body>
 </html>
@@ -81,7 +81,7 @@ From: http://www.cnblogs.com/zhenbianshu/p/6111257.html</p>
 
     ws.onerror = function () {
         var data = "系统消息 : 出错了,请退出重试. 是否没有运行服务端，如：<br>";
-            data += ">php ./path/php_server.php";
+            data += ">php ./php/phpserver.php";
         listMsg(data);
     };
 
