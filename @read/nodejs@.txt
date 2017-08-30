@@ -1,5 +1,5 @@
 
-mini
+mini --- ok 
 home
 scan
 
