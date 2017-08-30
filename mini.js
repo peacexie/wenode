@@ -49,5 +49,5 @@ ws.on('connection', function(client){
 
 // debug
 function logDebug(erno, ermsg){
-    console.log(erno,ermsg);
+    console.log(erno, ermsg);
 }
