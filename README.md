@@ -79,9 +79,12 @@ A mini Node.js App Framework, for Web-Chatroom, Info-push, REST-API!
   - 文件列表： /cache/tree_fdir.txt
 
 * 举一反三
-  - php做 WebSocket 长连接，见：/wemin/@docs/php_server.php
-  - 第一版 nods.js聊天：/wemin/@docs/vn1_chat.js (来源网络+修改)
-  - 单文件(服务端) nods.js聊天：/wemin/app.js
+  - php做 WebSocket 长连接，见：/wemin/php/server.php  
+    client.htm 为对应客户端
+  - 第一版 nods.js聊天：/wemin/ver1/chat.js (来源网络+修改)  
+    chat.htm 为对应客户端, 共用 static文件夹
+  - 单文件(服务端) nods.js聊天：/wemin/mini.js  
+    共用 /static/文件夹, 及客户端：/client/*
 
 ----------------------------------- 
 
