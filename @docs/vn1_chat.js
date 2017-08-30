@@ -1,0 +1,69 @@
+/**
+ * Created with JetBrains WebStorm.
+ * User: xuwenmin
+ * Date: 14-4-19
+ * Time: 下午1:20
+ * To change this template use File | Settings | File Templates.
+ */
+
+var express = require('express'),
+    io = require('socket.io');
+
+var app  =express();
+
+app.use(express.static(__dirname));
+
+var server = app.listen(8831, '127.0.0.1'); //192.168.1.228 http://localhost:7051
+
+
+var ws = io.listen(server);
+
+
+// 检查昵称是否重复
+var checkNickname = function(name){
+	if('(,你,我,他,她,它,TA,系统,admin,)'.indexOf(','+name+',')>0) return true;
+    for(var k in ws.sockets.sockets){
+        if(ws.sockets.sockets.hasOwnProperty(k)){
+            if(ws.sockets.sockets[k] && ws.sockets.sockets[k].nickname == name){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+// 获取所有的昵称数组
+var getAllNickname = function(){
+    var result = [];
+    for(var k in ws.sockets.sockets){
+        if(ws.sockets.sockets.hasOwnProperty(k)){
+            result.push({
+                name: ws.sockets.sockets[k].nickname
+            });
+        }
+    }
+    return result;
+}
+ws.on('connection', function(client){
+    console.log('\033[96msomeone is connect\033[39m \n');
+    client.on('join', function(msg){
+        // 检查是否有重复
+        if(checkNickname(msg)){
+            client.emit('nickname', '昵称有重复!');
+        }else{
+            client.nickname = msg;
+            ws.sockets.emit('announcement', '系统', msg + ' 加入了聊天室!', {type:'join', name:getAllNickname()});
+        }
+    });
+    // 监听发送消息
+    client.on('send.message', function(msg){
+        client.broadcast.emit('send.message',client.nickname,  msg);
+    });
+
+    client.on('disconnect', function(){
+        if(client.nickname){
+            client.broadcast.emit('send.message','系统',  client.nickname + '离开聊天室!', {type:'disconnect', name:client.nickname});
+        }
+    })
+
+})
+
