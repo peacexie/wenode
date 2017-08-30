@@ -62,7 +62,9 @@ A mini Node.js App Framework, for Web-Chatroom, Info-push, REST-API!
 * 配置应用/运行
   - 配置db：/cache/data.sql
   - 配置nodejs：/module/config.js
-  - 运行：node app.js
+  - (服务端)运行：node app.js
+  - (客户端)运行：http://127.0.0.1:8821/
+  - (客户端)聊天测试：任意浏览器 或 web服务器 打开/client/下的html文件
 
 
 ### node.js学习感悟与提示
@@ -72,11 +74,14 @@ A mini Node.js App Framework, for Web-Chatroom, Info-push, REST-API!
   - 建议：大量静态处理用其他web服务器（如：Apache, IIS, Nginx）
   - 建议：精简nodejs只做聊天服务端, REST-API 等
 
-* 一些提示
+* 学习提示
   - 异步与回调：初学一定要好好体会，否则是个很大的坑
-  - php做 WebSocket 长连接，见：/@bak/php_server.php
-  - 文件列表： /@bak/tree_fdir.txt
+  - 文件列表： /cache/tree_fdir.txt
 
+* 举一反三
+  - php做 WebSocket 长连接，见：/wemin/@docs/php_server.php
+  - 第一版 nods.js聊天：/wemin/@docs/vn1_chat.js (来源网络+修改)
+  - 单文件(服务端) nods.js聊天：/wemin/app.js
 
 ----------------------------------- 
 
