@@ -45,6 +45,7 @@
 
 <div class="clear"></div>
 
+<h2>cpusModels</h2>
 <table border="1" width="100%">
     {list:data.rex.cpusModels}
     <tr>
@@ -58,7 +59,7 @@
     {/list:data.rex.cpusModels}
 </table>
 
-
+<h2>networkInterfaces</h2>
 <table border="1" width="100%">
   <tr>
     <td>address</td>
@@ -70,7 +71,7 @@
   </tr>
   {list:data.rex.networkInterfaces}
   <tr>
-    <td colspan="6">{id:key}</td>
+    <td colspan="6" style="background:#CCC;">{id:key}</td>
     </tr>
     <tr>{sub({$0},2)}</tr>
     <tr>{sub({$1},2)}</tr>
@@ -90,7 +91,7 @@
     <p>{$rex.cpusModels}</p>
 </div>
 
-(aaa)
+(子列表模板-start)
 <div style="display: none;">
 <start=subtpls>
 <ys/>
@@ -104,6 +105,6 @@ user={$user}, <b>nice={$nice}</b>, sys={$sys}, <b>idle={$idle}</b>, irq={$irq}
 <td>{$internal}</td>
 <end=subtpls>
 </div>
-(bbb)
+(子列表模板-End)
 
 {/block:main}

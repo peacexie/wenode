@@ -69,7 +69,7 @@ function Voptag(html) {
         }
     }
 
-    // 子列表 {sub({$times},tplcups)} // 定义id=tplcups的模板
+    // 子列表 {sub({$times},1)} // 定义id=1的模板
     this.sub = function() { // 
         var reg = new RegExp(/\{sub\(([^<]+)\<ys\/\>\,([\w]{1,24})\)\}/, 'gi');
         var itms = html.match(reg);
@@ -83,16 +83,11 @@ function Voptag(html) {
             html = html.replace(itms[i], sitm, '...'); // /g?
         }
     }
-
-    // {sitm({ user: 502557, nice: 0, sys: 468065, idle: 20318849, irq: 1388 }<ys/>,tplcups)}
+    // {sitm({ user: 502557, nice: 0, sys: 468065, idle: 20318849, irq: 1388 }, 1, ,)}
     this.sitm = function(data, tplid, sp) { //
-        //console.log('\naaaa:', tplid, sp, subtpls[tplid]); 
-        //console.log(typeof(subtpls[tplid])); 
         var tpl = typeof(subtpls[tplid]=='string') ? subtpls[tplid] : '';
         if(data.indexOf(':')>0 && data.match(/^[\{]/) && data.match(/[\}]$/)){
-            try{
-                eval('var _arr = '+data); //console.log('\naaaa:', _arr);  
-            }catch(err){}
+            try{ eval('var _arr = '+data); }catch(err){}
         }else if(data.indexOf(sp)>0){
             var _arr = data.split(sp);
         }
