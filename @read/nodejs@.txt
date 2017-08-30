@@ -1,4 +1,9 @@
 
+mini
+home
+scan
+
+marked.min.js
 
 * 
 Tools.exeOrder
