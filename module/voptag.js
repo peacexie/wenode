@@ -12,12 +12,12 @@ function Voptag(html) {
     // run
     this.run = function(data, mkvs){
         this.conv();
-        this.list(data); // 列表解析; 
+        this.list(data); // 列表解析 
         this.vals(data.rdb, 'rdb');
         this.vals(data.rex, 'rex');
         this.vals(mkvs, 'mkvs');
         this.vals(Config, 'config');
-        this.sub();
+        this.sub(); // 子列表解析
         this.date();
         this.cut();
         //this.title();
@@ -27,10 +27,11 @@ function Voptag(html) {
     // 转换数据, 以便后续方便解析
     this.conv = function() { // {func({$title},12,...)}
         // 子列表模板
-        var subtstr = Tools.getPos(html, '<start=subtpls>', '<end=subtpls>');
+        var k1 = '<subtpls.start>', k2='<subtpls.end>';
+        var subtstr = Tools.getPos(html, k1, k2);
         if(subtstr){
             subtpls = subtstr.split('<ys/>');
-            html = html.replace(subtstr, '');
+            html = html.replace(k1+subtstr+k2, '');
         }
         // 为大段文本添加一个后缀`<ys/>`
         var reg = new RegExp(/\{(cut|sub|title|thumb)\(\{\$([\w]+)\}\,/, 'gi'); // |date
@@ -69,7 +70,7 @@ function Voptag(html) {
         }
     }
 
-    // 子列表 {sub({$times},1)} // 定义id=1的模板
+    // 子列表 {sub({$jsondata},1)} // 定义id=1的模板
     this.sub = function() { // 
         var reg = new RegExp(/\{sub\(([^<]+)\<ys\/\>\,([\w]{1,24})\)\}/, 'gi');
         var itms = html.match(reg);
