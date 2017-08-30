@@ -10,7 +10,7 @@ function Voptag(html) {
     // run
     this.run = function(data, mkvs){
         this.conv();
-        this.list(data); // tag解析; 
+        this.list(data); // 列表解析; 
         this.vals(data.rdb, 'rdb');
         this.vals(data.rex, 'rex');
         this.vals(mkvs, 'mkvs');
@@ -22,7 +22,7 @@ function Voptag(html) {
         //this.thumb();
         return html;
     }
-    // 为大段文本添加一个后缀`<ys/>`, 以便后续方法解析
+    // 为大段文本添加一个后缀`<ys/>`, 以便后续方便解析
     this.conv = function() { // {func({$title},12,...)}
         reg = new RegExp(/\{(cut|opt|title|thumb)\(\{\$([\w]+)\}\,/, 'gi'); // |date
         itms = html.match(reg);
@@ -33,7 +33,8 @@ function Voptag(html) {
         }
     }
 
-    this.date = function() { // {date({$atime},Y-m-d H:i)}
+    // 时间戳转日期时间 {date({$atime},Y-m-d H:i)}
+    this.date = function() {
         reg = new RegExp(/\{date\(([\w|\,|\-|\:|\.| ]{8,32})\)\}/, 'gi');
         itms = html.match(reg);
         if(!itms) return; //没有tag
@@ -44,8 +45,8 @@ function Voptag(html) {
             html = html.replace(itms[i], date); // /g?
         }
     }
-
-    this.cut = function() { // {cut({$title},18,...)}
+    // 字符串截取 {cut({$title},18,...)}
+    this.cut = function() {
         reg = new RegExp(/\{cut\(([^\n\r]+)\)\}/, 'gi');
         itms = html.match(reg);
         if(!itms) return; //没有tag
@@ -59,8 +60,8 @@ function Voptag(html) {
         }
     }
 
-    // list:标签
-    this.list = function(data) { // {list:data.rex}<li>{$title}</li>{/list:data.rex}
+    // list:标签 {list:data.rex}<li>{$title}</li>{/list:data.rex}
+    this.list = function(data) {
         reg = new RegExp(/\{list:([\w|\.]{1,24})\}/, 'gi');
         itms = html.match(reg);
         if(!itms) return; //没有tag

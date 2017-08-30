@@ -10,7 +10,7 @@ function Voptpl(mkvs) {
 
     var dir, tplname='';
 
-    // 通过mkv得到模板:news/detail
+    // 通过mkv得到模板名(不含_dir/.htm): news/detail
     this.get = function(){
         dir = '/'+mkvs.dir+'/';
         var tpl1 = mkvs.mod + '/' + mkvs.key;
@@ -32,36 +32,25 @@ function Voptpl(mkvs) {
     // 填充tpl: index, home/about
     this.fill = function(data) { 
         var html = this.read(tplname);
-        // {use:"news/mtype"}
+        // use,使用别的mkv模板; imp,继承; inc,包含
+        html = this.use(html); // 模板继承; 
+        html = this.imp(html); // 模板继承; 
+        html = this.inc(html); // 模板包含; 
+        // tag解析; 
+        html = new Voptag(html).run(data, mkvs);
+        return html;
+    };
+
+    // use:使用别的mkv模板 {use:"news/mtype"}
+    this.use = function(html) { 
         var reg = new RegExp(/\{use:\"([\S]{3,48})\"\}/, 'gi');
         var itms = reg.exec(html);
         if(itms && itms[1]){
             html = this.read(itms[1]);    
         }
-        // imp,继承; inc,包含
-        html = this.imp(html); // 模板继承; 
-        html = this.inc(html); // 模板包含; 
-        html = new Voptag(html).run(data, mkvs); // tag解析; 
-        return html;
-    };
-
-
-    // inc:模板包含
-    this.inc = function(html) { 
-        var reg = new RegExp(/{inc:\"(.*)\"}/, 'gi');
-        itms = html.match(reg); 
-        if(!itms) return html; //没有inc
-        for (var i=0; i<itms.length; i++) {
-            var tpl = itms[i].replace('{inc:"', '').replace('"}', '');
-            var sinc = this.read(tpl);
-            if(!sinc){ sinc = "<!-- {inc:`"+tpl+"`} -->"; }
-            html = html.replace(itms[i], sinc);
-            return this.inc(html);
-        }
         return html;
     }
-
-    // imp:模板继承
+    // imp:模板继承 {imp:"_incs/lay1"}
     this.imp = function(html) { 
         var reg = new RegExp(/\{imp:\"([\S]{3,48})\"\}/, 'gi');
         var itms = reg.exec(html);
@@ -83,6 +72,20 @@ function Voptpl(mkvs) {
             layout = layout.replace(k1, '').replace(k2, ''); // {:parent}
         }
         return layout;
+    }
+    // inc:模板包含 {inc:"index:_incs/top1"}
+    this.inc = function(html) { 
+        var reg = new RegExp(/{inc:\"(.*)\"}/, 'gi');
+        itms = html.match(reg); 
+        if(!itms) return html; //没有inc
+        for (var i=0; i<itms.length; i++) {
+            var tpl = itms[i].replace('{inc:"', '').replace('"}', '');
+            var sinc = this.read(tpl);
+            if(!sinc){ sinc = "<!-- {inc:`"+tpl+"`} -->"; }
+            html = html.replace(itms[i], sinc);
+            return this.inc(html);
+        }
+        return html;
     }
 
     // read:imp/inc

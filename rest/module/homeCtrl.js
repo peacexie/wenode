@@ -3,7 +3,7 @@ var Config = require('../../module/config'),
     Tools  = require('../../module/tools'),
     util   = require('util');
 
-function indexCtrl(mkvs, rdb) {
+function indexCtrl(mkvs, rdb, req, res) {
 
     // indexAct
     this.indexAct = function(cb){ 

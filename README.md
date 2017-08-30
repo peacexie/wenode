@@ -1,8 +1,8 @@
 
 
-# Wenode - Node.js 微框架！ # 
+# Wenode - Node.js Mini Framework # 
 
-A mini Node.js App Framework, for Web-Chatroom, Info-push, REST-API!  
+Node.js Mini Framework, for Web-Chatroom, Info-push, REST-API!  
 一个适合于：网页聊天, 信息推送, REST-API, 微信扫码交互的 Node.js 微框架！
 
 ----------------------------------- 
@@ -99,36 +99,6 @@ A mini Node.js App Framework, for Web-Chatroom, Info-push, REST-API!
   - http://txmao.txjia.com/dev.php  
     贴心猫(IntimateCat) --- PHP Web系统
 
-
 * 外部链接
-
-  - http://www.runoob.com/nodejs/nodejs-tutorial.html  
-    Node.js 教程
-  
-  - http://cnodejs.org/topic/53787247cbcc396349fe3f5a  
-    用NodeJS实现一个简单的聊天室
-  
-  - http://blog.csdn.net/u013742084/article/details/51225635  
-    利用nodejs搭建server端
-  
-  - 安装express, 用这个来托管socket.io,以及静态页面,命令  
-    npm install express --save,--save可以使包添加到package.json文件里.
-
-  - http://yuncode.net/code/c_519c10363c14177  
-    js发送心跳包 web socket 
-
-  - http://www.devstore.cn/essay/essayInfo/2199.html  
-    node.js的15个应用场景
-
-  - http://www.jb51.net/article/58222.htm  
-    node.js中实现同步操作的3种实现方法
-
-  - http://blog.csdn.net/dong123dddd/article/details/51727238  
-    nodejs读取图片返回给浏览器显示
-
-
------------------------------------ 
-
-
-
+  - 见：wemin/@docs/links.txt
 

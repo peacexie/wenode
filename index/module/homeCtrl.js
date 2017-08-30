@@ -16,6 +16,7 @@ function homeCtrl(mkvs, rdb, req, res) {
     // infoAct
     this.infoAct = function(cb){ 
         var data = {};
+        data.version = process.version;
         data.systype = os.type(); // linux, Darwin, Windows_NT
         data.hostname = os.hostname();
         data.release = os.release();
@@ -23,6 +24,8 @@ function homeCtrl(mkvs, rdb, req, res) {
         data.networkInterfaces = os.networkInterfaces();
         data.endianness = os.endianness();
         data.clientIp = Tools.clientIp(req);
+        data.execPath = process.execPath;
+        data.platform = process.platform;
         cb && cb(data);
         // ip
     }
