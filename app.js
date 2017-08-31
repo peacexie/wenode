@@ -14,7 +14,7 @@ var server = http.createServer(function(req, res){
 }).listen(Config.port, Config.host);
 
 // 聊天webSocket对象
-var ws = SockIO.listen(server);
+global.ws = SockIO.listen(server);
 ws.on('connection', function(client){
     new WebSock(this, client);
 });

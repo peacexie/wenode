@@ -61,6 +61,10 @@ $(function() {
     <li><a href='?aid=1234&uname=客服A&type=kefu'>?aid=1234&uname=客服A</a> # </li>
     <li><a href='?aid=1235&uname=客服B&type=kefu'>?aid=1235&uname=客服B</a> # </li>
     <li><a href='?aid=1251&uname=客服C&type=kefu'>?aid=1251&uname=客服C</a> # </li>
+    <hr>
+    <li><a href='?aid=1200&uname=更新消息&type=push'>?aid=1200&uname=更新消息</a> # </li>
+    <li><a href='?aid=1600&uname=系统提示&type=push'>?aid=1600&uname=系统提示</a> # </li>
+    <li><a href='?aid=1800&uname=消息推送&type=push'>?aid=1800&uname=消息推送</a> # </li>
 </div>
 
 </body>

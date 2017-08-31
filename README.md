@@ -100,5 +100,5 @@ Node.js Mini Framework, for Web-Chatroom, Info-push, REST-API!
     贴心猫(IntimateCat) --- PHP Web系统
 
 * 外部链接
-  - 见：wemin/@docs/links.txt
+  - 见：wemin/@read/links.txt
 
