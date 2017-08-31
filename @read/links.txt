@@ -1,0 +1,57 @@
+
+
+* 外部链接
+
+  - http://www.runoob.com/nodejs/nodejs-tutorial.html  
+    Node.js 教程
+  
+  - http://cnodejs.org/topic/53787247cbcc396349fe3f5a  
+    用NodeJS实现一个简单的聊天室
+  
+  - http://blog.csdn.net/u013742084/article/details/51225635  
+    利用nodejs搭建server端
+  
+  - 安装express, 用这个来托管socket.io,以及静态页面,命令  
+    npm install express --save,--save可以使包添加到package.json文件里.
+
+  - http://yuncode.net/code/c_519c10363c14177  
+    js发送心跳包 web socket 
+
+  - http://www.devstore.cn/essay/essayInfo/2199.html  
+    node.js的15个应用场景
+
+  - http://www.jb51.net/article/58222.htm  
+    node.js中实现同步操作的3种实现方法
+
+  - http://blog.csdn.net/dong123dddd/article/details/51727238  
+    nodejs读取图片返回给浏览器显示
+
+------------------------------------------------
+
+http://www.cnblogs.com/jiahuafu/p/4599959.html
+HTML5 WebSocket 技术介绍
+
+http://www.cnblogs.com/zhenbianshu/p/6111257.html
+网页实时聊天之PHP实现websocket
+
+http://fighter.blog.51cto.com/1318618/1533957/
+PHP-Socket服务端客户端发送接收通信实例详解
+
+http://blog.csdn.net/yanhui_wei/article/details/38705879
+ 【socket】用PHP的socket实现客户端到服务端的通信
+
+http://blog.csdn.net/sauphy/article/details/51097760
+php之socket网络操作类
+
+http://www.workerman.net/workerman
+workerman是一个高性能的PHP socket 服务器框架
+
+http://blog.csdn.net/hguisu/article/details/7448528
+PHP SOCKET编程
+
+http://www.cnblogs.com/lingxin/p/6077671.html
+php简单实现socket通信
+
+------------------------------------------------
+
+//cdn.bootcss.com/jquery/3.2.1/jquery.min.js
