@@ -33,7 +33,7 @@ $uid = (strstr($uname,'游客:')) ? md5($_SERVER['REMOTE_ADDR'].':'.@$_SERVER['H
 <li class="some__class (me) (sys)">
   <div class="user-info">
     <p class="user-name"><a target="_blank">{uname}</a></p>
-    <p class="user-ext">{ip} {stime}</p>
+    <p class="user-ext">{stime}</p>
   </div>
   <p class="chat-msg">{msgs}</p>
 </li>

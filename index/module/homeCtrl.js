@@ -9,14 +9,21 @@ function homeCtrl(mkvs, rdb, req, res) {
 
     // shttpAct
     this.shttpAct = function(cb){
-        // '?aid=1200&uname=更新消息&type=push'>?aid=1200&uname=更新消息
-        // '?aid=1600&uname=系统提示&type=push'>?aid=1600&uname=系统提示
-        // '?aid=1800&uname=消息推送&type=push'>?aid=1800&uname=消息推送
-        msgs = 'xxx消息';
         var mstamp = Date.parse(new Date()); // mstamp:时间戳(ms),取服务器时间
         var stime = Tools.fmtStamp(mstamp,'Y-m-d H:i:s',1);
-        var data = {'user':'userSystem', 'msgs':msgs, 'ip':'-', 'stime':stime, 'room':'push.1600'};
-        ws.to('push.1600').emit('emsg', data);
+        var q = mkvs.query;
+        var type = q.type ? q.type : 'push';
+        if(type=='wxscan'){
+            //
+        }else{
+            var aid = q.aid ? q.aid : '1600';
+            var uname = q.uname ? q.uname : '系统Admin';
+            var msgs = q.msgs ? q.msgs+' ('+stime+')' : '系统Message ('+stime+')';
+        }
+        var room = type+'.'+aid;
+        var user = {"uid":room, "uname":uname};
+        var data = {'user':user, 'msgs':msgs, 'ip':'-', 'stime':stime, 'room':room};
+        ws.to(room).emit('emsg', data);
         cb && cb(data);
     }
 

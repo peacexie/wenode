@@ -57,7 +57,7 @@ function Voptpl(mkvs) {
         if(!itms || !itms[1]) return html; //没有imp
         var layout = this.read(itms[1]);
         reg = new RegExp(/\{block:([\w]{1,24})\}/, 'gi');
-        itms = layout.match(reg); //Tools.debug(itms); 
+        itms = layout.match(reg);
         if(!itms) return layout; //没有block
         for (var i=0; i<itms.length; i++) {
             var k1 = itms[i], k2 = k1.replace('{block:', '{/block:');
@@ -69,7 +69,7 @@ function Voptpl(mkvs) {
                 if(blk1.indexOf('{:parent}')>=0) blk1 = blk1.replace("{:parent}", blkp);
                 layout = layout.replace(k1+blkp+k2, blk1);
             }
-            layout = layout.replace(k1, '').replace(k2, ''); // {:parent}
+            layout = layout.replace(k1, '').replace(k2, '');
         }
         return layout;
     }
