@@ -9,14 +9,14 @@ function homeCtrl(mkvs, rdb, req, res) {
 
     var data;
 
-    this.sinit = function(){
+    this.sinit = function(type){
         var mstamp = Date.parse(new Date()); // mstamp:时间戳(ms),取服务器时间
         var stime = Tools.fmtStamp(mstamp,'Y-m-d H:i:s',1);
         var q = mkvs.query;
         var aid = q.aid ? q.aid : Math.floor(Math.random()*(9876-1234+1)+1234);
         var uname = q.uname ? q.uname : '系统Admin';
         var msgs = q.msgs ? q.msgs+' ('+stime+')' : '系统Message ('+stime+')';
-        var room = 'push.'+aid;
+        var room = type+'.'+aid;
         var user = {"uid":room, "uname":uname};
         data = {'user':user, 'msgs':msgs, 'ip':'-', 'stime':stime, 'room':room};
         ws.to(room).emit('emsg', data);
@@ -28,7 +28,7 @@ function homeCtrl(mkvs, rdb, req, res) {
     }
     // scansAct
     this.scansAct = function(cb){
-        this.sinit('scan');
+        this.sinit('scans');
         cb && cb(data);
     }
 

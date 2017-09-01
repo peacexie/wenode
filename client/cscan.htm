@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>socket.io 聊天室例子</title>
+<title>聊天室-扫码客服端</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="./style.css"/>
 <script src='../static/js/jquery-3x.js'></script>
@@ -13,31 +13,25 @@
 
 <div style="width:320px;float:right;padding:10px;">
     <div>
-      <p>不发送,只接收;<br>
-      模拟App接收推送信息.</p>
+      <p>模拟微信扫码,</p>
     </div>
 </div>
 
 <table border="1" style="width:960px">
     <tr id='to_kefus'>
-<td width="33%" id='to_1200' class="act"><p>在线：<span id="chatOnline1200"></span></p>push.1200</td>
-<td width="33%" id='to_1600'><p>在线：<span id="chatOnline1600"></span></p>push.1600</td>
-<td width="33%" id='to_1800'><p>在线：<span id="chatOnline1800"></span></p>push.1800</td>
+<td width="50%" id='qrscan'><p>1. 点击显示二维码</p></td>
+<td width="50%"><p>在线：<span id="chatOnline"></span></p>scene.<span id="sid"></span></td>
     </tr>
     <tr>
         <td>
-<div id="chatDiv1200">
-  <ul id="chatLists1200"></ul>
+<div>
+  <ul id="qrcode"></ul>
+  <ul id="qrurl"></ul>
 </div>
         </td>
         <td>
-<div id="chatDiv1600">
-  <ul id="chatLists1600"></ul>
-</div>
-        </td>
-        <td>
-<div id="chatDiv1800">
-  <ul id="chatLists1800"></ul>
+<div id="chatDiv">
+  <ul id="chatLists"></ul>
 </div>
         </td>
     </tr>
@@ -54,25 +48,25 @@
 </script>
 
 <script>
+
 // 聊天-configs
 var chat_user = {
-        "uid" : 'abc', 
-        "uname" : "游客ABC"
-    };
-$(function() {
-    initChat('push.1200');
-    initChat('push.1600');
-    initChat('push.1800');
-});
-$('#to_kefus td').each(function(){
-    $(this).click(function(){
-        $('#to_kefus td').removeClass('act');
-        $(this).addClass('act');
-        chatId = $(this).prop('id').replace('to_','');
-        $('#to_who').html(chatId);
-        //console.log(chatId);
-     })
-});
+    "uid" : 'abc', 
+    "uname" : "游客ABC"
+};
+
+$("#qrscan").click(function(){
+    var aid = Math.floor(Math.random()*(9876-1234+1)+1234);
+    var url = "http://127.0.0.1:8821/scans?aid="+aid+"&msgs=ScanTest";
+    $("#qrcode").qrcode({ 
+        render: "canvas", //table方式 
+        size: 200,
+        text: url 
+    });
+    initChat('scans.'+aid);
+    $("#qrurl").html("<a href='"+url+"' target='_blank'>scene="+aid+"</a>");
+    $("#sid").html(aid);
+}); 
 
 </script>
 

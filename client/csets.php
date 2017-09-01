@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>socket.io 聊天室例子</title>
+<title>聊天室-管理后台</title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="./style.css"/>
 <script src='../static/js/jquery-3x.js'></script>
