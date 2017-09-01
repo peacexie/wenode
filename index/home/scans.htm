@@ -1,0 +1,23 @@
+{imp:"_incs/lay1"}<!--模板继承-->
+
+{block:title}Scan Server{/block:title}
+
+{block:imp}<script src="/static/js/jquery-3x.js"></script>
+<script src="/static/js/marked.min.js"></script>{/block:imp}
+
+{block:title}Scan Server - {:parent}{/block:title}
+
+{block:main}
+
+<p>&nbsp;</p>
+
+<p>成功发送如下消息：</p>
+<li>user={$rex.user}</li>
+<li>msgs={$rex.msgs}</li>
+<li>ip={$rex.ip}</li>
+<li>stime={$rex.stime}</li>
+<li>room={$rex.room}</li>
+
+<p>请注意电脑屏幕跳转…</p>
+
+{/block:main}

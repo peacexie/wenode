@@ -1,5 +1,6 @@
 
 var Config  = require('./module/config'),
+    Tools   = require('./module/tools'),
     Router  = require('./module/router'),
     WebSock = require('./module/websock'),
     SockIO  = require('socket.io'),
@@ -18,3 +19,6 @@ global.ws = SockIO.listen(server);
 ws.on('connection', function(client){
     new WebSock(this, client);
 });
+
+// 仅提示,无他意义
+Tools.debug('server.run', Config.host+':'+Config.port+' ...');

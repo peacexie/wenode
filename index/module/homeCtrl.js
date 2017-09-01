@@ -7,23 +7,28 @@ var Config = require('../../module/config'),
 
 function homeCtrl(mkvs, rdb, req, res) {
 
-    // shttpAct
-    this.shttpAct = function(cb){
+    var data;
+
+    this.sinit = function(){
         var mstamp = Date.parse(new Date()); // mstamp:时间戳(ms),取服务器时间
         var stime = Tools.fmtStamp(mstamp,'Y-m-d H:i:s',1);
         var q = mkvs.query;
-        var type = q.type ? q.type : 'push';
-        if(type=='wxscan'){
-            //
-        }else{
-            var aid = q.aid ? q.aid : '1600';
-            var uname = q.uname ? q.uname : '系统Admin';
-            var msgs = q.msgs ? q.msgs+' ('+stime+')' : '系统Message ('+stime+')';
-        }
-        var room = type+'.'+aid;
+        var aid = q.aid ? q.aid : Math.floor(Math.random()*(9876-1234+1)+1234);
+        var uname = q.uname ? q.uname : '系统Admin';
+        var msgs = q.msgs ? q.msgs+' ('+stime+')' : '系统Message ('+stime+')';
+        var room = 'push.'+aid;
         var user = {"uid":room, "uname":uname};
-        var data = {'user':user, 'msgs':msgs, 'ip':'-', 'stime':stime, 'room':room};
+        data = {'user':user, 'msgs':msgs, 'ip':'-', 'stime':stime, 'room':room};
         ws.to(room).emit('emsg', data);
+    }
+    // spushAct
+    this.spushAct = function(cb){
+        this.sinit('push');
+        cb && cb(data);
+    }
+    // scansAct
+    this.scansAct = function(cb){
+        this.sinit('scan');
         cb && cb(data);
     }
 
