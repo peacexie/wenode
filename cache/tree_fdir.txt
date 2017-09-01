@@ -47,15 +47,15 @@
 │           
 ├───module // 核心模块
 │       config.js // 核心配置
-│       dbdata.js // 模型数据
+│       dbdata.js // 模型数据模块
 │       mimes.js // mime头
 │       mycurd.js // mysql-数据操作
-│       router.js // 核心路由
+│       router.js // 核心路由模块
 │       tools.js // 核心工具
-│       viewop.js // 核心显示操作
-│       voptag.js // 模板解析
-│       voptpl.js // 标签解析
-│       websock.js // 聊天服务端
+│       viewop.js // 核心显示模块
+│       voptag.js // 模板解析模块
+│       voptpl.js // 标签解析模块
+│       websock.js // 聊天模块
 │       
 ├───rest // REST-API 展示分组
 │   └───module
