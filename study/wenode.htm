@@ -1,0 +1,163 @@
+<!doctype html>
+<html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wenode - A mini Node.js App Framework!</title>
+<style type="text/css">
+body{ width:760px; margin:auto; }
+.block { width:370px; float:left; margin-bottom:10px; border:0px solid #CCC; }
+.right{ float:right; }
+.clear{ clear:both; }
+.tr{ text-align:right; padding-right:10px; }
+nav{ display:block; clear:both; padding:10px; }
+nav li{ width:100px; display:inline-block; float:left; }
+nav li.logo{ float:right; }
+h1{ display:block; clear:both; text-align:center; }
+footer{ clear:both; text-align:center; padding:10px; }
+/*media*/
+@media only screen and (max-width:765px) {
+    body{ width:100%; margin:10px; }
+    .block { width:100%; float:initial; margin:auto 10px 10px 10px; }
+    nav{ text-align:center; }
+    nav li.logo{ width:100%; clear:both; float:initial; display:block; text-align:center; }
+}
+</style>
+</head>
+<body> 
+
+
+<nav>
+<li><a href="?">Home</a></li>
+<li><a href="https://github.com/peacexie/wenode">@github</a></li>
+<li><a href="http://txmao.txjia.com/dev.php">贴心猫</a></li>
+<li class="logo"><img src="http://txmao.txjia.com/skin/_pub/logo/gezi1-40x.jpg"></li>
+</nav>
+
+
+
+
+<div id="mdstr"><h1 id="wenode-node-js-mini-framework">Wenode - Node.js Mini Framework</h1>
+<p>Node.js Mini Framework, for Web-Chatroom, Info-push, REST-API!<br>一个适合于：网页聊天, 信息推送, REST-API, 微信扫码交互的 Node.js 微框架！</p>
+<hr>
+<h3 id="-">聊天室功能</h3>
+<ul>
+<li><p>已有功能</p>
+<ul>
+<li>分聊天室聊天，</li>
+<li>同一人员，加入多聊天室（客户端）</li>
+</ul>
+</li>
+<li><p>使用情景</p>
+<ul>
+<li>直播聊天</li>
+<li>APP消息推送 : 升级,提示,消息</li>
+<li>微信扫码交互 : 登录,绑定,</li>
+<li>Web客服聊天 : </li>
+<li>微现场/扫码签到 : 与微信扫码，大屏幕交互</li>
+</ul>
+</li>
+<li><p>聊天室扩展(待实现)</p>
+<ul>
+<li>上传文件/图片</li>
+<li>消息屏蔽过滤</li>
+</ul>
+</li>
+</ul>
+<h3 id="web-">Web功能</h3>
+<ul>
+<li><p>REST-API</p>
+<ul>
+<li>/rest/news (新闻首页)</li>
+<li>/rest/news-a1002 (新闻栏目)</li>
+<li>/rest/news-a1008 (新闻栏目)</li>
+<li>/rest/news.2017-ab-1234 (新闻详情：id=2017-ab-1234)</li>
+<li>以下根据需要扩展实现</li>
+<li>/rest/news-add + POST (增加)</li>
+<li>/rest/news-upd + POST (更新)</li>
+<li>/rest/news-del + id=2017-ab-1234 (删除)</li>
+</ul>
+</li>
+<li><p>Web常用功能 (未使用express)</p>
+<ul>
+<li>图片, 静态解析</li>
+<li>模板继承, 模板包含</li>
+<li>标签: 数据列表, 字符截取, 时间格式化 (更多请按需求扩展吧)</li>
+<li>纯数据展示（见：REST-API）</li>
+<li>xml解析, md解析</li>
+<li>自定义数据扩展</li>
+<li>自定义扩展显示</li>
+</ul>
+</li>
+<li><p>Web扩展(待实现)</p>
+<ul>
+<li>上传文件/图片，静态解析</li>
+<li>更丰富的标签显示，数据处理</li>
+</ul>
+</li>
+</ul>
+<h3 id="-">服务器配置</h3>
+<ul>
+<li><p>安装器配 node.js和模块</p>
+<ul>
+<li>安装：node.js</li>
+<li>安装模块：npm install socket.io -g</li>
+<li>安装模块：npm install mysql -g</li>
+</ul>
+</li>
+<li><p>配置应用/运行</p>
+<ul>
+<li>配置db：/cache/data.sql</li>
+<li>配置nodejs：/module/config.js</li>
+<li>(服务端)运行：node app.js</li>
+<li>(客户端)运行：<a href="http://127.0.0.1:8821/">http://127.0.0.1:8821/</a></li>
+<li>(客户端)聊天测试：任意浏览器 或 web服务器 打开/client/下的html文件</li>
+</ul>
+</li>
+</ul>
+<h3 id="node-js-">node.js学习感悟与提示</h3>
+<ul>
+<li><p>静态文件处理</p>
+<ul>
+<li>静态文件(js/css/html)显示，还要写代码处理(很不想这样做)  </li>
+<li>建议：大量静态处理用其他web服务器（如：Apache, IIS, Nginx）</li>
+<li>建议：精简nodejs只做聊天服务端, REST-API 等</li>
+</ul>
+</li>
+<li><p>学习提示</p>
+<ul>
+<li>异步与回调：初学一定要好好体会，否则是个很大的坑</li>
+<li>文件列表： /cache/tree_fdir.txt</li>
+</ul>
+</li>
+<li><p>举一反三</p>
+<ul>
+<li>php做 WebSocket 长连接，见：/wemin/php/server.php<br>client.htm 为对应客户端</li>
+<li>第一版 nods.js聊天：/wemin/ver1/chat.js (来源网络+修改)<br>chat.htm 为对应客户端, 共用 static文件夹</li>
+<li>单文件(服务端) nods.js聊天：/wemin/mini.js<br>共用 /static/文件夹, 及客户端：/client/*</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="-">相关资源</h3>
+<ul>
+<li><p>系列链接</p>
+<ul>
+<li><p><a href="https://github.com/peacexie/wenode/tree/wemin">https://github.com/peacexie/wenode/tree/wemin</a><br>精简的 nodejs 聊天室：</p>
+</li>
+<li><p><a href="http://txmao.txjia.com/dev.php">http://txmao.txjia.com/dev.php</a><br>贴心猫(IntimateCat) --- PHP Web系统</p>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+<footer class="clear">
+debug:1, 
+mkv:home+about+, 
+tpl:/index/home/about<br>
+License under MIT / 遵循MIT协议
+</footer>
+
+
+--></body></html>
+
