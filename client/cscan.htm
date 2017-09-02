@@ -11,28 +11,41 @@
 </head>
 <body>
 
-<div style="width:320px;float:right;padding:10px;">
-    <div>
-      <p>模拟微信扫码,</p>
-    </div>
-</div>
-
-<table border="1" style="width:960px">
+<table border="1" style="width:900px">
     <tr id='to_kefus'>
-<td width="50%" id='qrscan'><p>1. 点击显示二维码</p></td>
-<td width="50%"><p>在线：<span id="chatOnline"></span></p>scene.<span id="sid"></span></td>
+        <td width="33%" id='qrscan'><p>1. 点击显示二维码</p></td>
+        <td width="33%"><p>在线：<span id="chatOnline"></span></p>scene.<span id="sid"></span></td>
+        <td width="34%" rowspan="2">
+
+<li>微信扫码过程 及模拟推送事件：</li>
+
+<li>1.生成带参数二维码；<br/>
+这里点左上角提示模拟生成二维码。</li>
+
+<li>2. 扫码把事件推送到开发者Url；<br/>
+这里点第二个框里的连接模拟。</li>
+
+<li>3. 开发者Url访问类似地址；<br/>
+/scans?aid=4408&msgs=ScanTest <br/>
+或直接把地址设置为开发者Url <br/>
+处理转发扫码事件到WebSoket，<br/>
+与之前出二维码的页面进行`聊天交互`。</li>
+        </td>
     </tr>
     <tr>
-        <td>
-<div>
-  <ul id="qrcode"></ul>
-  <ul id="qrurl"></ul>
-</div>
+        <td height="250">
+            <div>
+              <ul id="qrcode"></ul>
+            </div>
         </td>
         <td>
-<div id="chatDiv">
-  <ul id="chatLists"></ul>
-</div>
+            <div id="chatDiv">
+              <ul id="chatLists">
+                <p>将推送扫码事件到如下地址：<span id="qrurl"></span></p>
+                <p>点击此地址，模拟扫码确认…</p>
+                <hr>
+              </ul>
+            </div>
         </td>
     </tr>
 </table>

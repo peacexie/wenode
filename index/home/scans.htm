@@ -1,19 +1,15 @@
 {imp:"_incs/lay1"}<!--模板继承-->
 
-{block:title}Scan Server{/block:title}
-
-{block:imp}<script src="/static/js/jquery-3x.js"></script>{/block:imp}
-
 {block:title}Scan Server - {:parent}{/block:title}
+
+{block:nav}{:clear}{/block:nav}
 
 {block:main}
 
-<p>&nbsp;</p>
+<h1>接收扫码事件</h1>
 
-<p>成功发送如下消息：</p>
 <li>user={$rex.user}</li>
 <li>msgs={$rex.msgs}</li>
-<li>ip={$rex.ip}</li>
 <li>stime={$rex.stime}</li>
 <li>room={$rex.room}</li>
 

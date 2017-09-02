@@ -54,3 +54,4 @@ body { width: 100%; height:100%; overflow: hidden; font: 12px/1.4 '微软雅黑'
 
 td>p{ display:inline-block; float:right; }
 td.act { background:#CCC; }
+td>li{ line-height:150%; padding:3px 0; }
