@@ -28,10 +28,22 @@ a{ text-decoration:none; }
 .head{ text-align:center; }
 .head p{ padding:0px 0px 10px 0px; margin:-15px 0px 10px 0px; }
 .foot{ text-align:center; clear:both; padding:20px 0; }
+.gwidth{ width:760px; display:block; margin:0px auto; clear:both; }
+.ie6{ color:#F00; background-color:#FFC; text-align:center; padding:10px 0; padding:10px 0px; }
 </style>
 </head>
 
 <body>
+
+<!--#include file="kernel/sadm/func1/func1.asp"-->
+<!--#include file="kernel/sadm/func2/func2.asp"-->
+<!--#include file="tip/_inc/lib_func.asp"-->
+<%
+Call tipWww()
+%>
+<!--[if lt IE 9]>
+<p id='nohtml5' class='gwidth ie6'>浏览器版本太低，不支持HTML5，浏览效果可能不正常！</p>
+<![endif]-->
 
 <div class="head">
     <h1>帖心家族</h1>
