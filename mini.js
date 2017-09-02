@@ -1,11 +1,15 @@
 
 var SockIO = require('socket.io'),
-    http   = require('http');
+    http   = require('http'),
+    url    = require('url'),
+    util   = require('util');
 
 global.rooms = {}; // 全局变量(统计各聊天室人数)
 
 // 新建server服务器
-var server = http.createServer().listen(8821, '127.0.0.1');
+var server = http.createServer(function(req, res){
+    shttp(req, res);
+}).listen(8821, '127.0.0.1');
 // 聊天webSocket对象
 var ws = SockIO.listen(server);
 
@@ -46,6 +50,32 @@ ws.on('connection', function(client){
     });
 
 });
+
+function shttp(req, res){
+    var ourl = url.parse(req.url, true);
+    var q = ourl.query;
+    var stime = new Date(new Date()).toLocaleTimeString();
+    var aid = q.aid ? q.aid : 0;
+    var uname = q.uname ? q.uname : '系统Admin';
+    var path = ourl.pathname;
+    if(path=='/spush' || path=='/scans'){
+        if(path=='/spush'){
+            var msgs = q.msgs ? q.msgs+' ('+stime+')' : '系统Message ('+stime+')';
+            var room = 'spush.'+aid;
+        }else{ // scans
+            var msgs = '成功接收转发扫码事件: scene='+aid+'. ';
+            var room = 'scans.'+aid;
+        }
+        var user = {"uid":room, "uname":uname};
+        var data = {'user':user, 'msgs':msgs, 'ip':'-', 'stime':stime, 'room':room};
+        ws.to(room).emit('emsg', data);
+        res.writeHead(200, {'Content-Type':'text/plain; charset=utf-8'});
+        res.write(util.inspect(data));
+    }else{
+        res.writeHead(404, {'Content-Type':'text/plain; charset=utf-8'});
+    }
+    res.end();
+}
 
 // debug
 function logDebug(erno, ermsg){
