@@ -1,0 +1,15 @@
+
+http://git.oschina.net/xinshangshangxin/node_JS-SDK_signature
+
+说明
+使用node作为服务器生成JS-SDK权限验证的签名
+菜鸟尝试微信JS-SDK,欢迎批评
+使用说明
+下载 或 git clone 源码
+npm install 安装 依赖包
+修改 config.js, 填写你的配置
+修改 public/test.html 下 156行 左右的服务器信息
+挂载到你的服务器/外网映射
+微信访问网址 http://yourserver.com/test
+我的踩坑记录 http://blog.xinshangshangxin.com/2015/04/22/%E4%BD%BF%E7%94%A8nodejs-%E8%B8%A9%E5%9D%91%E5%BE%AE%E4%BF%A1JS-SDK%E8%AE%B0%E5%BD%95/
+

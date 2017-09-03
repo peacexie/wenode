@@ -17,6 +17,15 @@ function Router(req, res) {
         // init-mkv
         this.init(req.url); if(mkvs.err) return vop.static(mkvs.err, 404);
         this.imkv();        if(mkvs.err) return vop.static(mkvs.err, 404);
+        // 处理用户扩展
+        if(mkvs.dir=='viewop.js'){
+            var fop = '/'+mkvs.mkv+'/viewop.js';
+            var sop = require(_dir+fop); // 子路由
+            mkvs.dir = mkvs.mkv;
+            mkvs.mkv = mkvs.path.replace('/'+ mkvs.dir+'/','').replace('/'+ mkvs.dir,'');
+            mkvs.type = mkvs.mod = mkvs.key = '';
+            return new sop(req, res).run(mkvs);
+        }
         // 目录:禁止访问/静态目录/未定义目录
         if(mkvs.dir=='forbid' || mkvs.dir=='static' || !Config.dirv[mkvs.dir] || mkvs.path=='/favicon.ico'){
             var code = 200;
@@ -28,12 +37,6 @@ function Router(req, res) {
                 code = 404;
             }
             return vop.static(mkvs.path, code);
-        }
-        // 处理用户扩展
-        if(Config.dirv[mkvs.dir]=='viewop.js'){
-            var fop = '/'+mkvs.dir+'/viewop.js';
-            var sop = require(_dir+fop); // 子路由
-            return new sop(req, res).run(mkvs);
         }
         // mkv-处理
         return vop.run(mkvs);
@@ -55,8 +58,8 @@ function Router(req, res) {
             mkvs.err = 'Error path [a2]: '+Tools.safeFill(mkvs.path, 0);
             return;
         }
-        if(Config.dirs[tmp[1]]){
-            dir = Config.dirs[tmp[1]];
+        if(Config.dirs[tmp[1]] || (Config.dirv[tmp[1]] && Config.dirv[tmp[1]]=='viewop.js')){
+            dir = Config.dirs[tmp[1]] ? Config.dirs[tmp[1]] : Config.dirv[tmp[1]];
             mkv = tmp[1];
         }else if(len==3){ // /rest/news-add, /rest/news.2017-ab-1234
             dir = tmp[1];
