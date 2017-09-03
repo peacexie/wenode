@@ -38,7 +38,7 @@ var config = {
         'index' : 'mkv',
         'demo'  : 'mkv',
         'rest'  : 'vdata',
-        'uext'  : 'viewop.js',
+        'uapi'  : 'viewop.js',
     },
     // end
     "_flag" : "-End-",

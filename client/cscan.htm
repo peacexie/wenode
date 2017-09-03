@@ -76,10 +76,15 @@ $("#qrscan").click(function(){
         size: 200,
         text: url 
     });
-    initChat('scans.'+aid);
+    initChat('scans.'+aid, cbMsg);
     $("#qrurl").html("<a href='"+url+"' target='_blank'>scene="+aid+"</a>");
     $("#sid").html(aid);
 }); 
+
+// 当收到信息后, 断开长连接
+function cbMsg(){
+    chatObjs[chatId].close();
+}
 
 </script>
 
