@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0,user-scalable=no">
-<title>帖心家族:Node.js微框架,贴心猫V3.8,IntimateCat,贴心口袋,贴心Java盒子,贴心Asp系统,imcat</title>
+<title>贴心家族:Node.js微框架,贴心猫V3.8,IntimateCat,贴心口袋,贴心Java盒子,贴心Asp系统,imcat</title>
 <style type="text/css">
 .out{ width:760px; margin:auto; }
 .block{ width:50%; float:left; }
@@ -46,7 +46,7 @@ Call tipWww()
 <![endif]-->
 
 <div class="head">
-    <h1>帖心家族</h1>
+    <h1>贴心家族</h1>
     <p>Web, App, API一站解决方案</p>
 </div>
 
