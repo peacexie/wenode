@@ -158,4 +158,12 @@ module.exports = Voptag;
 <li>{title('hn','china')}</li> 'hn'=>'湖南'
 <li>{thumb($t_title,96,$v)}</li>
 
+toT:
+{{?it.chanquan}}<span>产权：</span>{{=it.chanquan}}<br>{{?}}
+{{?it[k].keywords}}
+    {{for(var r in it[k].keywords) { }}
+        <p><span class="aui-label aui-label-{{?r%3==0}}green{{??r%3==1}}yellow{{??}}blue{{?}} aui-label-outlined">{{=it[k].keywords[r]}}</span></p>
+    {{ } }}
+{{?}}
+
 */
