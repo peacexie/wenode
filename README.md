@@ -48,7 +48,7 @@ Node.js Mini Framework, for Web-Chatroom, Info-push, REST-API!
   - 自定义扩展显示
 
 * Web扩展(待实现)
-  - 上传文件/图片，静态解析
+  - 上传文件/图片 及管理
   - 更丰富的标签显示，数据处理
 
 
