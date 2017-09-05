@@ -1,4 +1,25 @@
 
+http://www.cnblogs.com/chollaflower/archive/2013/08/04/3237067.html
+Nodejs实现web静态服务器对多媒体文件的支持
+
+https://my.oschina.net/obullxl/blog/163049
+Node.js用6行代码1个JS文件搭建一个HTTP静态服务器
+
+
+http://blog.csdn.net/u014291497/article/details/52975321
+使用Nodejs快速搭建一个的本地静态文件服务器
+
+
+http://blog.csdn.net/zxsrendong/article/details/16804867
+nodejs使用nodejs创建简单的静态文件服务器
+
+var connect = require("connect");
+var serveStatic = require("serve-static");
+var app = connect();
+app.use(serveStatic("C:\\xxx\\xxx\\xxx\\项目文件夹"));
+app.listen(5000);
+
+------------------------------------------------
 
 * 外部链接
 
