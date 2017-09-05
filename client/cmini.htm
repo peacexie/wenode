@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <link rel="stylesheet" href="./style.css"/>
 <script src='../static/js/zepto-1x.js'></script>
-<script src="../static/js/socket.io.js"></script>
+<script src="/socket.io/socket.io.js"></script>
 <script src="./func.js"></script>
 </head>
 <body>
@@ -20,6 +20,11 @@
       <button id="send" onclick="msgSend()">发送</button>
     </div>
 </div>
+
+<p style="font-size:larger; padding:10px;">可以把文件：/socket.io/socket.io.js <br>
+  单独保存下来，放到项目静态目录下如：<br>
+  /static/js/socket.io.js<br>
+  这样便于单独部署客户端</p>
 
 <script id="msgRow" type="text/html">
 <li class="some__class (me) (sys)">

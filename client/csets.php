@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <link rel="stylesheet" href="./style.css"/>
 <script src='../static/js/zepto-1x.js'></script>
-<script src="../static/js/socket.io.js"></script>
+<script src="http://127.0.0.1:8821/socket.io/socket.io.js"></script>
 <script src="./func.js"></script>
 </head>
 <body>
