@@ -125,10 +125,13 @@ exports.cutStr = function(str, max, dot) {
     }
 }
 
-exports.fmtStamp = function(stamp,format,mstamp){
+exports.fmtStamp = function(format, stamp, x1000){
     if(!format) format = 'y-m-d H:i';
-    if(!mstamp) stamp *= 1000;
-    var D = new Date(parseInt(stamp));
+    if(!stamp){
+        var D = new Date();
+    }else{
+        var D = new Date(x1000 ? stamp*1000 : stamp); 
+    }
     var date = {
       "Y+": D.getFullYear(),
       "y+": D.getFullYear().toString().substr(2,2),

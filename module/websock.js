@@ -45,7 +45,7 @@ var WebSock = function(ws, client){
         var mstamp = Date.parse(new Date()); // mstamp:时间戳(ms),取服务器时间
         save(msgs, mstamp);
         // 过滤
-        var data = {'user':curUser, 'msgs':msgs, 'ip':curIP, 'stime':Tools.fmtStamp(mstamp,'Y-m-d H:i:s',1), 'room':curRoom};
+        var data = {'user':curUser, 'msgs':msgs, 'ip':curIP, 'stime':Tools.fmtStamp('Y-m-d H:i:s', mstamp), 'room':curRoom};
         ws.to(curRoom).emit('emsg', data);
     });
     // 监听退出
