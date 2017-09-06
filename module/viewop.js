@@ -72,7 +72,7 @@ function ViewOP(req, res) {
             res.write('Error '+code+'!\n'+fp);
         }else{
             var cmine = this.mine(fp);
-            var re = Tools.fsRead(fp, (cmine[0]=='image' ? 'binary' : 0));
+            var re = Tools.fsRead(fp, 'binary');
             code = re.err ? 404 : 200;
             this.head(code, 0, cmine);
             if(code==404){
@@ -80,7 +80,8 @@ function ViewOP(req, res) {
                 if(cmine[2]=='js') re.data = '\n// '+re.data+'\n';
                 if(cmine[2]=='css') re.data = '\n/* '+re.data+' */\n';
             } 
-            res.write(re.data, (cmine[0]=='image' ? 'binary' : 'utf-8'));
+            // ? 文本型需要处理编码: `binary, utf-8, gbk`, 否则utf-8以外含有中文将乱码
+            res.write(re.data, 'binary');
         }
         res.end();
         Tools.debug('http.'+code, fp);

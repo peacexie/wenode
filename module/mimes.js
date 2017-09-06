@@ -33,6 +33,7 @@ var mimes = {
     "stream" : {
         // down
         'down'  : 'application/octet-stream',
+        // font
         'eot'   : 'application/vnd.ms-fontobject',
         'ttf'   : 'application/x-font-ttf',
         'woff'  : 'application/font-woff',
