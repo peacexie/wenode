@@ -7,10 +7,13 @@
 <h1>News list</h1>
 <p class="tr"><a href="/demo/news">Back News</a></p>
 
-<div>   
+<div class="list">   
     <h2>News list - {$mkvs.key}</h2>
     {list:data.rdb}
-    <li><a href="/demo/news.{$did}">{cut({$title},18,...)}</a> <i>{date({$atime},Y-m-d H:i)}</i></li>
+    <li>
+        <i>{date({$atime},Y-m-d H:i)}</i>
+        <a href="/demo/news.{$did}">{cut({$title},18,...)}</a>
+    </li>
     {/list:data.rdb}
 </div>
 

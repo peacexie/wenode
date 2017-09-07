@@ -50,7 +50,7 @@ function Voptag(html) {
         if(!itms) return; //没有tag
         for (var i=0; i<itms.length; i++) {
             var val = itms[i].replace('{date(','').replace(')}','');
-            var arr = val.split(','), stamp = arr[2] ? 0 : 1;
+            var arr = val.split(','), stamp = arr[2] ? 1 : 0;
             var date = Tools.fmtStamp(arr[1], arr[0], stamp); 
             html = html.replace(itms[i], date); // /g?
         }

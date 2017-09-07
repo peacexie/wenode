@@ -125,16 +125,16 @@ exports.cutStr = function(str, max, dot) {
     }
 }
 
-exports.fmtStamp = function(format, stamp, x1000){
+exports.fmtStamp = function(format, stamp, no1k){
     if(!format) format = 'Y-m-d H:i';
     if(!stamp){
         var D = new Date();
-    }else{
-        var D = new Date(x1000 ? stamp*1000 : stamp); 
+    }else{ // no1k:不用x1000, 默认需要x1000
+        var D = new Date(no1k ? stamp : stamp*1000); 
     }
     var date = {
       "Y+": D.getFullYear(),
-      "y+": D.getFullYear().toString().substr(2,2),
+      "y+": D.getYear(),
       "m+": D.getMonth() + 1,
       "d+": D.getDate(),
       "H+": D.getHours(),

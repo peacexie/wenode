@@ -42,10 +42,10 @@ var WebSock = function(ws, client){
             Tools.debug(erno, ermsg);
             return;
         }
-        var mstamp = Date.parse(new Date()); // mstamp:时间戳(ms),取服务器时间
-        save(msgs, mstamp);
+        var stamp = Date.parse(new Date())/1000; 
+        save(msgs, stamp);
         // 过滤
-        var data = {'user':curUser, 'msgs':msgs, 'ip':curIP, 'stime':Tools.fmtStamp('H:i', mstamp), 'room':curRoom};
+        var data = {'user':curUser, 'msgs':msgs, 'ip':curIP, 'stime':Tools.fmtStamp('H:i:s', stamp), 'room':curRoom};
         ws.to(curRoom).emit('emsg', data);
     });
     // 监听退出
@@ -55,7 +55,7 @@ var WebSock = function(ws, client){
         ws.to(curRoom).emit('online', rooms[curRoom], -1);
     });
     // db-save, 插入数据
-    var save = function(msgs, mstamp){
+    var save = function(msgs, stamp){
         var user = curUser;
         var arr = curRoom.split('.');
         if(!arr[0] || !arr[1] || !user.uid){
@@ -68,7 +68,7 @@ var WebSock = function(ws, client){
             "uto" : arr[1],
             "msgs" : msgs,
             "aip" : curIP,
-            "atime" : parseInt(mstamp/1000),
+            "atime" : stamp,
             "auser" : user.uname
         };
         Mycurd.ins('chatroom', data, function(res){
