@@ -126,7 +126,7 @@ exports.cutStr = function(str, max, dot) {
 }
 
 exports.fmtStamp = function(format, stamp, x1000){
-    if(!format) format = 'y-m-d H:i';
+    if(!format) format = 'Y-m-d H:i';
     if(!stamp){
         var D = new Date();
     }else{
@@ -139,8 +139,7 @@ exports.fmtStamp = function(format, stamp, x1000){
       "d+": D.getDate(),
       "H+": D.getHours(),
       "i+": D.getMinutes(),
-      "s+": D.getSeconds(),
-      "S+": D.getMilliseconds()
+      "s+": D.getSeconds()
     };
     for(var k in date) {
         if (new RegExp("(" + k + ")").test(format)) {

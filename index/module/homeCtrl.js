@@ -10,7 +10,7 @@ function homeCtrl(mkvs, rdb, req, res) {
     var room, data;
 
     this.sinit = function(type){
-        var stime = Tools.fmtStamp('Y-m-d H:i:s');
+        var stime = Tools.fmtStamp('H:i:s');
         var q = mkvs.query;
         var aid = q.aid ? q.aid : 0;
         var uname = q.uname ? q.uname : '系统Admin';
