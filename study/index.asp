@@ -12,7 +12,7 @@
     .block{ width:33.33%; float:left; }
 } /*>=1150(1200)的设备*/
 @media only screen and (max-width:764px){
-    .out{ width:100%; max-width:240px; max-width:380px; margin:auto; }
+    .out{ width:100%; min-width:240px; max-width:380px; margin:auto; }
     .block{ width:100%; float:none; }
 } /*<=764(768)的设备*/
 .in{ 
