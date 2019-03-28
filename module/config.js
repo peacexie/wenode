@@ -5,8 +5,8 @@ var config = {
     "logfile" : '/cache/debug-Y-m-d.log', // 调试日志
     "title" : "Wenode - A mini Node.js App Framework!",
 	// host
-    "host" : "127.0.0.1", // 228,4
-    "port" : 8821,
+    "host" : "192.168.1.228", // 228,4
+    "port" : 8808,
     // mysql配置...
     "mysql" : {
         "host"     : "localhost",

@@ -78,6 +78,7 @@ exports.exeOrder = function(funcs, count, sum, cb){
 // 安全过滤
 exports.safeFill = function(str, test){
     // fill ", ', <, >
+    if(!str) return '';
     var reg = new RegExp(/(\%22|\%27|\%3C|\%3E)/, 'gi');
     var rep = {"x22":"&quot;", "x27":"&#039;", "x3C":"[", "x3E":"]",}; 
     if(test){ // &lt; , &gt;

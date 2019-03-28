@@ -2,7 +2,7 @@
 (function(window,undefined){
     'use strict';
     var ws = {};
-    var server = 'http://127.0.0.1:8821';
+    var server = 'http://192.168.1.228:8808';
     function WebChat(type, id, cbget, cberr){
         this._id = id;
         this.connect(type, id, cbget, cberr);
