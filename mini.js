@@ -9,7 +9,7 @@ global.rooms = {}; // 全局变量(统计各聊天室人数)
 // 新建server服务器
 var server = http.createServer(function(req, res){
     shttp(req, res);
-}).listen(8821, '127.0.0.1');
+}).listen(8808, '192.168.1.228');
 // 聊天webSocket对象
 var ws = SockIO.listen(server);
 
@@ -22,7 +22,7 @@ ws.on('connection', function(client){
     client.on('init', function(room, user){
         curIP = client.request.connection.remoteAddress;
         curRoom = room; // room:字符串`type.123`格式
-        curUser = user;
+        curUser = user; logDebug('chat.entry', curUser);
         logDebug('chat.init',user.uname+' -> '+curRoom+' @ '+curIP); 
     });
     
@@ -44,7 +44,7 @@ ws.on('connection', function(client){
     
     // 监听退出
     client.on('disconnect', function () {
-        rooms[curRoom]--;
+        rooms[curRoom]--; logDebug('chat.leave', curUser);
         client.leave(curRoom);
         ws.to(curRoom).emit('online', rooms[curRoom], -1);
     });
