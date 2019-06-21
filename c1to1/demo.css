@@ -1,0 +1,26 @@
+body { margin:1rem; font: 14px/1.5 '微软雅黑'; }
+body>p, body>h3{ min-width:80px; word-wrap:break-word; word-break:break-all; }
+
+.tc{ text-align:center; }
+
+.cout { width: 100%; max-width: 640px; min-height: 99%; float: right; }
+.cout ul, .cout li, .cout p{ padding:0; margin:0; list-style:none; }
+.cout input{ width: 98%; }
+
+#chatUsers{ text-align:left }
+#chatUsers i, #chatUsers b{ float:right; font-weight:normal; font-style:normal; }
+#chatUsers li{ padding:0.5rem 0.2rem 0 0.2rem; cursor:pointer; }
+#chatUsers p.act{ color:#F00; }
+
+#chatLists{ min-height:240px; max-height:360px; overflow-y:scroll; }
+
+.say1{ padding:0.5rem; }
+.say1 div{ word-wrap:break-word; word-break:break-all; }
+.say1 p{  }
+.say1 div{ color:#666; }
+.say1 i, .say1 b{ font-weight:normal; font-style:normal; float:right; }
+.say1 b{ color:#F00; }
+
+/*
+
+*/

@@ -1,0 +1,19 @@
+{
+  "name": "chat-1to1",
+  "version": "1.0.0",
+  "description": "fzg360 1to1 Chat",
+  "main": "serv.js",
+  "dependencies": {
+    //"urlencode": "^1.1.0",
+    //"nodejs-base64": "^1.0.3",
+    //"serialize-javascript": "^1.7.0",
+    "mysql": "^2.16.0",
+    "socket.io": "^2.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "fzg360.com",
+  "license": "MIT"
+}

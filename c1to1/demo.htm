@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>1对1-客服聊天</title>
+<meta charset="utf-8">
+<script src='http://news.fzg360.com/Static/js/zepto.min.js'></script>
+<script src="http://news.fzg360.com/Static/js/chat-socket.io.js"></script>
+<link href="./demo.css" rel="stylesheet"/>
+<script src="./demo.js"></script>
+</head>
+<body>
+
+<table class="cout" border="1">
+    <tr>
+        <td width="30%" rowspan="2" valign="top">
+            <div class="tc">会话列表</div>
+            <ul id="chatUsers">
+                <!--li id='to_xxx1'><i>[123<b>[关闭]</b>]</i>用户名1</li-->
+            </ul>
+            <div class="tc">
+                给:
+                <input type="text" value="" name="to" id="to" style="width:60px">
+                <button onclick="showMessageList(this)">确定</button>
+            </div>
+        </td>
+        <td colspan="2" align="left" valign="top">
+        	<ul id="chatLists">
+              <p class="tc">更多...(公共的...)</p>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td align="left" valign="top"><input id="chatText" /></td>
+        <td width="10%" align="left" valign="top"><button id="send" onclick="sendMessage()">发送</button></td>
+    </tr>
+</table>
+
+
+<h3>本页模拟：1对1-客服聊天...</h3>
+<p>当前页： <span id="npath"></span> <br>
+    From： <span id="nfrom"></span> </p>
+<p>你： <span id="memsg"></span> </p>
+<p> ... 说明： ...
+    / 在线：<span id="statOnline">0</span>人 </p>
+
+<hr>
+
+<p> <a href="?">[游客]</a> (点击模拟登录如下用户) </p>
+
+<p id="row_adm1"> 客服： 
+  <a href="?uid=haina_21&to=haina_20&uname=和平鸽(21)" id='haina_21'>和平鸽(21)</a>(21>20) - 
+</p>
+<p id="row_memb"> 用户： 
+  <a href="?uid=haina_20&to=haina_21&uname=QQ先生(20)" id='haina_20'>QQ先生20</a>(20>21) - 
+  <a href="?uid=haina_24&to=haina_21&uname=刘同事(24)" id='haina_24'>刘同事(24)</a> - 
+</p>
+
+<!--
+  id:'9', username:'和平鸽(peace)'
+  id:'25', real_name:'管理员1'
+-->
+
+<hr>
+
+<script id="tplConversation" type="text/html">
+  <li id='to_{ufrom}'>
+    <b onclick="delConversation(this)">[关闭]</b>
+    <i>{cnt}</i>
+    <p onclick="changeConversation(this)">{uname}</p> <!--(0)-->
+  </li>
+</script> 
+
+<script id="tplMessage" type="text/html">
+  <div class="say1">
+    <p>
+      <b>{tag}</b>
+      <i>[{atime}]</i>
+      {uname}
+    </p>
+    <div>{msgs}</div>
+  </div>
+</script> 
+
+
+<script>
+// 聊天-configs
+var uid = urlPara('uid'),
+    to = urlPara('to'),
+    uname = decodeURI(urlPara('uname')); 
+
+var toidObj = $('#'+uid); 
+if(uid && !toidObj.length){
+  alert('参数错误!');
+  window.location.href = "./demo.htm";
+}
+
+jsuser = {
+  "uid" : uid, 
+  "utel" : '13501360138', 
+  "utype" : uid.indexOf('m')==0 ? 'memb' : 'adm1',
+  "uname" : uname
+};
+
+$(function(){
+  $('#npath').text(nowPath());
+  $('#nfrom').text(fromUrl());
+  if(!uid){
+    $('#memsg').text('是游客，请选左下方身份，点击模拟登录...');
+    $('#row_to').html('还没有登录，你谁陪你聊？');
+  }else{
+    $('#memsg').text('登录了【'+jsuser.utype+'|'+jsuser.uname+'】');
+    initChat(jsuser);
+  } 
+
+});
+
+/*
+var CONN = {};
+var test = {a:'b'};
+CONN['test'] = test;
+CONN['0rwerere'] = test;
+
+var user = {uid:'o_LZ4t_A_FLhV-tG_MI4AUTf2RRI', uname:'Peace'};
+
+if(!CONN[user.uid]){
+    CONN[user.uid] = user;
+}
+console.log(CONN);
+*/
+
+</script>
+</body>
+</html>
